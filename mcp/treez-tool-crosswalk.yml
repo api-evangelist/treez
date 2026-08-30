@@ -1,0 +1,92 @@
+generated: '2026-08-30'
+method: derived
+source: >-
+  mcp/treez-mcp.yml (live tools/list from https://code.treez.io/mcp, probed 2026-08-30) bound
+  against the seven OpenAPI definitions in openapi/ (harvested from
+  https://code.treez.io/openapi/<name>.json, the hrefs published in
+  https://code.treez.io/.well-known/api-catalog).
+note: >-
+  Treez's MCP server is the ReadMe-generated documentation server, not a hand-authored
+  per-resource tool set. Its tools are META tools over the OpenAPI documents rather than one tool
+  per operation, so the crosswalk is deliberately lopsided: four tools bind to no REST operation
+  at all (they read the spec), one tool (execute-request) binds generically to every operation in
+  every spec, and all 124 published operations remain rest_only in the sense that none has a
+  dedicated, named, schema-typed tool an agent can discover by intent. That distinction matters:
+  an agent can technically reach every Treez endpoint through execute-request, but only by first
+  reading the spec and hand-assembling a HAR object - it cannot be handed a typed tool.
+surfaces:
+  openapi:
+  - openapi/treez-dispensary-openapi.json
+  - openapi/treez-catalog-openapi.json
+  - openapi/treez-discount-openapi.json
+  - openapi/treez-tag-openapi.json
+  - openapi/treez-collections-openapi.json
+  - openapi/treez-product-api-openapi.json
+  - openapi/treez-jwt-check-openapi.json
+  graphql: null
+  mcp:
+    url: https://code.treez.io/mcp
+    gated: false
+    note: tools/list answers anonymously; execute-request requires the caller's own JWT.
+crosswalk:
+- tool: execute-request
+  category: execution
+  rest:
+  - '*'
+  binding: generic-passthrough
+  confidence: high
+  note: >-
+    Executes any operation in any of the seven specs from a caller-supplied HAR request object.
+    It inherits no per-operation inputSchema - its inputSchema is {harRequest, title} - so the
+    real parameters and requestBody of the 124 operations are NOT exposed as tool schema.
+mcp_only:
+- tool: list-endpoints
+  reason: Reads the OpenAPI document itself; there is no Treez REST operation that lists Treez endpoints.
+- tool: get-endpoint
+  reason: Reads one operation out of the OpenAPI document; no backing REST operation.
+- tool: search-endpoints
+  reason: Full-text search across the OpenAPI documents; no backing REST operation.
+- tool: list-specs
+  reason: Enumerates the seven published definitions; the closest published equivalent is the RFC 9727 API Catalog at /.well-known/api-catalog, which is a static document, not an operation.
+rest_only_summary: >-
+  All 124 operations across the seven specs lack a dedicated named MCP tool. They are listed by
+  spec below rather than individually, because the omission is uniform - the server exposes no
+  per-operation tools at all.
+rest_only:
+- spec: openapi/treez-dispensary-openapi.json
+  operations: 65
+  domains: [customer, product, ticket, inventory, invoice, distributor, lab-results, metrc-trace]
+  reason: no dedicated tool; reachable only via execute-request
+- spec: openapi/treez-catalog-openapi.json
+  operations: 34
+  domains: [attribute, brand, product, sku, image, price-tier, store-price, category, subcategory]
+  reason: no dedicated tool; reachable only via execute-request
+- spec: openapi/treez-discount-openapi.json
+  operations: 6
+  domains: [discount]
+  reason: no dedicated tool; reachable only via execute-request
+- spec: openapi/treez-tag-openapi.json
+  operations: 5
+  domains: [tag, tag-group]
+  reason: no dedicated tool; reachable only via execute-request
+- spec: openapi/treez-collections-openapi.json
+  operations: 5
+  domains: [collection]
+  reason: no dedicated tool; reachable only via execute-request
+- spec: openapi/treez-product-api-openapi.json
+  operations: 7
+  domains: [product]
+  reason: legacy v2.0 surface; no dedicated tool; reachable only via execute-request
+- spec: openapi/treez-jwt-check-openapi.json
+  operations: 2
+  domains: [auth]
+  reason: no dedicated tool; reachable only via execute-request
+coverage:
+  mcp_tools: 5
+  tools_bound_to_rest: 1
+  tools_mcp_only: 4
+  rest_operations_total: 124
+  rest_operations_with_named_tool: 0
+  rest_operations_reachable_via_generic_tool: 124
+  typed_tool_coverage_pct: 0
+  reachability_coverage_pct: 100

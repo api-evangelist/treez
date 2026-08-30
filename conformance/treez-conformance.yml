@@ -1,0 +1,144 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  The seven OpenAPI definitions in openapi/, https://code.treez.io/reference/authentication,
+  https://code.treez.io/.well-known/api-catalog, and Treez's own published compliance
+  announcements (SOC 2 Type I, 2022; SOC 2 Type II, 25 October 2023).
+standards:
+- id: openapi
+  conforms: true
+  versions: ['3.1.0', '3.0.0']
+  evidence: >-
+    Seven definitions published and served as application/vnd.oai.openapi+json. catalog.json and
+    dispensary.json declare openapi 3.1.0; collections, discount, jwt-check, product_api and tag
+    declare 3.0.0. All seven parse and carry paths (124 operations, 102 paths total).
+- id: rfc9727
+  name: API Catalog (.well-known/api-catalog)
+  conforms: true
+  evidence: >-
+    https://code.treez.io/.well-known/api-catalog returns HTTP 200 with a valid RFC 9727 linkset
+    naming all seven definitions, each with a service-desc href
+    (application/vnd.oai.openapi+json) and a service-doc href. Saved verbatim at
+    well-known/treez-api-catalog.json. This is rare - fewer than 2% of catalog providers serve one.
+- id: rfc7519
+  name: JSON Web Token
+  conforms: true
+  evidence: >-
+    https://code.treez.io/reference/authentication cites RFC 7519 by URL and specifies a
+    self-signed RSA-SHA256 JWT carried in the Authorization header with aud/iss/oid/iat/exp/jti
+    claims and an enforced 30,000 ms TTL. Note the deviation below.
+  deviations:
+  - >-
+    The token is base64url(claims) + "." + base64(signature) - a TWO-part token. It omits the
+    JOSE header segment a compact-serialization JWS requires, so a standard JWT library will not
+    produce or parse it without custom code. Treez's own published examples build the token by
+    hand for exactly this reason.
+  - iat and exp are expressed in MILLISECONDS, not the seconds RFC 7519 specifies for NumericDate.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No oauth2 securityScheme in any of the seven specs, and no /.well-known/oauth-authorization-server
+    or /.well-known/openid-configuration served on any Treez host (see
+    well-known/treez-well-known.yml). The legacy v2 Authorization API exchanges a client ID and
+    API key for a 2-hour token, which is a proprietary token exchange, not an OAuth 2.0 flow.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration 404s on code.treez.io and www.treez.io; 403 on the API hosts.
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    No application/problem+json anywhere in the 117 declared error responses. Treez uses two
+    proprietary envelopes - see errors/treez-problem-types.yml.
+- id: rfc8594
+  name: Sunset header
+  conforms: false
+  evidence: No Sunset or Deprecation header declared; no operation marked deprecated.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or replay semantics in any spec or docs page. See
+    conventions/treez-conventions.yml.
+- id: pagination
+  conforms: partial
+  evidence: >-
+    Paging exists on every large collection but is expressed as PATH segments
+    (/page/{page}/pagesize/{pagesize}) with no next/prev links, no total count and no cursor.
+    Over-large requests fail with RESPONSE_LIMIT_EXCEEDS rather than truncating.
+- id: json-api
+  conforms: false
+  evidence: Responses use a proprietary {resultCode,resultReason,resultDetail,data} envelope, not JSON:API.
+- id: scim
+  conforms: false
+  evidence: No urn:ietf:params:scim schema URN and no /Users or /Groups surface in any spec.
+- id: odata
+  conforms: false
+  evidence: No $metadata endpoint and no OData query options.
+domain_standards:
+- id: metrc
+  name: METRC (Franwell) cannabis seed-to-sale track-and-trace
+  conforms: true
+  role: integrates-with
+  evidence:
+    spec: openapi/treez-dispensary-openapi.json
+    operationId: sync-metrc-packages
+    method: POST
+    path: /{dispensary}/trace/packages/metrcsync
+    summary: Sync METRC packages
+    description: Retrieves available METRC packages for invoice creation
+    docs: https://code.treez.io/reference/sync-metrc-packages
+  note: >-
+    METRC is the state-mandated cannabis track-and-trace system in most US legal markets, and the
+    contract declares it in the path namespace (/trace/packages/metrcsync) rather than only in
+    marketing prose. A buyer who already runs METRC integrates against Treez's package sync with
+    no bespoke connector; one who does not needs a bilateral mapping. Supporting signals in the
+    same spec: state_tracking_uom on ticket line items, and package_label / package_id as
+    first-class identifiers across the inventory and lab-results surfaces.
+  reward_only: true
+- id: coa-lab-results
+  name: Certificate-of-Analysis / cannabis lab results
+  conforms: partial
+  role: exposes
+  evidence:
+    spec: openapi/treez-dispensary-openapi.json
+    operations:
+    - get_dispensary-inventory-labs-package-id
+    - get_ver-dispensary-inventory-labs-package-1
+    - get_dispensary-inventory-labs-invoice-id
+    - get_ver-dispensary-inventory-labs-package-1-1-1
+  note: >-
+    A published lab-results surface keyed on package_id, package_label and invoice_id. There is no
+    single ratified national COA interchange standard for cannabis, so this is recorded as a
+    domain capability rather than conformance to a named specification. Not scored.
+compliance:
+  certifications:
+  - name: SOC 2 Type II
+    status: achieved
+    date: '2023-10-25'
+    source: https://www.globenewswire.com/en/news-release/2023/10/25/2766690/0/en/Treez-Achieves-SOC-2-Type-II-Compliance.html
+    source_probe:
+      url: https://www.globenewswire.com/en/news-release/2023/10/25/2766690/0/en/Treez-Achieves-SOC-2-Type-II-Compliance.html
+      status: '<no response>'
+      note: GlobeNewswire did not answer our probe on 2026-08-30; the release is indexed but we could not read it first-hand. Treez itself hosts no page confirming Type II.
+    scope_published: false
+    note: >-
+      Announced by press release. Treez publishes no trust center, no security page
+      (www.treez.io/security and /trust both 404) and no report-request portal, so the audit
+      period, the trust services criteria in scope, and the current report are not publicly
+      verifiable.
+  - name: SOC 2 Type I
+    status: achieved
+    date: '2022-02'
+    source: https://www.prnewswire.com/news-releases/treez-achieves-soc-2-type-i-compliance-301492934.html
+    source_probe:
+      url: https://www.prnewswire.com/news-releases/treez-achieves-soc-2-type-i-compliance-301492934.html
+      status: 200
+    superseded_by: SOC 2 Type II
+  regulatory_context: >-
+    US state-regulated cannabis retail. Compliance obligations flow through state track-and-trace
+    (METRC) and per-state retail rules rather than a federal API regime; the ticket model carries
+    ticket_patient_type (e.g. MEDICAL-MMID) and inventory carries MEDICAL/ADULT type separation,
+    both of which are regulatory distinctions expressed in the contract.
+  trust_center: false
+  bug_bounty: false
+  security_txt: false

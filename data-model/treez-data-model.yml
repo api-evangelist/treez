@@ -1,0 +1,271 @@
+generated: '2026-08-30'
+method: derived
+source: >-
+  Derived from the seven OpenAPI definitions in openapi/ - path structure, request/response
+  schemas, and the id-reference fields carried in the published example payloads. Enriched from
+  https://code.treez.io/llms.txt operation descriptions.
+note: >-
+  Treez models a cannabis retail operator as a two-level tenancy - an ORGANIZATION that owns many
+  ENTITIES (stores/dispensaries) - with the catalog held centrally at the organization and the
+  transactional record (tickets, inventory, invoices, customers) held per dispensary. The
+  identifier naming splits cleanly along that line and is the fastest way to tell which surface a
+  payload came from: the v3 Service APIs use camelCase ids (organizationId, entityId, productId,
+  variantId, brandId), while the v3 Dispensary API and the legacy v2 Product API use snake_case
+  (customer_id, ticket_id, product_id, package_id). The same conceptual product therefore appears
+  as `productId` in the catalog service and `product_id` in the dispensary POS, and nothing in
+  either contract states they are the same key.
+tenancy:
+  root: organization
+  levels:
+  - entity: Organization
+    key: organizationId
+    carried_in: JWT `oid` claim on every request
+  - entity: Entity (store / dispensary)
+    key: entityId (service APIs) / '{dispensary} path segment (dispensary API)'
+    note: the path segment is the tenant slug from the customer's <tenant>.treez.io URL
+entities:
+- name: Organization
+  key: organizationId
+  surface: service
+  operations: [catalog-stores-read]
+- name: Entity
+  aliases: [Store, Dispensary]
+  key: entityId
+  surface: service
+  operations: [catalog-stores-read, catalog-store-price-read, catalog-store-price-create, catalog-store-price-update, catalog-store-price-delete]
+- name: Product
+  key: productId / product_id
+  surface: catalog (master) + dispensary (POS view) + legacy v2
+  operations: [catalog-product-create, catalog-product-update, catalog-product-read, catalog-product-search, dispensary-product-get-all, dispensary-product-get-by-id, dispensary-product-get-by-updated-date, ProductListGet, CreateProduct, UpdateProductById]
+  note: >-
+    Creating a product does NOT create inventory; the docs are explicit that create "only creates
+    a product master".
+- name: SKU
+  aliases: [Variant]
+  key: variantId
+  surface: catalog
+  operations: [catalog-sku-read, catalog-sku-create, catalog-sku-update]
+- name: ProductCategory
+  key: productCategoryId
+  surface: catalog
+  operations: [catalog-categories-read]
+- name: ProductSubCategory
+  key: productSubCategoryId
+  surface: catalog
+  operations: [catalog-categories-read-1, catalog-categories-read-1-1]
+  note: canonical (global) subcategories, which an organization may exclude
+- name: CustomSubCategory
+  key: customSubCategoryId
+  surface: catalog
+  status: limited release
+  operations: [catalog-categories-read-1-1-1, catalog-categories-read-1-1-1-2, catalog-categories-read-1-1-1-2-1, catalog-categories-read-1-1-1-2-1-1]
+- name: Brand
+  key: brandId
+  surface: catalog
+  operations: [catalog-brands-read, catalog-brand-create, catalog-brand-update]
+- name: Attribute
+  key: attributeId
+  surface: catalog
+  operations: [catalog-attributes-read, catalog-attribute-create, catalog-attribute-update, catalog-attributes-assign, catalog-assigned-attributes-read]
+- name: AttributeCategory
+  key: attributeCategoryId
+  surface: catalog
+  operations: [catalog-attribute-categories-read]
+- name: PriceTier
+  key: priceTierId
+  surface: catalog
+  operations: [catalog-price-tiers-read]
+- name: StorePrice
+  key: entityId + productId
+  surface: catalog
+  operations: [catalog-store-price-read, catalog-store-price-create, catalog-store-price-update, catalog-store-price-delete]
+- name: Image
+  key: imageId
+  surface: catalog
+  operations: [catalog-image-create, catalog-image-link, catalog-product-images]
+  note: three-step upload - create pre-signed URL, PUT the bytes, then link the image to a SKU
+- name: Collection
+  key: productCollectionId
+  surface: collection service
+  operations: [get_ver, post_ver, get_ver-id, put_ver-id, get_ver-product-id]
+- name: Discount
+  key: orgDiscountId / discount_id
+  surface: discount service + dispensary
+  operations: [get_ver-discount, post_ver-discount, put_ver-discount, get_ver-discount-id, delete_ver-discount-id, dispensary-discounts-get-all]
+- name: TagGroup
+  key: tagGroupId
+  surface: tag service
+  operations: [get_ver-group, get_ver-id, post_ver, put_ver-id]
+- name: Customer
+  key: customer_id
+  surface: dispensary
+  operations: [dispensary-customer-get-by-id, dispensary-customer-get-by-email, dispensary-customer-get-by-name, dispensary-customer-get-by-license, dispensary-customer-get-by-phone, dispensary-customer-get-by-signup-range, dispensary-customer-get-by-last-modified, dispensary-customer-create, dispensary-customer-update, dispensary-customer-merge, dispensary-customer-upload-files, dispensary-customer-get-by-id-1, dispensary-customer-get-by-id-2, dispensary-customer-get-caregivers]
+  identity_fields: [state_medical_id, external_id, aiq_contact_id, merged_into_customer_id, merged_customer_ids]
+- name: Ticket
+  aliases: [Order]
+  key: ticket_id (GUID) / order_number (6-char customer-facing)
+  surface: dispensary
+  operations: [ticket-get-by-id, ticket-get-by-order-number, ticket-get-by-status, ticket-get-by-customer-id, ticket-get-by-open-date, ticket-get-by-close-date, ticket-get-by-last-updated-date, ticket-get-history-by-id, ticket-preview, create-ticket, ticket-update]
+- name: Package
+  aliases: [Inventory batch]
+  key: package_id / package_label / batch_id
+  surface: dispensary
+  operations: [dispensary-inventory-get, dispensary-inventory-get-stock, get-by-package-copy, put_dispensary-inventory-adjustment, put_dispensary-inventory-move, post_dispensary-inventory-merge, sync-metrc-packages]
+  note: package_label is the state track-and-trace (METRC) identifier; package_id is the Treez identifier
+- name: LabResult
+  key: package_id / package_label / invoice_id
+  surface: dispensary
+  operations: [get_dispensary-inventory-labs-package-id, get_ver-dispensary-inventory-labs-package-1, get_dispensary-inventory-labs-invoice-id, get_ver-dispensary-inventory-labs-package-1-1, get_ver-dispensary-inventory-labs-package-1-1-1]
+- name: Invoice
+  key: invoiceId / external_invoice_id / number
+  surface: dispensary
+  operations: [invoice-get-by-id, invoice-get-by-number, invoice-get-by-date-range, invoice-create, invoice-modify, invoice-modify-patch, invoice-apply-payment, invoice-apply-payment-1, invoice-apply-payment-1-1]
+- name: Distributor
+  aliases: [Vendor]
+  key: distributor_id
+  surface: dispensary
+  operations: [dispensary-distributor-get-all, dispensary-distributor-get-by-id, distributor-create, distributor-update]
+- name: DistributorCredit
+  surface: dispensary
+  operations: [invoice-apply-credit-1, invoice-apply-credit, invoice-apply-credit-1-1]
+- name: PaymentTerm
+  surface: dispensary
+  operations: [payment-terms-get-all, payment-terms-get-all-1]
+- name: Location
+  key: location_id
+  surface: dispensary
+  operations: [location-get-all]
+  note: physical locations WITHIN a store; inventory moves between them
+relationships:
+- from: Organization
+  to: Entity
+  type: has_many
+  via: organizationId
+- from: Entity
+  to: StorePrice
+  type: has_many
+  via: entityId
+- from: Product
+  to: SKU
+  type: has_many
+  via: productId
+- from: Product
+  to: Brand
+  type: belongs_to
+  via: brandId
+- from: Product
+  to: ProductCategory
+  type: belongs_to
+  via: productCategoryId
+- from: Product
+  to: ProductSubCategory
+  type: belongs_to
+  via: productSubCategoryId
+- from: Product
+  to: CustomSubCategory
+  type: belongs_to
+  via: customSubCategoryId
+- from: Product
+  to: Attribute
+  type: has_many
+  via: productattribute assignment (catalog-attributes-assign)
+- from: Attribute
+  to: AttributeCategory
+  type: belongs_to
+  via: attributeCategoryId
+- from: Collection
+  to: Product
+  type: has_many
+  via: productCollectionId
+- from: StorePrice
+  to: PriceTier
+  type: belongs_to
+  via: priceTierId
+- from: SKU
+  to: Image
+  type: has_many
+  via: imageId
+- from: Ticket
+  to: Customer
+  type: belongs_to
+  via: customer_id
+- from: Ticket
+  to: Product
+  type: has_many
+  via: items[].product_id
+- from: Ticket
+  to: Package
+  type: has_many
+  via: items[].inventory_barcodes / size_id
+- from: Ticket
+  to: Discount
+  type: has_many
+  via: discount_ids
+- from: Ticket
+  to: Location
+  type: belongs_to
+  via: items[].location_name
+- from: Ticket
+  to: Ticket
+  type: has_many
+  via: refund_ticket_ids
+  note: a refund is a NEW ticket that points back at the original
+- from: Ticket
+  to: Ticket
+  type: belongs_to
+  via: original_ticket_id
+  note: the inverse of refund_ticket_ids
+- from: Customer
+  to: Customer
+  type: has_many
+  via: merged_customer_ids / merged_into_customer_id
+  note: customer merge is modelled in the data, not just as an operation
+- from: Customer
+  to: Customer
+  type: has_many
+  via: caregiver_customer_id
+  note: a caregiver is itself a customer record - a regulatory relationship in medical markets
+- from: Package
+  to: Product
+  type: belongs_to
+  via: product_id
+- from: Package
+  to: LabResult
+  type: has_many
+  via: package_id / package_label
+- from: Package
+  to: Location
+  type: belongs_to
+  via: location_id
+- from: Invoice
+  to: Distributor
+  type: belongs_to
+  via: distributor_id
+- from: Invoice
+  to: Package
+  type: has_many
+  via: package_id (METRC sync populates the candidate packages)
+- from: Invoice
+  to: PaymentTerm
+  type: belongs_to
+- from: Invoice
+  to: DistributorCredit
+  type: has_many
+- from: Discount
+  to: Organization
+  type: belongs_to
+  via: discount_mso_org_id
+id_conventions:
+  organization_scope_ids: [organizationId, entityId, orgDiscountId, discount_mso_org_id, mso_product_collection_id]
+  catalog_ids_camel_case: [productId, variantId, brandId, productCategoryId, productSubCategoryId, customSubCategoryId, attributeCategoryId, priceTierId, tagGroupId, productCollectionId, imageId]
+  pos_ids_snake_case: [customer_id, ticket_id, product_id, package_id, batch_id, invoice_id, distributor_id, location_id, discount_id, size_id, employee_id]
+  external_system_ids: [external_id, external_ids, external_order_number, external_invoice_id, external_batch_id, state_medical_id, package_label, aiq_contact_id]
+  external_id_note: >-
+    Treez carries first-class external-id fields on customers, orders, invoices and batches, which
+    is what makes two-way sync with an ecommerce, delivery or loyalty partner tractable.
+    aiq_contact_id is a named third-party field (Alpine IQ), a rare case of a partner's identifier
+    being baked into the contract.
+  id_format: >-
+    Mostly GUIDs (ticket_id, product_id, package_id). customer_id is an integer in the published
+    examples. order_number is a 6-character human-facing code and is NOT interchangeable with
+    ticket_id - confusing them returns 400 TICKET_NOT_FOUND.

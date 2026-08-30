@@ -1,0 +1,203 @@
+generated: '2026-08-30'
+method: derived
+source: >-
+  Derived from the seven OpenAPI definitions in openapi/ and cross-read against
+  https://code.treez.io/reference/authentication, https://code.treez.io/reference/treez-api,
+  https://code.treez.io/docs/available-endpoints and https://code.treez.io/docs/authorization-2.
+docs: https://code.treez.io/reference/treez-api
+api_families:
+- id: dispensary
+  base: https://api-prod.treez.io/dispensary/{version}/{dispensary_name}
+  scope: a single dispensary POS instance
+  version: v3
+- id: service
+  base: https://api-prod.treez.io/service/{service_name}/{version}
+  scope: centralized services spanning one or more dispensary POS instances
+  services: [catalog, collection, discount, tag-group, jwt-validation]
+- id: legacy-v2
+  base: https://api.treez.io/v2.0/dispensary/{dispensary_name}
+  scope: legacy SellTreez v2 Product API
+  status: superseded by v3; still published and still documented under the "Legacy v2 Docs" version selector
+auth:
+  style: self-signed RSA JWT in the Authorization header, one per request, 30-second TTL
+  detail: authentication/treez-authentication.yml
+  spec_declared: false
+tenancy:
+  model: path-segment
+  parameter: '{dispensary} (v3) / {dispensary_name} (v2)'
+  derivation: >-
+    The tenant slug is the subdomain of the customer's own Treez URL - partnersandbox2.treez.io
+    gives dispensary_name "partnersandbox2". Organization scope is carried separately in the JWT
+    oid claim, so a single credential addresses many tenants.
+versioning:
+  style: path
+  current: v3
+  forms:
+  - '/dispensary/v3/...'
+  - '/service/<name>/v3/...'
+  - '/service/<name>/{ver}/...  # ver is a templated path parameter in the catalog, discount, tag and collection specs'
+  legacy: '/v2.0/dispensary/...'
+  policy_published: false
+  note: >-
+    Version lives in the path and, in four of the seven specs, is a caller-supplied {ver} template
+    parameter rather than a fixed segment. There is no published version-support or
+    end-of-life policy; see lifecycle/treez-lifecycle.yml.
+pagination:
+  style: path-segment page/pagesize (v3) and query ?page= (v2)
+  parameters:
+    v3: ['{page}', '{pagesize}'  ]
+    v2: [page]
+  response_fields: []
+  cursor: false
+  note: >-
+    Paging is expressed as PATH segments on v3 list operations
+    (.../page/{page}/pagesize/{pagesize}), which is unusual and means a page number is part of the
+    resource identity. No next/prev link, no total-count field and no cursor is declared in any
+    response schema; a client discovers the end of a collection by receiving a short page.
+    Over-large pages fail with resultReason RESPONSE_LIMIT_EXCEEDS rather than being truncated.
+  hard_limits:
+  - 'Product lookup by id: at most 50 product_ids per call'
+  - 'Invoice date-range query: at most 30 days per request'
+filtering:
+  style: query parameters on the v2/v3 product surfaces
+  examples: [category_type, active, ID, sellable_quantity_in_location, sellable_quantity_in_type, above_threshold, include_discounts]
+  sparse_fields: false
+  expansion:
+    supported: partial
+    mechanism: include_discounts=FALSE and include_image_list toggles, which the docs describe explicitly as payload-size/latency controls
+    note: These are boolean payload toggles, not a general field-selection or expand syntax.
+delta_sync:
+  supported: true
+  mechanism: '"lastUpdated/after/{date_time}" path variants on customers, products, tickets and invoices'
+  caveat: >-
+    The docs state that a product's last_updated_at only moves when product DETAIL changes -
+    inventory quantity changes do NOT update it. A poller relying on the product delta feed will
+    miss stock movement and must poll the inventory/stock surface separately.
+metadata:
+  custom_fields: false
+  note: No general customer/object metadata bag is declared; extensibility is via catalog attributes (catalog-attribute-create / catalog-attributes-assign) and tags (tag service).
+request_id_tracing:
+  supported: false
+  note: No request-id, correlation-id or trace header is declared in any of the seven specs or documented anywhere on code.treez.io. An agent has nothing to quote back to api-support@treez.io when reporting a failed call.
+idempotency:
+  supported: false
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No Idempotency-Key header, no idempotent-replay semantics and no client-supplied request id
+    appear anywhere in the seven specs or the documentation. This matters most on
+    ticket-create (POST /{dispensary}/ticket/detailticket), invoice-create, invoice-apply-payment
+    and the inventory adjust/move/merge operations, all of which are non-idempotent writes with
+    real financial and state-compliance consequences. The nearest published mitigation is
+    ticket-preview (POST /{dispensary}/ticket/previewticket), which prices and validates a ticket
+    WITHOUT committing it - see dry_run below.
+dry_run_mode:
+  supported: partial
+  operations:
+  - operationId: ticket-preview
+    method: POST
+    path: /{dispensary}/ticket/previewticket
+    description: >-
+      Prices and validates a ticket payload - taxes, discounts, totals - and returns the resulting
+      ticket shape without creating it. The published order_status on the preview response is
+      "PREVIEW".
+    docs: https://code.treez.io/recipes/using-the-postpreview-ticket-endpint
+  note: >-
+    Ticket creation is the only write surface with a published rehearsal path. Invoices,
+    inventory adjustments and catalog writes have none.
+error_envelope:
+  shape: two proprietary envelopes (resultCode/resultReason and message/errorType/errorMsgs/failed)
+  rfc9457: false
+  detail: errors/treez-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: null
+  note: >-
+    No rate-limit response headers, no 429 response and no throttling policy are declared in any
+    spec or on any documentation page. See rate-limits/treez-rate-limits.yml. Treez does apply a
+    behavioural expectation instead - certification requires partners to reuse the legacy v2
+    access token for its full 2-hour life rather than re-authenticating per call - which is a
+    contractual limit rather than a runtime one.
+reversibility:
+  grade: documented
+  grade_basis: >-
+    Reversal PATHS exist and are published for four write domains, but Treez publishes no WINDOW
+    for any of them - no refund deadline, no void cut-off, no restore period. Per the 0.12.0
+    rubric that is `documented` (0.4), not `verified`.
+  write_surface: true
+  surfaces:
+  - domain: ticket / order
+    write_operation: create-ticket (POST /{dispensary}/ticket/detailticket)
+    reversal:
+      mechanism: status transition + refund linkage
+      operationId: ticket-update
+      path: PUT /{dispensary}/ticket/update/{ticket_id}
+      evidence: >-
+        The ticket model published in openapi/treez-dispensary-openapi.json carries order_status
+        (observed value CANCELED), refund_reason, original_ticket_id and refund_ticket_ids - a
+        refund is modelled as a NEW ticket linked back to the original, and cancellation is a
+        status transition. INVALID_TICKET_STATUS (400) is the published rejection when a
+        transition is not permitted.
+      window: null
+      window_source: null
+      window_note: >-
+        No document on code.treez.io states how long a ticket may be cancelled or refunded, nor
+        whether a closed/paid ticket can still be reversed. Treat as unknown - do not assume.
+  - domain: inventory
+    write_operation: put_dispensary-inventory-adjustment (PUT /{dispensary}/inventory/adjustment)
+    reversal:
+      mechanism: compensating adjustment
+      operationId: put_dispensary-inventory-adjustment
+      supporting: get_dispensary-inventory-reasons (GET /{dispensary}/inventory/reasons)
+      evidence: >-
+        Inventory changes are adjustments against a reason code, so an adjustment is undone by
+        posting the inverse adjustment. There is no undo/rollback operation. Merge Batches
+        (post_dispensary-inventory-merge) has no published un-merge.
+      window: null
+      window_source: null
+      window_note: Cannabis inventory is state-tracked (METRC); a compensating adjustment is an audit event, not an erasure.
+  - domain: invoice / distributor payment
+    write_operation: invoice-create (POST /{dispensary}/invoice), invoice-apply-payment (POST /{dispensary}/invoice/payment)
+    reversal:
+      mechanism: vendor credit
+      operationId: invoice-apply-credit-1 (POST /{dispensary}/invoice/credit/create)
+      then: invoice-apply-credit (POST /{dispensary}/invoice/credit/apply)
+      evidence: >-
+        The published description of the credit-create operation is explicit that it "only creates
+        the credit - it does not apply it to a specific invoice"; a second call applies the credit
+        as payment toward an invoice. Invoices are also mutable in place via invoice-modify
+        (PUT) and invoice-modify-patch (PATCH).
+      window: null
+      window_source: null
+  - domain: catalog
+    write_operation: catalog-product-create, catalog-sku-create, catalog-brand-create, catalog-attribute-create, service-discount-create, catalog-store-price-create
+    reversal:
+      mechanism: explicit DELETE on some entities, deactivation on others
+      operations:
+      - catalog-store-price-delete (DELETE /v3/entity-price)
+      - delete_ver-discount-id (DELETE /{ver}/discount/{id})
+      - 'catalog-categories-read-1-1-1-2-1-1 (DELETE /{ver}/custom-subcategory)'
+      - 'catalog-categories-read-1-1-2-1-1 (DELETE /{ver}/subcategory-exclusion)'
+      evidence: >-
+        Products and SKUs have NO delete operation. The published product model instead carries an
+        `active` flag (the v2 product_list `active` filter accepts TRUE/FALSE/ALL and returns
+        deactivated products), so product creation is reversed by deactivation, not deletion.
+        The subcategory docs state a custom subcategory "is retired by deleting it".
+      window: null
+      window_source: null
+      restore: >-
+        No restore/undelete operation is published for any deleted catalog entity. Deactivated
+        products remain retrievable via active=FALSE|ALL, so deactivation is recoverable and
+        deletion appears not to be.
+  agent_guidance: >-
+    Before any Treez write an agent should assume the action is NOT idempotent, NOT retry-safe on
+    timeout, and reversible only by a compensating action whose deadline is unpublished. Use
+    ticket-preview to rehearse an order. For anything else, read current state first, write once,
+    then verify by reading back.
+cross_links:
+  errors: errors/treez-problem-types.yml
+  lifecycle: lifecycle/treez-lifecycle.yml
+  authentication: authentication/treez-authentication.yml
+  rate_limits: rate-limits/treez-rate-limits.yml
+  data_model: data-model/treez-data-model.yml

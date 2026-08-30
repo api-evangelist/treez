@@ -1,0 +1,67 @@
+generated: '2026-08-30'
+method: generated
+source: >-
+  Authored by API Evangelist from the seven verbatim Treez OpenAPI definitions in openapi/ and the
+  provider's own recipe pages on https://code.treez.io. Treez publishes no AGENTS.md, no
+  skills/ directory and no agent guidance of its own - a search of its complete documentation
+  index (https://code.treez.io/llms.txt, 135 pages) found none. Every operationId referenced in
+  every skill below was verified to exist verbatim in the harvested specs before it was written.
+provider: Treez
+skill_count: 5
+grounded_in:
+  - openapi/treez-dispensary-openapi.json
+  - openapi/treez-catalog-openapi.json
+  - openapi/treez-jwt-check-openapi.json
+skills:
+- file: skills/treez-authenticate.md
+  name: treez-authenticate
+  title: Authenticate to the Treez v3 APIs
+  api: openapi/treez-jwt-check-openapi.json
+  operations: [post_jwt-validation]
+  summary: >-
+    Mint the two-part self-signed RSA JWT Treez requires on every request, and verify certificate
+    entitlements. Prerequisite for every other skill.
+- file: skills/treez-ecommerce-order-intake.md
+  name: treez-ecommerce-order-intake
+  title: Push an ecommerce order into Treez
+  api: openapi/treez-dispensary-openapi.json
+  operations: [dispensary-customer-get-by-email, dispensary-customer-get-by-phone, dispensary-customer-create, ticket-preview, create-ticket, ticket-get-by-id, ticket-get-by-order-number, ticket-update]
+  summary: >-
+    The marquee partner flow - resolve or create the customer, price the basket with the
+    non-committing preview, create the ticket, then track and amend it.
+  write_surface: true
+- file: skills/treez-menu-sync.md
+  name: treez-menu-sync
+  title: Sync a sellable menu out of Treez
+  api: openapi/treez-dispensary-openapi.json
+  operations: [dispensary-product-get-all, dispensary-product-get-by-updated-date, dispensary-inventory-get-stock, dispensary-inventory-get, dispensary-discounts-get-all, get_dispensary-inventory-labs-package-id, location-get-all]
+  summary: >-
+    Read-only menu build and incremental refresh, including the documented trap that product
+    last_updated_at does not move on inventory change.
+  write_surface: false
+- file: skills/treez-catalog-product-onboarding.md
+  name: treez-catalog-product-onboarding
+  title: Onboard a product into the Treez catalog
+  api: openapi/treez-catalog-openapi.json
+  operations: [catalog-stores-read, catalog-brands-read, catalog-categories-read, catalog-categories-read-1-1, catalog-product-search, catalog-product-create, catalog-sku-create, catalog-image-create, catalog-image-link, catalog-store-price-create]
+  summary: >-
+    Organization-level catalog write - taxonomy resolution, product and SKU creation, the
+    three-call pre-signed image upload, and per-store pricing.
+  write_surface: true
+- file: skills/treez-inbound-invoice-receiving.md
+  name: treez-inbound-invoice-receiving
+  title: Receive an inbound delivery into Treez
+  api: openapi/treez-dispensary-openapi.json
+  operations: [dispensary-distributor-get-all, payment-terms-get-all, sync-metrc-packages, invoice-create, invoice-apply-payment, invoice-apply-credit-1, invoice-apply-credit, put_dispensary-inventory-adjustment, get_dispensary-inventory-reasons, put_dispensary-inventory-move]
+  summary: >-
+    METRC package sync, invoice creation and payment, and the compensating-action model for every
+    correction. The highest-consequence flow in the API.
+  write_surface: true
+cross_cutting:
+  note: >-
+    Every skill repeats the same three facts because they apply to all of them and Treez states
+    none of them in the contract - there is no idempotency key, there is no request-id header, and
+    there is no published rate limit or 429. See conventions/treez-conventions.yml.
+  conventions: conventions/treez-conventions.yml
+  errors: errors/treez-problem-types.yml
+  authentication: authentication/treez-authentication.yml

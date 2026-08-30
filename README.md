@@ -64,5 +64,22 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Treez is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/treez_stock/
+Treez is an enterprise cloud commerce platform for US cannabis retail — dispensary point-of-sale,
+retail analytics, cashless payments, ecommerce and loyalty for high-volume operators in the largest
+legal state markets.
+
+Its public API programme is documented at [code.treez.io](https://code.treez.io/) and is partner-gated:
+an integrator applies, signs an MNDA and API Usage Agreement, builds against a sandbox, and is
+certified before a mutual customer can request a production key.
+
+- **7 OpenAPI definitions, 124 operations** — Dispensary API v3 (customers, tickets/orders,
+  inventory packages, lab results, invoices, distributors, METRC sync), plus organization-level
+  Catalog, Collection, Discount, Tag and JWT-validation services, plus the still-published legacy
+  SellTreez v2.0 Product API.
+- **An RFC 9727 API Catalog** at `/.well-known/api-catalog` naming all seven definitions.
+- **An llms.txt** documentation index and a **live anonymous MCP endpoint** at
+  `https://code.treez.io/mcp`.
+- **Self-signed RSA JWT** authentication with an enforced 30-second TTL.
+
+- https://www.treez.io/
+- https://code.treez.io/

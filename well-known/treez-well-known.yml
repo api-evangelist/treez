@@ -1,0 +1,134 @@
+generated: '2026-08-30'
+method: probed
+source: 'Direct anonymous GET of each /.well-known/ path on every Treez host named by apis.yml baseURL and OpenAPI servers[], 2026-08-30'
+note: >-
+  One real document was served: an RFC 9727 API Catalog (linkset) at
+  https://code.treez.io/.well-known/api-catalog, which names all seven Treez OpenAPI definitions
+  with service-desc + service-doc links. Every other path 404d or was refused. The api-prod.treez.io
+  and api.treez.io hosts return a blanket {"message":"Forbidden"} (403) to unauthenticated requests
+  on every path including /.well-known/*, so absence there is unproven rather than confirmed.
+  www.treez.io returns a soft-404 SPA shell (HTTP 404 with HTML body) on every /.well-known/ path.
+hosts:
+- host: code.treez.io
+  role: developer documentation portal (ReadMe-hosted, code.treez.io)
+  documents:
+  - path: /.well-known/api-catalog
+    status: 200
+    file: well-known/treez-api-catalog.json
+    content_type: application/json
+    note: >-
+      RFC 9727 API Catalog. linkset[] carries 7 anchors, each with a service-desc href to
+      https://code.treez.io/openapi/<name>.json (application/vnd.oai.openapi+json) and a
+      service-doc href to https://code.treez.io/reference. This is the document that confirmed
+      the exact set of seven published Treez OpenAPI definitions.
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: www.treez.io
+  role: marketing site
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+    note: HTML SPA shell returned with the 404 - not a document.
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: api-prod.treez.io
+  role: production API host (Dispensary v3 + Service APIs)
+  note: Every anonymous request returns HTTP 403 {"message":"Forbidden"}; absence is unproven.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    file: null
+- host: api.treez.io
+  role: legacy v2.0 API host (Product API)
+  note: Every anonymous request returns HTTP 403 {"message":"Forbidden"}; absence is unproven.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 403
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+    file: null
+  - path: /.well-known/api-catalog
+    status: 403
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 403
+    file: null
+  - path: /.well-known/agent.json
+    status: 403
+    file: null
+summary:
+  hosts_probed: 4
+  paths_probed: 32
+  documents_served: 1
+  agent_card_found: false
+  security_txt_found: false

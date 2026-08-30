@@ -1,0 +1,82 @@
+generated: '2026-08-30'
+method: probed
+status: published
+source: https://code.treez.io/mcp
+note: >-
+  Treez serves a live, anonymous, remote MCP endpoint at https://code.treez.io/mcp on its own
+  developer-documentation host. It is the ReadMe-generated documentation MCP server: initialize
+  returns serverInfo {"name":"Treez API Documentation","version":"3.1.0"} and tools/list returns
+  five tools over the seven published Treez OpenAPI definitions. Four are read-only discovery
+  tools; execute-request actually issues the HTTP call described by a HAR request object, so the
+  server is a real (if generic) execution surface for the Treez APIs - the caller still has to
+  supply their own self-signed JWT in the Authorization header of that HAR request. There is no
+  Treez-authored, per-resource MCP server (no npx package, no mcp.treez.io: DNS for
+  mcp.treez.io did not resolve).
+deployment:
+  mode: remote
+  endpoint: https://code.treez.io/mcp
+  install: null
+  package: null
+  auth: none
+  verified: probed
+  auth_note: >-
+    tools/list and initialize succeed with no credentials. Calling a Treez API through
+    execute-request requires the caller to embed their own self-signed RSA JWT in the HAR
+    request's Authorization header; the MCP server holds no Treez credential of its own.
+server:
+  name: Treez API Documentation
+  version: '3.1.0'
+  transport: streamable-http
+  protocol_version: '2025-06-18'
+  url: https://code.treez.io/mcp
+  platform: ReadMe (auto-generated docs MCP)
+  capabilities:
+    tools:
+      listChanged: false
+  probed:
+    fetched: '2026-08-30'
+    initialize_status: 200
+    tools_list_status: 200
+    raw: mcp/treez-mcp-tools.json
+tool_count: 5
+tools:
+- name: list-endpoints
+  title: List API Endpoints
+  category: discovery
+  read_only: true
+  required: [title]
+  description: Lists all API paths and their HTTP methods with summaries, organized by path.
+- name: get-endpoint
+  title: Get Endpoint Details
+  category: discovery
+  read_only: true
+  required: [path, method, title]
+  description: Gets detailed information about a specific API endpoint, including security schemes and servers.
+- name: search-endpoints
+  title: Search API Endpoints
+  category: discovery
+  read_only: true
+  required: [pattern]
+  description: Deep search through paths, operations and parameters to discover relevant endpoints.
+- name: list-specs
+  title: List OpenAPI Specs
+  category: discovery
+  read_only: true
+  required: []
+  description: Lists all available OpenAPI specs (the seven Treez definitions).
+- name: execute-request
+  title: Execute API Request
+  category: execution
+  read_only: false
+  required: [harRequest, title]
+  description: Executes an API request with a given HAR request object against the spec's servers[] host.
+surfaces:
+  openapi_definitions: 7
+  covered_specs:
+  - catalog
+  - collections
+  - discount
+  - dispensary
+  - jwt-check
+  - product_api
+  - tag

@@ -1,0 +1,148 @@
+# Treez API Documentation Documentation
+
+> Documentation for Treez API Documentation
+
+Append .md to any documentation page URL to get its markdown version.
+
+## Guides
+- [Authorization API](https://code.treez.io/docs/authorization-2.md)
+- [Available Endpoints](https://code.treez.io/docs/available-endpoints-6.md): This page provides the various endpoints available to the partner and the capabilities of that endpoint.
+- [Customer APIs](https://code.treez.io/docs/customer-apis.md)
+- [Product APIs](https://code.treez.io/docs/product-apis.md)
+- [Available Endpoints](https://code.treez.io/docs/available-endpoints.md): This page provides the various endpoints available to the partner and the capabilities of that endpoint.
+- [Sample Responses](https://code.treez.io/docs/sample-response-4.md): Product API
+- [Ticket API](https://code.treez.io/docs/ticket-apis.md)
+- [Parameters Explained](https://code.treez.io/docs/parameters-explained-customer-api-1.md): Ticket API
+- [Invoice API](https://code.treez.io/docs/invoice-api.md)
+
+## API Reference
+- [Treez API Overview](https://code.treez.io/reference/treez-api.md)
+- [Authentication](https://code.treez.io/reference/authentication.md): How to setup and use Treez API authentication with self-signed JWTs
+- [JWT Validation & Permission Check](https://code.treez.io/reference/jwt-test.md): Check the validity of your signed JWT, and view the resources to which you have been assigned access.
+- [Get by ID](https://code.treez.io/reference/dispensary-customer-get-by-id.md)
+- [Get by email address](https://code.treez.io/reference/dispensary-customer-get-by-email.md)
+- [Get by name](https://code.treez.io/reference/dispensary-customer-get-by-name.md)
+- [Get by driver's license](https://code.treez.io/reference/dispensary-customer-get-by-license.md)
+- [Get by phone number](https://code.treez.io/reference/dispensary-customer-get-by-phone.md)
+- [Get customer history](https://code.treez.io/reference/dispensary-customer-get-history.md)
+- [Get by sign-up date range](https://code.treez.io/reference/dispensary-customer-get-by-signup-range.md): Return all customers that signed up within the specified date range.
+- [Get by date of last update](https://code.treez.io/reference/dispensary-customer-get-by-last-modified.md): Returns all customer records updated since the specified date_time value.
+- [Get customer caregivers](https://code.treez.io/reference/dispensary-customer-get-caregivers.md)
+- [Get checked-in customers](https://code.treez.io/reference/dispensary-customer-get-checked-in.md): Returns a list of customers that have been checked into the POS
+- [Create customer](https://code.treez.io/reference/dispensary-customer-create.md)
+- [Update customer](https://code.treez.io/reference/dispensary-customer-update.md)
+- [Upload customer files](https://code.treez.io/reference/dispensary-customer-upload-files.md)
+- [Merge customers](https://code.treez.io/reference/dispensary-customer-merge.md): Merge two customer records
+- [Get all](https://code.treez.io/reference/dispensary-product-get-all.md)
+- [Get by id](https://code.treez.io/reference/dispensary-product-get-by-id.md)
+- [Get by updated date](https://code.treez.io/reference/dispensary-product-get-by-updated-date.md): Returns a list of products that have been modified after the specified date.
+- [Get fields by category](https://code.treez.io/reference/product-get-fields-by-category.md): Returns a list of products that have been modified after the specified date.
+- [Create Product ❗](https://code.treez.io/reference/dispensary-product-create.md): This endpoint needs to be used in order to create a new product in the POS portal via API. It is not possible to add inventory to a product through this endpoint.
+- [Update Product ❗](https://code.treez.io/reference/dispensary-product-update.md): This endpoint allows partners to update an existing product's metadata.
+- [Upload Image ❗](https://code.treez.io/reference/dispensary-product-image-upload.md): This endpoint allows partners to upload images to existing products.
+- [Get all product groups](https://code.treez.io/reference/dispensary-product-groups-get-all.md)
+- [Get all discounts](https://code.treez.io/reference/dispensary-discounts-get-all.md)
+- [Invoice💲](https://code.treez.io/reference/invoice.md): POS endpoints required for invoice operations.
+- [Distributor - Get all](https://code.treez.io/reference/dispensary-distributor-get-all.md)
+- [Distributor - Get by id](https://code.treez.io/reference/dispensary-distributor-get-by-id.md)
+- [Distributor - Create](https://code.treez.io/reference/distributor-create.md)
+- [Distributor - Update](https://code.treez.io/reference/distributor-update.md)
+- [Distributor Credit - Create](https://code.treez.io/reference/dispensary-invoice-credit-create.md): Create a new vendor credit that can be applied to an invoice. This endpoint only creates the credit - it does not apply it to a specific invoice.
+- [Distributor Credit - Apply to Invoice](https://code.treez.io/reference/dispensary-invoice-credit-apply.md): Apply an existing vendor credit as payment toward an invoice.
+- [Location - Get all](https://code.treez.io/reference/location-get-all.md): Returns all product locations within a store
+- [Payment Terms - Get all](https://code.treez.io/reference/invoice-payment-terms-get-all.md)
+- [Payment Terms - Create](https://code.treez.io/reference/dispensary-invoice-payment-terms-create.md)
+- [Sync METRC packages](https://code.treez.io/reference/sync-metrc-packages.md): Retrieves available METRC packages for invoice creation
+- [Invoice - Get by id](https://code.treez.io/reference/invoice-get-by-id.md)
+- [Invoice - Get by number](https://code.treez.io/reference/invoice-get-by-number.md)
+- [Invoice - Get by date range](https://code.treez.io/reference/invoice-get-by-date-range.md): Retrieve invoices from a range of dates, up to 30 days per request.
+- [Invoice - Create](https://code.treez.io/reference/invoice-create.md)
+- [Invoice - Modify](https://code.treez.io/reference/invoice-modify.md)
+- [Invoice - Modify](https://code.treez.io/reference/invoice-modify-patch.md)
+- [Invoice - Apply payment](https://code.treez.io/reference/invoice-apply-payment.md)
+- [Invoice - Attach File (multi-part)](https://code.treez.io/reference/invoice-attachment-multipart.md)
+- [Get by order number](https://code.treez.io/reference/ticket-get-by-order-number.md): Lookup a ticket using the 6-character customer-facing `order_number`
+- [Get by ID](https://code.treez.io/reference/ticket-get-by-id.md): Lookup a ticket using the `ticket_id` GUID
+- [Get by status](https://code.treez.io/reference/ticket-get-by-status.md): Lookup tickets by their current status
+- [Get history by ID](https://code.treez.io/reference/ticket-get-history-by-id.md): Returns the history of a ticket.
+- [Get by customer ID](https://code.treez.io/reference/ticket-get-by-customer-id.md): Lookup ticket history of a customer using the `customer_id` value
+- [Get by open date](https://code.treez.io/reference/ticket-get-by-open-date.md): Lookup tickets created on the specified date
+- [Get by close date](https://code.treez.io/reference/ticket-get-by-close-date.md): Lookup tickets closed on the specified date
+- [Get by last updated date](https://code.treez.io/reference/ticket-get-by-last-updated-date.md): Lookup tickets closed on the specified date
+- [Preview Ticket](https://code.treez.io/reference/dispensary-ticket-preview.md)
+- [Create Ticket](https://code.treez.io/reference/dispensary-ticket-create.md)
+- [Update Ticket](https://code.treez.io/reference/ticket-update.md)
+- [Inventory💲](https://code.treez.io/reference/inventory.md): Exposes endpoints POS for inventory operations.
+- [Get product stock](https://code.treez.io/reference/dispensary-inventory-get-stock.md)
+- [Get by package](https://code.treez.io/reference/dispensary-inventory-get.md)
+- [Adjust inventory](https://code.treez.io/reference/dispensary-inventory-adjust.md)
+- [Adjustment reasons](https://code.treez.io/reference/dispensary-inventory-get-reasons.md)
+- [Move inventory](https://code.treez.io/reference/dispensary-inventory-move.md): Use this endpoint to move inventory between locations in a store.
+- [Merge Batches](https://code.treez.io/reference/dispensary-inventory-merge.md): Use this endpoint to merge two or more Treez batches into a single batch.
+- [Get results by package](https://code.treez.io/reference/dispensary-lab-results-by-package.md): Lookup lab results using the Treez `package_id`
+- [Catalog](https://code.treez.io/reference/catalog.md)
+- [Attributes - Read](https://code.treez.io/reference/catalog-attributes-read.md): This endpoint returns product attribute records.
+- [Attribute Categories - Read](https://code.treez.io/reference/catalog-attribute-categories-read.md)
+- [Attribute - Create](https://code.treez.io/reference/catalog-attribute-create.md)
+- [Attribute - Update](https://code.treez.io/reference/catalog-attribute-update.md)
+- [Assigned Attributes - Read](https://code.treez.io/reference/catalog-assigned-attributes-read.md): Retrieve the list of assigned attributes by Product ID.
+- [Attributes - Assign to Product](https://code.treez.io/reference/catalog-attributes-assign.md): Adds existing attributes to a product.
+- [Categories - Read](https://code.treez.io/reference/service-catalog-categories-read.md): This endpoint returns product category records. All records will be returned if the optional `ids` param is excluded.
+- [Subcategories - Read](https://code.treez.io/reference/service-catalog-subcategories-read.md): This endpoint returns product sub-category records. All records will be returned if the optional `ids` param is excluded.
+- [🟡 Custom Subcategories](https://code.treez.io/reference/️-custom-subcategories.md): Custom Subcategories endpoints are in limited release.
+- [Subcategories - Resolved](https://code.treez.io/reference/service-catalog-subcategories-resolved-read.md): Returns the organization's effective subcategory set: every custom subcategory the org has created, unioned with every global (canonical) subcategory. Each row is tagged `type: custom | canonical` and carries `isExcluded`, `isShadowed`, and the `shownInProductDropdown` rollup. With no parameters only rows where `shownInProductDropdown` is `true` are returned, which is the set a product picker should offer. Use `id + type` from this response when assigning a subcategory on product create/update: `customSubCategoryId` for custom rows, `productSubCategoryId` for canonical rows.
+- [Subcategory Exclusions - Read](https://code.treez.io/reference/service-catalog-subcategories-exclusions-read.md): Returns the organization's live subcategory exclusions. An exclusion hides a global subcategory from the product picker and blocks direct assignment of it on product create/update.
+- [Subcategory Exclusions - Create](https://code.treez.io/reference/service-catalog-subcategories-exceptions-create.md): Excludes one or more global subcategories for the organization. Only global (canonical) subcategories can be excluded; a custom subcategory is retired by deleting it. A global subcategory that has live custom subcategories mapped to it cannot be excluded until those customs are deleted. Requires the Catalog Management - Custom Subcategories feature to be enabled for the organization.
+- [Subcategory Exclusions - Delete](https://code.treez.io/reference/service-catalog-subcategories-exclusions-delete.md): Removes exclusions so the global subcategories show in the picker again. Keyed by the global subcategory's productSubCategoryId, not by the exclusion row id. Requires the Catalog Management - Custom Subcategories feature to be enabled for the organization.
+- [Brands - Read](https://code.treez.io/reference/catalog-brands-read.md)
+- [Brand - Create](https://code.treez.io/reference/catalog-brand-create.md)
+- [Brand - Update](https://code.treez.io/reference/catalog-brand-update.md)
+- [Stores (entities)](https://code.treez.io/reference/catalog-stores.md): Lookup Organization and Entity (store) details.
+- [Stores - Read](https://code.treez.io/reference/catalog-stores-read.md): Returns all stores (entities) associated with an organization. Results are returned based on the organization `id` used to sign your JWT. Query parameters are not needed.
+- [Store Prices](https://code.treez.io/reference/catalog-store-prices.md)
+- [Store Price - Read](https://code.treez.io/reference/catalog-store-price-read.md)
+- [Store Price - Create](https://code.treez.io/reference/catalog-store-price-create.md)
+- [Store Price - Update](https://code.treez.io/reference/catalog-store-price-update.md)
+- [Store Price - Delete](https://code.treez.io/reference/catalog-store-price-delete.md)
+- [Products - Search](https://code.treez.io/reference/catalog-product-search.md)
+- [Get Products by ID](https://code.treez.io/reference/catalog-product-read.md)
+- [Create Product](https://code.treez.io/reference/catalog-product-create.md)
+- [Update Product](https://code.treez.io/reference/catalog-product-update.md)
+- [Read SKUs](https://code.treez.io/reference/catalog-sku-read.md)
+- [Create SKU](https://code.treez.io/reference/catalog-sku-create.md)
+- [Update SKU](https://code.treez.io/reference/catalog-sku-update.md)
+- [Product Images](https://code.treez.io/reference/catalog-product-images.md)
+- [Create Pre-Signed URL](https://code.treez.io/reference/catalog-image-create.md): The pre-signed URL provides a secure, one-time upload link to add an image file to the Treez repository. Once uploaded, the subsequent steps in this flow will allow linking of the image to a product or sku.
+- [Upload Image to Repository](https://code.treez.io/reference/catalog-image-upload.md)
+- [Link Image](https://code.treez.io/reference/catalog-image-link.md): This step links the uploaded images to a variant/sku.
+- [Read Price Tiers](https://code.treez.io/reference/catalog-price-tiers-read.md)
+- [Discount](https://code.treez.io/reference/service-discount.md): Exposes functionality of Treez central discount service
+- [Discount - Get All](https://code.treez.io/reference/service-discount-get-all.md)
+- [Discount - Get by ID](https://code.treez.io/reference/service-discount-get-by-id.md)
+- [Discount - Create](https://code.treez.io/reference/service-discount-create.md)
+- [Discount - Update](https://code.treez.io/reference/service-discount-update.md)
+- [Discount - Delete](https://code.treez.io/reference/service-discount-delete.md)
+- [Collection](https://code.treez.io/reference/service-collection.md)
+- [Collection - Get All](https://code.treez.io/reference/service-collection-get-all.md)
+- [Collection - Get by ID](https://code.treez.io/reference/service-collection-get-by-id.md)
+- [Collection - Get Product List](https://code.treez.io/reference/service-collection-get-product-list.md)
+- [Collection - Create](https://code.treez.io/reference/service-collection-create.md)
+- [Collection - Update](https://code.treez.io/reference/service-collection-update.md)
+- [Tags](https://code.treez.io/reference/service-tags.md)
+- [Tag Group - Get All](https://code.treez.io/reference/service-tag-group-get-all.md): Returns all Tag Groups and Tags contained within
+- [Tag Group - Get by ID](https://code.treez.io/reference/service-tag-group-get-by-id.md): Returns the specified Tag Group and Tags contained within
+- [Tag - Create](https://code.treez.io/reference/service-tag-create.md): Creates a new Tag within an existing Tag Group
+- [Tag - Update](https://code.treez.io/reference/service-tag-update.md): Updates an existing Tag within an existing Tag Group
+
+## Recipes
+- [Checking for Existing Customers in Treez](https://code.treez.io/recipes/checking-for-existing-customers-in-treez.md)
+- [Creating an Order with POST/Create Ticket](https://code.treez.io/recipes/creating-an-order-with-postcreate-ticket.md)
+- [Getting Products Available for Sale](https://code.treez.io/recipes/getting-products-available-for-sale.md)
+- [Updating Customers with the API](https://code.treez.io/recipes/updating-customers-with-the-api.md)
+- [Using the Authorization API](https://code.treez.io/recipes/using-the-authorization-api.md)
+- [Using the include_image_list Query Parameter](https://code.treez.io/recipes/using-the-include_image_list-query-parameter.md)
+- [Using the POST/Preview Ticket endpint](https://code.treez.io/recipes/using-the-postpreview-ticket-endpint.md)
+
+## Pages
+- [Legal](https://code.treez.io/page/legal.md)
+- [Partner with Us](https://code.treez.io/page/partner-with-us.md)

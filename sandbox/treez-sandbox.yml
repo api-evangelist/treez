@@ -1,0 +1,63 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  https://code.treez.io/page/partner-with-us, https://code.treez.io/docs/authorization-2 and
+  https://code.treez.io/docs/available-endpoints.
+docs: https://code.treez.io/page/partner-with-us
+published: true
+self_serve: false
+note: >-
+  Treez runs a real sandbox, but it is not self-serve. Access is granted only after a partner
+  application is submitted, an MNDA and the API Usage Agreement are signed, and Treez provisions
+  the environment. There is no public test key, no test-mode toggle on a production credential,
+  and no published test card or fixture set - so an agent, or an evaluator, cannot try the API
+  before a human contract is in place.
+environments:
+- id: sandbox
+  name: Partner sandbox
+  purpose: build and test an integration before requesting production access
+  access: granted by Treez after MNDA + API Usage Agreement are signed
+  tenant_example: partnersandbox2
+  tenant_example_source: >-
+    https://code.treez.io/docs/available-endpoints uses "partnersandbox2.treez.io" as its worked
+    example of deriving a dispensary_name, i.e. the sandbox uses the same
+    <tenant>.treez.io/{dispensary_name} addressing as production.
+  host: same as production - api-prod.treez.io (v3) / api.treez.io (v2); the environment is selected by tenant, not by hostname
+  host_confidence: medium
+  host_note: >-
+    Treez does not publish a distinct sandbox hostname. The documented model is one client ID
+    across "all sandbox and production environments" with a per-location API key, and a
+    tenant-named path segment, which implies tenant-selected environments rather than
+    host-selected. Recorded as documented, not as verified by us - we hold no credential.
+- id: production
+  name: Production
+  access: >-
+    A mutual customer requests a production API key on the certified partner's behalf. Treez
+    states it will not generate production keys for partners who have not completed onboarding
+    including certification.
+credentials:
+  mode_prefixes: false
+  test_vs_live_keys: >-
+    Not distinguished by key prefix. On the legacy v2 surface a single client ID spans sandbox and
+    production, and the API key is per RETAIL LOCATION - so the environment boundary is the
+    location, not the credential class. On v3 the boundary is the certificate record: the
+    organizations, dispensaries and endpoints a Certificate ID may reach are listed on the record
+    Treez holds, and are changed by Treez.
+  published_test_credentials: false
+test_data:
+  test_cards: null
+  test_bank_accounts: null
+  test_tokens: null
+  fixtures: null
+  note: >-
+    Treez sells cashless payments, but publishes no test card numbers, no test payment tokens and
+    no decline-simulation triggers. Nothing in the documentation index describes seeded sandbox
+    data.
+time_simulation:
+  test_clocks: false
+rehearsal:
+  note: >-
+    The nearest thing to a production-safe rehearsal is ticket-preview
+    (POST /{dispensary}/ticket/previewticket), which prices and validates an order without
+    committing it. It works against live data, so it is a dry-run mechanism rather than a sandbox.
+  see: conventions/treez-conventions.yml

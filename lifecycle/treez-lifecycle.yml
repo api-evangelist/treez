@@ -1,0 +1,117 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  https://code.treez.io/reference/treez-api (version selector + legacy-v2 notice),
+  https://code.treez.io/docs/authorization-2, https://code.treez.io/.well-known/api-catalog,
+  and the ReadMe apiDefinitions metadata embedded in https://code.treez.io/reference
+  (per-definition created_at / updated_at), cross-read against the seven specs in openapi/.
+versioning:
+  scheme: path
+  current_major: v3
+  documentation_branch: '3.1.0'
+  legacy_major: v2.0
+  legacy_status: published, documented, still reachable at https://api.treez.io/v2.0/dispensary
+  legacy_evidence: >-
+    The API overview page carries the notice "Looking for the legacy SellTreez v2 API reference?
+    Select `Legacy v2 Docs` from the version selector" - Treez keeps v2 documented alongside v3
+    rather than retiring it. The v2 Product API definition (info.version 2.7.4) is still one of
+    the seven entries in the RFC 9727 API Catalog.
+  policy_published: false
+  policy_note: >-
+    Treez publishes no version-support policy, no end-of-life schedule for v2, and no statement of
+    how long a major version is supported after its successor ships.
+deprecation:
+  policy_published: false
+  deprecated_operations: 0
+  deprecated_operations_note: >-
+    Not one operation across the 124 published operations carries `deprecated: true`. The v2
+    Product API is functionally superseded by the v3 dispensary and catalog surfaces (the same
+    product-list, product-by-id, product-fields, create, update and image-upload capabilities
+    exist in both) but nothing in either contract says so.
+  rfc8594:
+    sunset_header: false
+    deprecation_header: false
+    link_header: false
+    note: No Sunset or Deprecation response header is declared in any of the seven specs.
+  breaking_change_notice: null
+limited_release:
+  - feature: Custom Subcategories
+    status: limited release
+    evidence: >-
+      The provider's own index at https://code.treez.io/llms.txt lists a "Custom Subcategories"
+      reference page described as "Custom Subcategories endpoints are in limited release", and the
+      subcategory-exclusion entries state they require the
+      "Catalog Management - Custom Subcategories feature to be enabled for the organization".
+    note: >-
+      This is the only published feature-gating signal in the contract - a per-organization
+      feature flag that changes which operations answer. An agent cannot discover it from the
+      spec; it is prose only.
+status_page:
+  published: false
+  note: >-
+    No Treez status page was found. status.treez.io resolves and returns HTTP 200, but it is a
+    CUSTOMER TENANT - the page title is "Status Dispensary - Adelanto", i.e. a dispensary named
+    "Status" on the standard <tenant>.treez.io pattern, not a service-health page. treez.statuspage.io
+    redirects to Atlassian's product marketing page, which means no Statuspage tenant exists.
+    Recorded here so a later pass does not mistake the tenant for a status page.
+  probed:
+  - url: https://status.treez.io
+    status: 200
+    finding: dispensary tenant page, not a status page
+  - url: https://treez.statuspage.io
+    status: 200
+    finding: redirects to https://www.atlassian.com/software/statuspage - no tenant
+sla:
+  published: false
+  note: >-
+    No public uptime or latency SLA. The API Usage Agreement at https://code.treez.io/page/legal
+    is the only published contract, and it is a partner terms document rather than a service level
+    commitment.
+changelog:
+  published: false
+  note: >-
+    code.treez.io serves no /changelog (404) and no dated release notes. The only machine-readable
+    recency signal Treez exposes is the per-definition updated_at embedded in the ReadMe
+    apiDefinitions metadata on the reference page - captured below.
+definition_freshness:
+  source: ReadMe apiDefinitions metadata, https://code.treez.io/reference, read 2026-08-30
+  definitions:
+  - file: catalog.json
+    created: '2026-02-25'
+    updated: '2026-08-27'
+  - file: dispensary.json
+    created: '2026-02-25'
+    updated: '2026-08-19'
+  - file: discount.json
+    created: '2026-03-11'
+    updated: '2026-08-17'
+  - file: collections.json
+    created: '2026-03-18'
+    updated: '2026-06-05'
+  - file: jwt-check.json
+    created: '2026-03-25'
+    updated: '2026-05-08'
+  - file: tag.json
+    created: '2026-03-24'
+    updated: '2026-03-24'
+  - file: product_api.json
+    created: '2026-02-25'
+    updated: '2026-02-25'
+    note: the legacy v2 definition; untouched since the portal was created
+  finding: >-
+    Five of seven definitions were updated within the last four months, and catalog.json three
+    days before this pass - the contract is actively maintained, not abandoned. The legacy v2
+    Product API definition has not moved since the portal launched.
+onboarding_lifecycle:
+  stages:
+  - submit partner application (https://www.treez.io/partner-application)
+  - sign MNDA and API Usage Agreement (https://code.treez.io/page/legal)
+  - build against the partner sandbox
+  - provide proof of support resources and documentation
+  - complete the partner survey
+  - certification by Treez
+  - mutual customer requests a production API key on the partner's behalf
+  note: >-
+    Certification is a real gate with a published technical criterion: Treez will refuse to
+    certify an integration that calls the legacy Authorization API more often than its 2-hour
+    token life requires.

@@ -1,0 +1,160 @@
+generated: '2026-08-30'
+method: derived
+source: >-
+  Derived from the 4xx responses declared across the seven OpenAPI definitions in openapi/
+  (117 declared error responses: 83x 400, 21x 401, 13x 404), enriched with the exact published
+  example payloads carried in those responses. No separate docs error reference exists on
+  code.treez.io, so titles and remediation are written from the spec examples themselves.
+format: proprietary
+rfc9457: false
+rfc9457_note: >-
+  Treez does not use application/problem+json. Errors are returned as application/json in one of
+  two proprietary envelopes depending on which service answered.
+envelopes:
+- id: result-envelope
+  used_by: [dispensary, product_api]
+  media_type: application/json
+  shape:
+    resultCode: string - "SUCCESS" on success, "FAIL" on error
+    resultReason: string - a machine-ish reason token or a human sentence
+    resultDetail: any - optional additional detail, frequently null
+    data: object - present only on success
+  note: >-
+    The same envelope carries success and failure, discriminated by resultCode rather than by
+    HTTP status alone. An agent must read the body, not just the code.
+- id: validation-envelope
+  used_by: [catalog, discount, tag, collections]
+  media_type: application/json
+  shape:
+    message: string - top-level failure summary, e.g. "Event Schema Validation Failed"
+    errorType: string - failure class, observed value "Validation"
+    errorMsgs: array of string - flat list of field-level messages
+    failed: array of object - per-entity breakdown, each {entity, errors[]}
+  note: >-
+    Batch-aware: failed[] identifies WHICH submitted entity failed, so a partially-invalid batch
+    can be corrected without resubmitting the whole payload.
+status_codes:
+  '400': 83
+  '401': 21
+  '404': 13
+  '5xx': 0
+  note: >-
+    No 5xx response is declared anywhere in the seven specs, and no 429 is declared - see
+    rate-limits/treez-rate-limits.yml. An agent cannot learn from the contract what a Treez
+    server error or a throttle looks like.
+problem_types:
+- code: 401
+  reason: Full authentication is required to access this resource
+  envelope: result-envelope
+  occurrences: 13
+  title: Missing or invalid JWT
+  remediation: >-
+    Attach a self-signed JWT to the Authorization header. Check the aud claim matches the exact
+    URL being called and that exp is iat + 30000 ms - a TTL outside 30,000 ms returns 400, not 401.
+  see: authentication/treez-authentication.yml
+- code: 404
+  reason: NOT_FOUND
+  envelope: result-envelope
+  occurrences: 9
+  title: Resource does not exist
+  remediation: Verify the identifier and the {dispensary} path segment (the tenant slug from the client's <name>.treez.io URL).
+- code: 400
+  reason: INCORRECT_VALUE
+  envelope: result-envelope
+  occurrences: 8
+  title: A supplied field value is not acceptable
+  remediation: Re-read the operation's parameter constraints; resultDetail sometimes names the offending field.
+- code: 404
+  reason: CUSTOMER_DOESNT_EXIST
+  envelope: result-envelope
+  occurrences: 4
+  title: No customer matches the supplied identifier
+  remediation: Look the customer up by email/phone/licence first (see the customer lookup operations) before assuming a create is required.
+- code: 400
+  reason: RESPONSE_LIMIT_EXCEEDS
+  envelope: result-envelope
+  occurrences: 2
+  title: Requested page would exceed the maximum response size
+  remediation: Reduce pagesize, or narrow the date range. Product-by-ID lookups accept at most 50 ids per call; invoice date-range queries at most 30 days.
+- code: 400
+  reason: INVALID_DATE_FORMAT
+  envelope: result-envelope
+  occurrences: 2
+  title: Date/time parameter is not in the accepted format
+  remediation: 'Use the published format: yyyy-MM-ddTHH:mm:ss.SSSXXX (e.g. 2026-07-14T10:55:58.000-07:00).'
+- code: 400
+  reason: PRODUCT_NOT_FOUND
+  envelope: result-envelope
+  occurrences: 2
+  title: Referenced product id does not exist in this dispensary
+  remediation: Product ids are per-dispensary; confirm the {dispensary} segment matches the store that owns the product.
+- code: 400
+  reason: TICKET_NOT_FOUND
+  envelope: result-envelope
+  occurrences: 2
+  title: Referenced ticket id or order number does not exist
+  remediation: Order numbers are 6-character customer-facing codes; ticket_id is a GUID. They are not interchangeable.
+- code: 400
+  reason: TICKET_FORMAT_ERROR
+  envelope: result-envelope
+  occurrences: 2
+  title: Ticket payload is structurally wrong
+  remediation: Run the payload through Preview Ticket (ticket-preview) before Create Ticket - it prices and validates without committing.
+- code: 400
+  reason: INVALID_TICKET_STATUS
+  envelope: result-envelope
+  occurrences: 1
+  title: The requested order_status transition is not allowed
+  remediation: Read the current order_status via ticket-get-by-id before attempting a transition.
+- code: 400
+  reason: MODEL_VALIDATION_FAIL
+  envelope: result-envelope
+  occurrences: 1
+  title: Request body failed model validation
+  remediation: Compare the body against the operation's requestBody schema in openapi/.
+- code: 400
+  reason: CUSTOMER_FIRST_NAME_BLANK
+  envelope: result-envelope
+  occurrences: 1
+  title: Required customer field was empty
+  remediation: first_name is required on customer create/update.
+- code: 400
+  reason: INVALID_ACTIVE_PARAMETER
+  envelope: result-envelope
+  occurrences: 1
+  title: The active query parameter was not TRUE, FALSE or ALL
+  remediation: Use one of TRUE (default), FALSE or ALL.
+- code: 400
+  reason: UNKNOWN_FILE_TYPE
+  envelope: result-envelope
+  occurrences: 1
+  title: Uploaded file type is not supported
+  remediation: Applies to customer document and product image upload operations.
+- code: 400
+  reason: INVALID_REQUEST
+  envelope: result-envelope
+  occurrences: 1
+  title: Generic request rejection
+  remediation: Inspect resultDetail; it is the only discriminator on this reason.
+- code: 400
+  message: Event Schema Validation Failed
+  errorType: Validation
+  envelope: validation-envelope
+  occurrences: 16
+  title: One or more submitted entities failed schema validation
+  remediation: >-
+    Read failed[] - each element names the entity and the specific errors[] for it, e.g.
+    "attributeCategoryId is required". Correct only the failing entities and resubmit.
+- code: 400
+  message: Entity Validation Failed
+  errorType: Validation
+  envelope: validation-envelope
+  occurrences: 1
+  title: A referenced entity failed validation
+  remediation: Check the referenced id exists and is visible to the organization signing the JWT.
+- code: 400
+  message: Input is not valid JSON.
+  envelope: validation-envelope
+  occurrences: 1
+  title: Request body was not parseable JSON
+  remediation: Set Content-Type application/json and send a well-formed body.

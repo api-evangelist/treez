@@ -1,0 +1,109 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  Registry searches on 2026-08-30 against registry.npmjs.org, pypi.org, rubygems.org,
+  packagist.org and crates.io, plus a full read of the provider's own documentation index
+  (https://code.treez.io/llms.txt, 135 pages) and its API reference. No SourceCode, SDK or CLI
+  link exists in apis.yml to derive candidates from.
+sdk_count: 0
+official_sdks: 0
+note: >-
+  Treez publishes no first-party client libraries in any package registry, and its documentation
+  offers none. Every registry hit for "treez" belongs to somebody else and is recorded below so a
+  later pass does not mistake one for a Treez SDK. What Treez does hand integrators instead are
+  two downloadable Postman collections and hand-written signing examples in five languages
+  (Node.js, Java, Ruby, Go and a shell/OpenSSL snippet) embedded in the authentication page - real
+  onboarding material, but copy-paste code, not versioned, installable, maintainable packages. For
+  an API whose auth scheme is a hand-rolled two-part RSA-signed token that standard JWT libraries
+  cannot produce, the absence of a signing SDK pushes a genuinely fiddly cryptographic step onto
+  every integrator.
+packages: []
+distributed_code:
+  - kind: postman-collection
+    name: Authorization API collection
+    url: https://drive.google.com/uc?export=download&id=1jadRBghWXc3NyJ3hADgJKJsZ6eCawzgk
+    registry: google-drive
+    official: true
+    version: null
+    published: null
+    version_note: >-
+      Distributed as an unversioned Google Drive download; the file carries no version and no
+      publication date a consumer can read, so neither we nor an integrator can tell which
+      revision they are getting.
+    source: https://code.treez.io/docs/authorization-2
+  - kind: postman-collection
+    name: Product API collection
+    url: https://drive.google.com/file/d/1qCpMP0vAHR0qS8mDSuzEaDA8UgUKZu2d/view
+    registry: google-drive
+    official: true
+    version: null
+    published: null
+    version_note: Unversioned Google Drive download; no version or date readable by a consumer.
+    source: https://code.treez.io/docs/available-endpoints
+  - kind: code-sample
+    name: Self-signed JWT signing examples
+    languages: [javascript, java, ruby, go, shell]
+    url: https://code.treez.io/reference/authentication
+    registry: null
+    official: true
+    version: null
+    published: null
+    version_note: >-
+      Inline documentation snippets, explicitly labelled by Treez as "only examples" that "should
+      not be considered production-ready code". Not packaged or versioned.
+registry_searches:
+  - registry: npm
+    query: treez
+    endpoint: https://registry.npmjs.org/-/v1/search?text=treez
+    status: 200
+    first_party_hits: 0
+    unrelated_hits:
+      - name: treez
+        version: 3.0.14
+        published: '2017-04-20'
+        why_not: 'a JavaScript tree widget by an unrelated author (github.com/jameskyburz/treez)'
+      - name: '@treezjs/workspace_module'
+        version: 0.1.0
+        published: '2024-01-29'
+        why_not: unrelated Treez.js scientific-notebook project
+  - registry: pypi
+    query: treez
+    endpoint: https://pypi.org/pypi/treez/json
+    status: 404
+    first_party_hits: 0
+  - registry: rubygems
+    query: treez
+    endpoint: https://rubygems.org/api/v1/search.json?query=treez
+    status: 200
+    first_party_hits: 0
+    unrelated_hits:
+      - name: treezor_client
+        version: 2.1.1
+        why_not: client for Treezor, a French banking-as-a-service company - a different company with a similar name
+  - registry: packagist
+    query: treez
+    endpoint: https://packagist.org/search.json?q=treez
+    status: 200
+    first_party_hits: 0
+    unrelated_hits:
+      - name: treezor/common
+        why_not: Treezor (French BaaS), not Treez
+  - registry: crates.io
+    query: treez
+    endpoint: https://crates.io/api/v1/crates?q=treez
+    status: 200
+    first_party_hits: 0
+    unrelated_hits:
+      - name: treez
+        version: 1.6.0
+        published: '2020-07-21'
+        why_not: an unrelated Rust data-structures crate
+  - registry: github
+    query: treez organization
+    endpoint: https://api.github.com/users/treez
+    status: 200
+    first_party_hits: 0
+    note: >-
+      github.com/treez is a personal user account with 1 repo and no company affiliation;
+      github.com/treezio belongs to an unrelated engineer at Sequra. Treez has no public GitHub
+      organization, so there is no source-code surface to derive packages from either.

@@ -1,23 +1,291 @@
 aid: treez
 name: Treez
-description: 'Treez is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Treez is an enterprise cloud commerce platform for US cannabis retail, providing dispensary
+  point-of-sale, retail analytics, cashless payments, ecommerce and loyalty to high-volume
+  operators across the largest legal state markets. Its public API surface is a partner-gated REST
+  programme documented at code.treez.io and split into two families: per-dispensary Dispensary
+  APIs at api-prod.treez.io/dispensary/v3 covering customers, tickets/orders, inventory packages,
+  lab results, invoices, distributors and METRC state track-and-trace package sync; and
+  organization-level Service APIs at api-prod.treez.io/service covering the central product
+  catalog, collections, discounts, tags and JWT validation. A legacy SellTreez v2.0 Product API
+  remains published at api.treez.io. Treez serves an RFC 9727 API Catalog naming all seven of its
+  OpenAPI definitions, an llms.txt documentation index, and a live anonymous MCP endpoint over
+  those definitions. Authentication is a self-signed RSA JWT with a 30-second TTL; access requires
+  a partner application, an MNDA and API Usage Agreement, sandbox development and certification
+  before a mutual customer can request a production key.
+image: https://images.prismic.io/treez/95e82f5a-f0d3-46e9-a4f0-a1fc774a1e79_Treez_Solful_DSC02615+1.jpg?auto=compress,format
 url: https://raw.githubusercontent.com/api-evangelist/treez/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-30'
 modified: '2026-08-30'
 tags:
-- Company
-apis: []
+- Cannabis
+- Point of Sale
+- Retail
+- Dispensary
+- Inventory Management
+- Ecommerce
+- Payments
+- Compliance
+- Track and Trace
+- METRC
+- Product Catalog
+- Customer Data
+tags_raw:
+- cannabis
+- point-of-sale
+- retail
+- dispensary
+- inventory-management
+- ecommerce
+- payments
+- compliance
+- track-and-trace
+- metrc
+- product-catalog
+- customer-data
+apis:
+- name: Treez Dispensary API v3
+  description: >-
+    Per-dispensary POS surface exposing the functionality of an individual Treez retail
+    instance - customer records and check-in queue, tickets/orders with a non-committing preview,
+    product and stock reads, inventory adjustment/move/merge, lab results, purchase invoices,
+    distributors and vendor credits, and METRC package sync for state track-and-trace. 65
+    operations. Addressed as /dispensary/v3/{dispensary_name}, where the tenant slug is the
+    subdomain of the customer's own <tenant>.treez.io URL.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Cannabis
+  - Point of Sale
+  - Dispensary
+  - Inventory Management
+  - Track and Trace
+  - METRC
+  - Customer Data
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-dispensary-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: Overlay
+    url: overlays/treez-dispensary-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+- name: Treez Catalog Service API
+  description: >-
+    Organization-level central product catalog spanning every store an organization operates -
+    products, SKUs/variants, brands, attributes and attribute categories, global and custom
+    subcategories with per-organization exclusions, a three-step pre-signed product image upload,
+    price tiers, per-store prices and store (entity) lookup. 34 operations. Scope is carried in
+    the JWT oid claim rather than the path.
+  humanURL: https://code.treez.io/reference/catalog
+  baseURL: https://api-prod.treez.io/service/catalog
+  tags:
+  - Cannabis
+  - Product Catalog
+  - Retail
+  - Ecommerce
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-catalog-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Overlay
+    url: overlays/treez-catalog-overlay.yaml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+- name: Treez Discount Service API
+  description: >-
+    Treez central discount service - create, read, update and delete organization-level discounts
+    that apply across the stores in an organization. 6 operations.
+  humanURL: https://code.treez.io/reference/service-discount
+  baseURL: https://api-prod.treez.io/service/discount
+  tags:
+  - Cannabis
+  - Retail
+  - Point of Sale
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-discount-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Overlay
+    url: overlays/treez-discount-overlay.yaml
+- name: Treez Collection Service API
+  description: >-
+    Organization-level product collections used to group products for merchandising, with product
+    list retrieval per collection. 5 operations.
+  humanURL: https://code.treez.io/reference/service-collection
+  baseURL: https://api-prod.treez.io/service/collection
+  tags:
+  - Cannabis
+  - Product Catalog
+  - Ecommerce
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-collections-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Overlay
+    url: overlays/treez-collections-overlay.yaml
+- name: Treez Tag Service API
+  description: >-
+    Organization-level tag groups and the tags within them - read all groups, read one group,
+    create and update tags. 5 operations.
+  humanURL: https://code.treez.io/reference/service-tags
+  baseURL: https://api-prod.treez.io/service/tag-group
+  tags:
+  - Cannabis
+  - Product Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-tag-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Overlay
+    url: overlays/treez-tag-overlay.yaml
+- name: Treez JWT Validation Service
+  description: >-
+    Validates a self-signed JWT and returns the organizations, dispensaries and endpoints the
+    signing certificate has been granted access to. The onboarding self-check for the v3 auth
+    scheme. 2 operations.
+  humanURL: https://code.treez.io/reference/jwt-test
+  baseURL: https://api-prod.treez.io/service
+  tags:
+  - Cannabis
+  - Compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-jwt-check-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Overlay
+    url: overlays/treez-jwt-check-overlay.yaml
+- name: Treez Legacy SellTreez v2.0 Product API
+  description: >-
+    Legacy v2.0 product surface - list products with rich filters, list products by last-updated,
+    read a product by id, read product fields by category type, create and update products, and
+    upload a product image. 7 operations. Superseded by the v3 dispensary and catalog surfaces but
+    still published, still documented under the portal's "Legacy v2 Docs" version selector, and
+    still named in the RFC 9727 API Catalog. Uses the older client-ID plus per-location API key
+    Authorization API rather than the v3 self-signed JWT.
+  humanURL: https://code.treez.io/docs/available-endpoints
+  baseURL: https://api.treez.io/v2.0/dispensary
+  tags:
+  - Cannabis
+  - Product Catalog
+  - Point of Sale
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-api-openapi.json
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Overlay
+    url: overlays/treez-product-api-overlay.yaml
+- name: Treez Documentation MCP Server
+  description: >-
+    Live, anonymous, remote MCP endpoint served on Treez's own developer-documentation host. The
+    ReadMe-generated documentation server - initialize returns serverInfo "Treez API
+    Documentation" 3.1.0 and tools/list returns five tools over the seven published Treez OpenAPI
+    definitions: four read-only discovery tools plus execute-request, which issues the described
+    HTTP call. The caller supplies their own self-signed JWT; the server holds no Treez credential.
+  humanURL: https://code.treez.io/reference
+  baseURL: https://code.treez.io/mcp
+  tags:
+  - MCP
+  - agent-native
+  - Cannabis
+  properties:
+  - type: MCPServer
+    url: mcp/treez-mcp.yml
+  - type: MCPServer
+    url: https://code.treez.io/mcp
+  - type: ToolCrosswalk
+    url: mcp/treez-tool-crosswalk.yml
+common:
+- type: Website
+  url: https://www.treez.io/
+- type: DeveloperPortal
+  url: https://code.treez.io/
+- type: Documentation
+  url: https://code.treez.io/docs
+- type: APIReference
+  url: https://code.treez.io/reference
+- type: GettingStarted
+  url: https://code.treez.io/docs/getting-started
+- type: Support
+  url: https://support.treez.io/
+- type: Blog
+  url: https://www.treez.io/blog
+- type: Pricing
+  url: https://www.treez.io/pricing
+- type: SignUp
+  url: https://www.treez.io/partner-application
+- type: TermsOfService
+  url: https://www.treez.io/terms
+- type: PrivacyPolicy
+  url: https://www.treez.io/privacy-policy
+- type: LLMsTxt
+  url: llms/treez-llms.txt
+- type: LLMsTxt
+  url: https://code.treez.io/llms.txt
+- type: WellKnown
+  url: well-known/treez-well-known.yml
+- type: APICatalog
+  url: https://code.treez.io/.well-known/api-catalog
+- type: MCPServer
+  url: mcp/treez-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/treez-tool-crosswalk.yml
+- type: Authentication
+  url: authentication/treez-authentication.yml
+- type: Conventions
+  url: conventions/treez-conventions.yml
+- type: ErrorCatalog
+  url: errors/treez-problem-types.yml
+- type: DataModel
+  url: data-model/treez-data-model.yml
+- type: Lifecycle
+  url: lifecycle/treez-lifecycle.yml
+- type: Conformance
+  url: conformance/treez-conformance.yml
+- type: Compliance
+  url: conformance/treez-conformance.yml
+- type: DomainSecurity
+  url: security/treez-domain-security.yml
+- type: Sandbox
+  url: sandbox/treez-sandbox.yml
+- type: Plans
+  url: plans/treez-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/treez-rate-limits.yml
+- type: Packages
+  url: packages/treez-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
-common:
-- type: Website
-  url: https://forgeglobal.com/treez_stock/
+x-enrichment:
+  date: '2026-08-30'
+  status: enriched
+  artifacts_added: 37
+  pass: local-v1

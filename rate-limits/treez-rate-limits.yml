@@ -1,0 +1,58 @@
+generated: '2026-08-30'
+method: searched
+source: >-
+  Full read of https://code.treez.io/llms.txt (the provider's own complete documentation index,
+  135 pages), plus https://code.treez.io/reference/authentication,
+  https://code.treez.io/reference/treez-api, https://code.treez.io/docs/available-endpoints and
+  https://code.treez.io/docs/authorization-2, and a scan of all 117 declared error responses
+  across the seven OpenAPI definitions in openapi/.
+docs: null
+limit_count: 0
+note: >-
+  Treez publishes no rate limits. No page in its documentation index mentions rate limiting,
+  throttling, quotas or a 429; no operation in any of the seven specs declares a 429 response;
+  and no X-RateLimit-*, RateLimit-* or Retry-After header appears anywhere in the contract or the
+  docs. An integrator cannot learn a ceiling before they hit it, and an agent has no runtime
+  signal to back off on.
+headers: []
+status_on_exhaustion: null
+retry_after: null
+limits: []
+published_ceilings:
+  note: >-
+    These are hard REQUEST-SIZE caps Treez does publish. They are not rate limits - they bound one
+    call, not a rate - but they are the only quantified ceilings in the documentation, and
+    exceeding them returns 400 RESPONSE_LIMIT_EXCEEDS rather than 429.
+  items:
+  - scope: per-request
+    surface: 'GET /{dispensary}/product/{product_id} and the v2 product_list ID filter'
+    limit: 50
+    unit: product_ids per call
+    source: https://code.treez.io/docs/available-endpoints
+  - scope: per-request
+    surface: 'GET /{dispensary}/invoice/updated/from/{fromdate}/to/{todate}'
+    limit: 30
+    unit: days of date range per request
+    source: https://code.treez.io/llms.txt (Invoice - Get by date range)
+  - scope: per-request
+    surface: any paged collection
+    limit: null
+    unit: rows
+    note: pagesize is caller-supplied with no documented maximum; too large a page returns 400 RESPONSE_LIMIT_EXCEEDS.
+behavioural_limits:
+  note: >-
+    Treez enforces a call-frequency expectation contractually rather than at runtime, on the
+    legacy v2 surface only.
+  items:
+  - surface: legacy v2 Authorization API
+    rule: >-
+      Access tokens are valid for 2 hours; partners are required to call the Authorization API
+      only when their token expires or shortly before. Treez states it will not certify an
+      integration that does not use the Authorization API "in an optimized and efficient manner".
+    enforcement: certification gate (human), not an HTTP status
+    source: https://code.treez.io/docs/authorization-2
+  - surface: v3 self-signed JWT
+    rule: >-
+      Each request carries its own freshly-signed JWT with a 30,000 ms TTL, so there is no token
+      endpoint to over-call on v3 - the auth cost moved into the client.
+    source: https://code.treez.io/reference/authentication

@@ -1,0 +1,31 @@
+generated: '2026-08-30'
+method: searched
+source: https://www.treez.io/pricing
+docs: https://www.treez.io/pricing
+plan_count: 0
+pricing_model: quote-only
+note: >-
+  Treez publishes no priced tiers. The pricing page (HTTP 200, read 2026-08-30) states "Whether
+  you have one store or a multi-state enterprise, Treez is priced to work for you. Book a demo and
+  get a customized quote including POS, Cashless Payments and more." There is no plan table, no
+  list price, no per-seat or per-store rate, and no published overage schedule. An honest zero -
+  not a gap in our reading.
+plans: []
+api_access:
+  metered: false
+  priced_separately: false
+  statement: >-
+    The pricing page lists "POS with unlimited registers, unlimited employees, and API access"
+    as included in the platform rather than as a paid add-on. API access is therefore gated by the
+    PARTNER programme, not by a price tier: an integrator applies at
+    https://www.treez.io/partner-application, signs an MNDA and the API Usage Agreement, builds in
+    the sandbox, is certified by Treez, and then a mutual customer requests a production API key on
+    the integrator's behalf.
+  api_access_free_to_customers: >-
+    Stated as included in the platform. Whether an individual customer contract meters API calls
+    is not published.
+sales_gate:
+  partner_application: https://www.treez.io/partner-application
+  contacts:
+    partnerships: partners@treez.io
+    technical: api-support@treez.io
