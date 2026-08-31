@@ -1,0 +1,14 @@
+{
+  "repo": "treez",
+  "feeds": [
+    {
+      "source": "https://support.treez.io/",
+      "feed_url": "https://support.treez.io/feed.xml",
+      "title": "",
+      "saved": 7,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 7,
+  "fetched": "2026-08-30T22:33:40Z"
+}

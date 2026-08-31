@@ -22,18 +22,18 @@ specificationVersion: '0.20'
 created: '2026-08-30'
 modified: '2026-08-30'
 tags:
-- Cannabis
-- Point of Sale
+- cannabis
+- point-of-sale
 - Retail
-- Dispensary
-- Inventory Management
-- Ecommerce
+- dispensary
+- inventory-management
+- E-Commerce
 - Payments
 - Compliance
 - Track and Trace
-- METRC
-- Product Catalog
-- Customer Data
+- metrc
+- product-catalog
+- customer-data
 tags_raw:
 - cannabis
 - point-of-sale
@@ -59,6 +59,14 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Cannabis
+  - Point-of-Sale
+  - Dispensary
+  - Inventory Management
+  - Track and Trace
+  - Metrc
+  - Customer Data
+  tags_raw:
   - Cannabis
   - Point of Sale
   - Dispensary
@@ -94,6 +102,11 @@ apis:
   - Cannabis
   - Product Catalog
   - Retail
+  - E-Commerce
+  tags_raw:
+  - Cannabis
+  - Product Catalog
+  - Retail
   - Ecommerce
   properties:
   - type: OpenAPI
@@ -115,6 +128,10 @@ apis:
   tags:
   - Cannabis
   - Retail
+  - Point-of-Sale
+  tags_raw:
+  - Cannabis
+  - Retail
   - Point of Sale
   properties:
   - type: OpenAPI
@@ -130,6 +147,10 @@ apis:
   humanURL: https://code.treez.io/reference/service-collection
   baseURL: https://api-prod.treez.io/service/collection
   tags:
+  - Cannabis
+  - Product Catalog
+  - E-Commerce
+  tags_raw:
   - Cannabis
   - Product Catalog
   - Ecommerce
@@ -186,6 +207,10 @@ apis:
   humanURL: https://code.treez.io/docs/available-endpoints
   baseURL: https://api.treez.io/v2.0/dispensary
   tags:
+  - Cannabis
+  - Product Catalog
+  - Point-of-Sale
+  tags_raw:
   - Cannabis
   - Product Catalog
   - Point of Sale
