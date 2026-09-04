@@ -14,6 +14,21 @@ description: >-
   those definitions. Authentication is a self-signed RSA JWT with a 30-second TTL; access requires
   a partner application, an MNDA and API Usage Agreement, sandbox development and certification
   before a mutual customer can request a production key.
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source:
+  - authentication
+  - rate-limits
+  - security
+  - sandbox
+  generated: '2026-09-03'
+  method: derived
 image: https://images.prismic.io/treez/95e82f5a-f0d3-46e9-a4f0-a1fc774a1e79_Treez_Solful_DSC02615+1.jpg?auto=compress,format
 url: https://raw.githubusercontent.com/api-evangelist/treez/refs/heads/main/apis.yml
 x-type: company
