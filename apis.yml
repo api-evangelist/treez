@@ -63,188 +63,13 @@ tags_raw:
 - product-catalog
 - customer-data
 apis:
-- name: Treez Dispensary API v3
-  description: >-
-    Per-dispensary POS surface exposing the functionality of an individual Treez retail
-    instance - customer records and check-in queue, tickets/orders with a non-committing preview,
-    product and stock reads, inventory adjustment/move/merge, lab results, purchase invoices,
-    distributors and vendor credits, and METRC package sync for state track-and-trace. 65
-    operations. Addressed as /dispensary/v3/{dispensary_name}, where the tenant slug is the
-    subdomain of the customer's own <tenant>.treez.io URL.
-  humanURL: https://code.treez.io/reference/treez-api
-  baseURL: https://api-prod.treez.io/dispensary/v3
-  tags:
-  - Cannabis
-  - Point-of-Sale
-  - Dispensary
-  - Inventory Management
-  - Track and Trace
-  - Metrc
-  - Customer Data
-  tags_raw:
-  - Cannabis
-  - Point of Sale
-  - Dispensary
-  - Inventory Management
-  - Track and Trace
-  - METRC
-  - Customer Data
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-dispensary-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/reference/treez-api
-  - type: APIReference
-    url: https://code.treez.io/reference
-  - type: Overlay
-    url: overlays/treez-dispensary-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/treez-problem-types.yml
-  - type: DataModel
-    url: data-model/treez-data-model.yml
-  - type: Authentication
-    url: authentication/treez-authentication.yml
-- name: Treez Catalog Service API
-  description: >-
-    Organization-level central product catalog spanning every store an organization operates -
-    products, SKUs/variants, brands, attributes and attribute categories, global and custom
-    subcategories with per-organization exclusions, a three-step pre-signed product image upload,
-    price tiers, per-store prices and store (entity) lookup. 34 operations. Scope is carried in
-    the JWT oid claim rather than the path.
-  humanURL: https://code.treez.io/reference/catalog
-  baseURL: https://api-prod.treez.io/service/catalog
-  tags:
-  - Cannabis
-  - Product Catalog
-  - Retail
-  - E-Commerce
-  tags_raw:
-  - Cannabis
-  - Product Catalog
-  - Retail
-  - Ecommerce
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-catalog-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/reference/catalog
-  - type: Overlay
-    url: overlays/treez-catalog-overlay.yaml
-  - type: DataModel
-    url: data-model/treez-data-model.yml
-  - type: Authentication
-    url: authentication/treez-authentication.yml
-- name: Treez Discount Service API
-  description: >-
-    Treez central discount service - create, read, update and delete organization-level discounts
-    that apply across the stores in an organization. 6 operations.
-  humanURL: https://code.treez.io/reference/service-discount
-  baseURL: https://api-prod.treez.io/service/discount
-  tags:
-  - Cannabis
-  - Retail
-  - Point-of-Sale
-  tags_raw:
-  - Cannabis
-  - Retail
-  - Point of Sale
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-discount-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/reference/service-discount
-  - type: Overlay
-    url: overlays/treez-discount-overlay.yaml
-- name: Treez Collection Service API
-  description: >-
-    Organization-level product collections used to group products for merchandising, with product
-    list retrieval per collection. 5 operations.
-  humanURL: https://code.treez.io/reference/service-collection
-  baseURL: https://api-prod.treez.io/service/collection
-  tags:
-  - Cannabis
-  - Product Catalog
-  - E-Commerce
-  tags_raw:
-  - Cannabis
-  - Product Catalog
-  - Ecommerce
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-collections-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/reference/service-collection
-  - type: Overlay
-    url: overlays/treez-collections-overlay.yaml
-- name: Treez Tag Service API
-  description: >-
-    Organization-level tag groups and the tags within them - read all groups, read one group,
-    create and update tags. 5 operations.
-  humanURL: https://code.treez.io/reference/service-tags
-  baseURL: https://api-prod.treez.io/service/tag-group
-  tags:
-  - Cannabis
-  - Product Catalog
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-tag-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/reference/service-tags
-  - type: Overlay
-    url: overlays/treez-tag-overlay.yaml
-- name: Treez JWT Validation Service
-  description: >-
-    Validates a self-signed JWT and returns the organizations, dispensaries and endpoints the
-    signing certificate has been granted access to. The onboarding self-check for the v3 auth
-    scheme. 2 operations.
-  humanURL: https://code.treez.io/reference/jwt-test
-  baseURL: https://api-prod.treez.io/service
-  tags:
-  - Cannabis
-  - Compliance
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-jwt-check-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/reference/jwt-test
-  - type: Authentication
-    url: authentication/treez-authentication.yml
-  - type: Overlay
-    url: overlays/treez-jwt-check-overlay.yaml
-- name: Treez Legacy SellTreez v2.0 Product API
-  description: >-
-    Legacy v2.0 product surface - list products with rich filters, list products by last-updated,
-    read a product by id, read product fields by category type, create and update products, and
-    upload a product image. 7 operations. Superseded by the v3 dispensary and catalog surfaces but
-    still published, still documented under the portal's "Legacy v2 Docs" version selector, and
-    still named in the RFC 9727 API Catalog. Uses the older client-ID plus per-location API key
-    Authorization API rather than the v3 self-signed JWT.
-  humanURL: https://code.treez.io/docs/available-endpoints
-  baseURL: https://api.treez.io/v2.0/dispensary
-  tags:
-  - Cannabis
-  - Product Catalog
-  - Point-of-Sale
-  tags_raw:
-  - Cannabis
-  - Product Catalog
-  - Point of Sale
-  properties:
-  - type: OpenAPI
-    url: openapi/treez-product-api-openapi.json
-  - type: Documentation
-    url: https://code.treez.io/docs/available-endpoints
-  - type: Authentication
-    url: authentication/treez-authentication.yml
-  - type: Overlay
-    url: overlays/treez-product-api-overlay.yaml
 - name: Treez Documentation MCP Server
   description: >-
-    Live, anonymous, remote MCP endpoint served on Treez's own developer-documentation host. The
-    ReadMe-generated documentation server - initialize returns serverInfo "Treez API
-    Documentation" 3.1.0 and tools/list returns five tools over the seven published Treez OpenAPI
-    definitions: four read-only discovery tools plus execute-request, which issues the described
-    HTTP call. The caller supplies their own self-signed JWT; the server holds no Treez credential.
+    Live, anonymous, remote MCP endpoint served on Treez's own developer-documentation host. The ReadMe-generated
+    documentation server - initialize returns serverInfo "Treez API Documentation" 3.1.0 and tools/list
+    returns five tools over the seven published Treez OpenAPI definitions: four read-only discovery tools
+    plus execute-request, which issues the described HTTP call. The caller supplies their own self-signed
+    JWT; the server holds no Treez credential.
   humanURL: https://code.treez.io/reference
   baseURL: https://code.treez.io/mcp
   tags:
@@ -258,7 +83,1206 @@ apis:
     url: https://code.treez.io/mcp
   - type: ToolCrosswalk
     url: mcp/treez-tool-crosswalk.yml
+- aid: treez:treez-attachment-api
+  name: Treez Attachment API
+  description: The Attachment API from Treez — 1 operation(s) for attachment.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Attachment
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-attachment-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-attribute-api
+  name: Treez Attribute API
+  description: The Attribute API from Treez — 1 operation(s) for attribute.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Attribute
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-attribute-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-attributecategory-api
+  name: Treez Attributecategory API
+  description: The Attributecategory API from Treez — 1 operation(s) for attributecategory.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Attributecategory
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-attributecategory-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-brand-api
+  name: Treez Brand API
+  description: The Brand API from Treez — 1 operation(s) for brand.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Brand
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-brand-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-collections-api
+  name: Treez Collections API
+  description: The Collections API from Treez — 2 operation(s) for collections.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-collections-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-custom-subcategory-api
+  name: Treez Custom Subcategory API
+  description: The Custom Subcategory API from Treez — 1 operation(s) for custom subcategory.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Custom Subcategory
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-custom-subcategory-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-customer-api
+  name: Treez Customer API
+  description: The Customer API from Treez — 14 operation(s) for customer.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Customer
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-customer-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-discount-api
+  name: Treez Discount API
+  description: The Discount API from Treez — 3 operation(s) for discount.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Discount
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-discount-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-distributor-api
+  name: Treez Distributor API
+  description: The Distributor API from Treez — 3 operation(s) for distributor.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Distributor
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-distributor-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-entity-price-api
+  name: Treez Entity Price API
+  description: The Entity Price API from Treez — 1 operation(s) for entity price.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Entity Price
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-entity-price-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-group-api
+  name: Treez Group API
+  description: The Group API from Treez — 2 operation(s) for group.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Group
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-group-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-imagedetail-api
+  name: Treez Image Detail API
+  description: The ImageDetail API from Treez — 1 operation(s) for imagedetail.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - ImageDetail
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-imagedetail-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-inventory-api
+  name: Treez Inventory API
+  description: The Inventory API from Treez — 9 operation(s) for inventory.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-invoice-api
+  name: Treez Invoice API
+  description: The Invoice API from Treez — 10 operation(s) for invoice.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Invoice
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-invoice-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-jwt-validation-api
+  name: Treez Jwt Validation API
+  description: The Jwt Validation API from Treez — 1 operation(s) for jwt validation.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Jwt Validation
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-jwt-validation-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-location-api
+  name: Treez Location API
+  description: The Location API from Treez — 1 operation(s) for location.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-location-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-new-endpoint-api
+  name: Treez New Endpoint API
+  description: The New Endpoint API from Treez — 1 operation(s) for new endpoint.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - New Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-new-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-organization-entity-api
+  name: Treez Organization Entity API
+  description: The Organization Entity API from Treez — 1 operation(s) for organization entity.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Organization Entity
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-organization-entity-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-packages-api
+  name: Treez Packages API
+  description: The Packages API from Treez — 1 operation(s) for packages.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Packages
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-packages-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-product-api-api
+  name: Treez Product API
+  description: The Product_API API from Treez — 7 operation(s) for product_api.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Product_API
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-api-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-product-api
+  name: Treez Product API
+  description: The Product API from Treez — 9 operation(s) for product.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Product
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-product-category-api
+  name: Treez Product Category API
+  description: The Product Category API from Treez — 1 operation(s) for product category.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Product Category
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-category-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-product-subcategory-api
+  name: Treez Product Subcategory API
+  description: The Product Subcategory API from Treez — 1 operation(s) for product subcategory.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Product Subcategory
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-subcategory-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-resolved-subcategory-api
+  name: Treez Resolved Subcategory API
+  description: The Resolved Subcategory API from Treez — 1 operation(s) for resolved subcategory.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Resolved Subcategory
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-resolved-subcategory-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-search-api
+  name: Treez Search API
+  description: The Search API from Treez — 1 operation(s) for search.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-search-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-sku-api
+  name: Treez Sku API
+  description: The Sku API from Treez — 1 operation(s) for sku.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Sku
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-sku-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-stock-api
+  name: Treez Stock API
+  description: The Stock API from Treez — 1 operation(s) for stock.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Stock
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-stock-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-subcategory-exclusion-1-1-api
+  name: Treez Subcategory Exclusion 1 1 API
+  description: >-
+    The Subcategory Exclusion 1 1 API from Treez — 1 operation(s) for subcategory exclusion 1 1.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Subcategory Exclusion 1 1
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-subcategory-exclusion-1-1-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-subcategory-exclusion-1-api
+  name: Treez Subcategory Exclusion 1 API
+  description: The Subcategory Exclusion 1 API from Treez — 1 operation(s) for subcategory exclusion 1.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Subcategory Exclusion 1
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-subcategory-exclusion-1-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-subcategory-exclusion-api
+  name: Treez Subcategory Exclusion API
+  description: The Subcategory Exclusion API from Treez — 1 operation(s) for subcategory exclusion.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Subcategory Exclusion
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-subcategory-exclusion-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-tag-api
+  name: Treez Tag API
+  description: The Tag API from Treez — 2 operation(s) for tag.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-tag-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-ticket-api
+  name: Treez Ticket API
+  description: The Ticket API from Treez — 11 operation(s) for ticket.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Ticket
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-ticket-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-tier-api
+  name: Treez Tier API
+  description: The Tier API from Treez — 1 operation(s) for tier.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Tier
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-tier-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-trace-api
+  name: Treez Trace API
+  description: The Trace API from Treez — 1 operation(s) for trace.
+  humanURL: https://code.treez.io/reference/treez-api
+  baseURL: https://api-prod.treez.io/dispensary/v3
+  tags:
+  - Trace
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-trace-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-payment-term-api
+  name: Treez Payment Term API
+  description: The Payment Term API from Treez — 1 operation(s) for payment term.
+  humanURL: https://code.treez.io/reference
+  baseURL: https://code.treez.io/mcp
+  tags:
+  - Payment Term
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-payment-term-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-product-attribute-api
+  name: Treez product attribute API
+  description: The product attribute API from Treez — 1 operation(s) for product attribute.
+  humanURL: https://code.treez.io/reference
+  baseURL: https://code.treez.io/mcp
+  tags:
+  - product attribute
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-attribute-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
+- aid: treez:treez-product-attributes-api
+  name: Treez Product Attributes API
+  description: The Product Attributes API from Treez — 1 operation(s) for product attributes.
+  humanURL: https://code.treez.io/reference
+  baseURL: https://code.treez.io/mcp
+  tags:
+  - Product Attributes
+  properties:
+  - type: OpenAPI
+    url: openapi/treez-product-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/treez-api
+  - type: APIReference
+    url: https://code.treez.io/reference
+  - type: ErrorCatalog
+    url: errors/treez-problem-types.yml
+  - type: DataModel
+    url: data-model/treez-data-model.yml
+  - type: Authentication
+    url: authentication/treez-authentication.yml
+  - type: Documentation
+    url: https://code.treez.io/reference/catalog
+  - type: Documentation
+    url: https://code.treez.io/reference/service-discount
+  - type: Documentation
+    url: https://code.treez.io/reference/service-collection
+  - type: Documentation
+    url: https://code.treez.io/reference/service-tags
+  - type: Documentation
+    url: https://code.treez.io/reference/jwt-test
+  - type: Documentation
+    url: https://code.treez.io/docs/available-endpoints
 common:
+- type: Overlay
+  url: overlays/treez-dispensary-overlay.yaml
+- type: Overlay
+  url: overlays/treez-catalog-overlay.yaml
+- type: Overlay
+  url: overlays/treez-discount-overlay.yaml
+- type: Overlay
+  url: overlays/treez-collections-overlay.yaml
+- type: Overlay
+  url: overlays/treez-tag-overlay.yaml
+- type: Overlay
+  url: overlays/treez-jwt-check-overlay.yaml
+- type: Overlay
+  url: overlays/treez-product-api-overlay.yaml
 - type: Website
   url: https://www.treez.io/
 - type: DeveloperPortal
