@@ -185,6 +185,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Brands
+  tags_raw:
   - Brand
   properties:
   - type: OpenAPI
@@ -217,6 +219,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -281,6 +285,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Customers
+  tags_raw:
   - Customer
   properties:
   - type: OpenAPI
@@ -313,6 +319,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Discounts
+  tags_raw:
   - Discount
   properties:
   - type: OpenAPI
@@ -505,6 +513,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Invoices
+  tags_raw:
   - Invoice
   properties:
   - type: OpenAPI
@@ -537,6 +547,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - JWT validation
+  tags_raw:
   - Jwt Validation
   properties:
   - type: OpenAPI
@@ -697,6 +709,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Product API
+  tags_raw:
   - Product_API
   properties:
   - type: OpenAPI
@@ -889,6 +903,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - SKU
+  tags_raw:
   - Sku
   properties:
   - type: OpenAPI
@@ -921,6 +937,8 @@ apis:
   humanURL: https://code.treez.io/reference/treez-api
   baseURL: https://api-prod.treez.io/dispensary/v3
   tags:
+  - Stocks
+  tags_raw:
   - Stock
   properties:
   - type: OpenAPI
