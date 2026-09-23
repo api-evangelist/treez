@@ -1,0 +1,84 @@
+openapi: 3.2.0
+info:
+  title: catalog Organization Entity API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: Organization Entity
+paths:
+  /v3/organization-entity:
+    get:
+      summary: Stores - Read
+      description: Returns all stores (entities) associated with an organization. Results are returned based on the organization `id` used to sign your JWT. Query parameters are not needed.
+      operationId: catalog-stores-read
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[\n    {\n        \"id\": \"3f482347-9340-4f03-8dd2-93c232955a13\",\n        \"createdAt\": \"2024-12-18T06:04:51.341Z\",\n        \"updatedAt\": \"2024-12-18T06:04:54.491Z\",\n        \"deletedAt\": null,\n        \"name\": \"PartnerSandbox4\",\n        \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\",\n        \"address\": {\n            \"id\": \"d98f5106-c9f5-4275-84d0-dc25fc1fd8b6\",\n            \"city\": null,\n            \"region\": null,\n            \"country\": null,\n            \"createdAt\": \"2024-12-18T06:04:51.341Z\",\n            \"deletedAt\": null,\n            \"updatedAt\": \"2024-12-18T06:04:51.341Z\",\n            \"postalCode\": null,\n            \"streetAddress1\": null,\n            \"streetAddress2\": null\n        }\n    },\n    {\n        \"id\": \"1b8e53d3-d810-455b-b287-e35a6555bde2\",\n        \"createdAt\": \"2024-12-05T06:24:02.290Z\",\n        \"updatedAt\": \"2025-10-13T22:18:42.157Z\",\n        \"deletedAt\": null,\n        \"name\": \"PartnerSandbox3\",\n        \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\",\n        \"address\": {\n            \"id\": \"5fd69683-b24e-4785-8e27-97359c59455a\",\n            \"city\": \"Hagerstown\",\n            \"region\": \"California\",\n            \"country\": null,\n            \"createdAt\": \"2024-12-05T06:24:02.290Z\",\n            \"deletedAt\": null,\n            \"updatedAt\": \"2025-10-13T22:18:39.288Z\",\n            \"postalCode\": \"21740\",\n            \"streetAddress1\": \"108 Western Maryland Parkway\",\n            \"streetAddress2\": null\n        }\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 3f482347-9340-4f03-8dd2-93c232955a13
+                    createdAt:
+                      type: string
+                      example: '2024-12-18T06:04:51.341Z'
+                    updatedAt:
+                      type: string
+                      example: '2024-12-18T06:04:54.491Z'
+                    deletedAt: {}
+                    name:
+                      type: string
+                      example: PartnerSandbox4
+                    organizationId:
+                      type: string
+                      example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    address:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: d98f5106-c9f5-4275-84d0-dc25fc1fd8b6
+                        city: {}
+                        region: {}
+                        country: {}
+                        createdAt:
+                          type: string
+                          example: '2024-12-18T06:04:51.341Z'
+                        deletedAt: {}
+                        updatedAt:
+                          type: string
+                          example: '2024-12-18T06:04:51.341Z'
+                        postalCode: {}
+                        streetAddress1: {}
+                        streetAddress2: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Organization Entity
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

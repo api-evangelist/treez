@@ -1,0 +1,468 @@
+openapi: 3.2.0
+info:
+  title: catalog Search API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: Search
+paths:
+  /v3/search:
+    post:
+      summary: Products - Search
+      description: ''
+      operationId: catalog-product-search
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+                  description: The keywords to be searched
+                filters:
+                  type: object
+                  properties:
+                    category:
+                      type: array
+                      description: '`id` GUID of the category.'
+                      items:
+                        type: string
+                    subCategory:
+                      type: array
+                      description: '`id` GUID of the sub-category.'
+                      items:
+                        type: string
+                    status:
+                      type: array
+                      description: 'Possible values: `draft`, `active`, `inactive`, `merged`'
+                      items:
+                        type: string
+                    brand:
+                      type: array
+                      description: The `id` GUID of the brand.
+                      items:
+                        type: string
+                    variantIds:
+                      type: array
+                      items:
+                        type: string
+                sort:
+                  type: object
+                  required:
+                  - key
+                  properties:
+                    key:
+                      type: string
+                      description: Sort criteria to be applied to results.
+                      enum:
+                      - productName
+                      - brandName
+                      - price
+                      - productSubCategoryName
+                      - productCategoryName
+                      - status
+                      - sku
+                      - lastUpdated
+                      - allSizes
+                      - classification
+                    isAscending:
+                      type: boolean
+                paging:
+                  type: object
+                  properties:
+                    pageNumber:
+                      type: integer
+                      description: Specifies which page number of results to return in the response. Page `0` is the first page.
+                      format: int32
+                    size:
+                      type: integer
+                      description: The number of results to return in the response
+                      format: int32
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    data:
+                    - productCategoryId: 6e73028e-3e8f-47e9-98b1-ef2b1b71a5bf
+                      productCategoryName: Edible
+                      productSubCategoryId: f6e25c9a-27f3-41a7-9037-b5e0c2f3e652
+                      productSubCategoryName: Gummy
+                      brandName: Camino
+                      productId: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                      productName: Super Mega Wicked Awesome Yum Yums
+                      brandId: 461fcf07-6e11-4c1e-943a-261c2956d695
+                      classification: Hybrid
+                      strain: null
+                      status: active
+                      pricingMethod: FLAT
+                      priceTierId: null
+                      priceTierLabel: null
+                      referenceIds: []
+                      lastUpdated: '2026-05-20T13:09:40.175Z'
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      variants:
+                      - id: a4915ab7-8044-486d-bae5-441369aaaff9
+                        name: Super Mega Wicked Awesome Yum Yums - 5 mg
+                        defaultPrices:
+                          base: 1000
+                        entityPrices: []
+                        status: active
+                        sku: null
+                        additionalSku: []
+                        details:
+                          totalMgThc: 5
+                          description: As the name says, these are even more awesome than their predecessor, Mega Wicked Awesome Yum Yums. Who'd have thought this was even possible? Putting this much awesomeness into a gummy is just absurd.
+                          useCustomName: false
+                          hideFromEcomMenu: false
+                          totalFlowerWeight: 0.006
+                        referenceIds:
+                        - sourceId: referenceValue1
+                          sourceName: referenceName1
+                        amount: 5
+                        uom: milligrams
+                        unitCount: 1
+                        merchandiseSize: null
+                        parentId: null
+                        updatedAt: '2026-04-28T19:20:36.283+00:00'
+                        images: null
+                        productId: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                        label: 5 mg
+                      - id: 99dd4a54-4095-42e4-987e-b23ad59d2ac3
+                        name: Super Mega Wicked Awesome Yum Yums - 10 mg
+                        defaultPrices:
+                          base: 2500
+                        entityPrices:
+                        - id: 961624eb-dd24-43b4-9954-90433803f62c
+                          entityName: PartnerSandbox4
+                          entityId: 3f482347-9340-4f03-8dd2-93c232955a13
+                          price: 2300
+                          pricingMethod: FLAT
+                          priceTierId: null
+                        status: active
+                        sku: a5tw
+                        additionalSku: []
+                        details:
+                          doses: 1
+                          menuTitle: Super Mega Wicked Awesome Yum Yums
+                          netWeight: 10
+                          cbdPerDose: 1
+                          thcPerDose: 10
+                          totalMgCbd: 1
+                          totalMgThc: 10
+                          description: As the name says, these are even more awesome than their predecessor, Mega Wicked Awesome Yum Yums. Who'd have thought this was even possible? Putting this much awesomeness into a gummy is just absurd.
+                          netWeightUom: MILLIGRAMS
+                          useCustomName: false
+                          hideFromEcomMenu: false
+                        referenceIds:
+                        - sourceId: '456789'
+                          sourceName: myReferenceId
+                        - sourceId: '654987654'
+                          sourceName: External ID
+                        amount: 10
+                        uom: milligrams
+                        unitCount: 1
+                        merchandiseSize: null
+                        parentId: null
+                        updatedAt: '2026-02-03T20:30:19.404+00:00'
+                        images:
+                        - id: a1b3bc93-333c-4f80-8150-9e236c71f8de
+                          name: null
+                          imageUrl: null
+                          order: 1
+                          imageId: d9f132ff-4a3d-420f-a740-d43a5f715b08
+                          description: null
+                        - id: f6644ead-2890-4d47-aabc-aca497fa1584
+                          name: null
+                          imageUrl: null
+                          order: 2
+                          imageId: bc606720-3e07-44b8-b21b-da099d6c019c
+                          description: null
+                        productId: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                        label: 10 mg
+                      - id: d9a0061a-5d32-4ecf-a7be-803bcc0fa321
+                        name: Super Mega Wicked Awesome Yum Yums - 10 mg - Promo
+                        defaultPrices:
+                          base: 5
+                        entityPrices: []
+                        status: active
+                        sku: null
+                        additionalSku: []
+                        details:
+                          doses: 1
+                          isPromo: true
+                          netWeight: 10
+                          cbdPerDose: 1
+                          thcPerDose: 10
+                          totalMgCbd: 1
+                          totalMgThc: 10
+                          description: As the name says, these are even more awesome than their predecessor, Mega Wicked Awesome Yum Yums. Who'd have thought this was even possible? Putting this much awesomeness into a gummy is just absurd.
+                          netWeightUom: MILLIGRAMS
+                          useCustomName: false
+                          hideFromEcomMenu: true
+                        referenceIds: []
+                        amount: 10
+                        uom: milligrams
+                        unitCount: 1
+                        merchandiseSize: null
+                        parentId: 99dd4a54-4095-42e4-987e-b23ad59d2ac3
+                        updatedAt: '2026-02-03T20:30:19.405+00:00'
+                        images:
+                        - id: 7618ccd7-c839-4b22-9f15-3352708266ae
+                          name: null
+                          imageUrl: null
+                          order: 1
+                          imageId: d9f132ff-4a3d-420f-a740-d43a5f715b08
+                          description: null
+                        - id: 758d35b9-6b23-4e95-9061-0c95a256644d
+                          name: null
+                          imageUrl: null
+                          order: 2
+                          imageId: bc606720-3e07-44b8-b21b-da099d6c019c
+                          description: null
+                        productId: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                        label: 10 mg - Promo
+                      - id: d0688962-79f8-4250-b2dc-fe173279a1fc
+                        name: Super Mega Wicked Awesome Yum Yums - 10 mg - Sample
+                        defaultPrices:
+                          base: 1
+                        entityPrices: []
+                        status: active
+                        sku: null
+                        additionalSku: []
+                        details:
+                          doses: 1
+                          isSample: true
+                          netWeight: 10
+                          cbdPerDose: 1
+                          thcPerDose: 10
+                          totalMgCbd: 1
+                          totalMgThc: 10
+                          description: As the name says, these are even more awesome than their predecessor, Mega Wicked Awesome Yum Yums. Who'd have thought this was even possible? Putting this much awesomeness into a gummy is just absurd.
+                          netWeightUom: MILLIGRAMS
+                          useCustomName: false
+                          hideFromEcomMenu: true
+                        referenceIds: []
+                        amount: 10
+                        uom: milligrams
+                        unitCount: 1
+                        merchandiseSize: null
+                        parentId: 99dd4a54-4095-42e4-987e-b23ad59d2ac3
+                        updatedAt: '2026-02-03T20:03:51.103+00:00'
+                        images:
+                        - id: 7c38d708-7d5e-4180-9bda-92ad6f25e3b7
+                          name: null
+                          imageUrl: null
+                          order: 1
+                          imageId: d9f132ff-4a3d-420f-a740-d43a5f715b08
+                          description: null
+                        - id: 295bf71f-09b4-4656-aecd-4ad12fb4dc9d
+                          name: null
+                          imageUrl: null
+                          order: 2
+                          imageId: bc606720-3e07-44b8-b21b-da099d6c019c
+                          description: null
+                        productId: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                        label: 10 mg - Sample
+                      allSizes: '4'
+                      minBasePrice: '1'
+                      hasEntityPrices: true
+                    totalRecords: 1
+                    page: 0
+                    pageSize: 5
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        productCategoryId:
+                          type: string
+                          example: 6e73028e-3e8f-47e9-98b1-ef2b1b71a5bf
+                        productCategoryName:
+                          type: string
+                          example: Edible
+                        productSubCategoryId:
+                          type: string
+                          example: f6e25c9a-27f3-41a7-9037-b5e0c2f3e652
+                        productSubCategoryName:
+                          type: string
+                          example: Gummy
+                        brandName:
+                          type: string
+                          example: Camino
+                        productId:
+                          type: string
+                          example: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                        productName:
+                          type: string
+                          example: Super Mega Wicked Awesome Yum Yums
+                        brandId:
+                          type: string
+                          example: 461fcf07-6e11-4c1e-943a-261c2956d695
+                        classification:
+                          type: string
+                          example: Hybrid
+                        strain: {}
+                        status:
+                          type: string
+                          example: active
+                        pricingMethod:
+                          type: string
+                          example: FLAT
+                        priceTierId: {}
+                        priceTierLabel: {}
+                        referenceIds:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        lastUpdated:
+                          type: string
+                          example: '2026-05-20T13:09:40.175Z'
+                        organizationId:
+                          type: string
+                          example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                        variants:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: a4915ab7-8044-486d-bae5-441369aaaff9
+                              name:
+                                type: string
+                                example: Super Mega Wicked Awesome Yum Yums - 5 mg
+                              defaultPrices:
+                                type: object
+                                properties:
+                                  base:
+                                    type: integer
+                                    example: 1000
+                                    default: 0
+                              entityPrices:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              status:
+                                type: string
+                                example: active
+                              sku: {}
+                              additionalSku:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              details:
+                                type: object
+                                properties:
+                                  totalMgThc:
+                                    type: integer
+                                    example: 5
+                                    default: 0
+                                  description:
+                                    type: string
+                                    example: As the name says, these are even more awesome than their predecessor, Mega Wicked Awesome Yum Yums. Who'd have thought this was even possible? Putting this much awesomeness into a gummy is just absurd.
+                                  useCustomName:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  hideFromEcomMenu:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  totalFlowerWeight:
+                                    type: number
+                                    example: 0.006
+                                    default: 0
+                              referenceIds:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    sourceId:
+                                      type: string
+                                      example: referenceValue1
+                                    sourceName:
+                                      type: string
+                                      example: referenceName1
+                              amount:
+                                type: integer
+                                example: 5
+                                default: 0
+                              uom:
+                                type: string
+                                example: milligrams
+                              unitCount:
+                                type: integer
+                                example: 1
+                                default: 0
+                              merchandiseSize: {}
+                              parentId: {}
+                              updatedAt:
+                                type: string
+                                example: '2026-04-28T19:20:36.283+00:00'
+                              images: {}
+                              productId:
+                                type: string
+                                example: 01da5dbd-4e45-44d5-a62e-0e349f221cff
+                              label:
+                                type: string
+                                example: 5 mg
+                        allSizes:
+                          type: string
+                          example: '4'
+                        minBasePrice:
+                          type: string
+                          example: '1'
+                        hasEntityPrices:
+                          type: boolean
+                          example: true
+                          default: true
+                  totalRecords:
+                    type: integer
+                    example: 1
+                    default: 0
+                  page:
+                    type: integer
+                    example: 0
+                    default: 0
+                  pageSize:
+                    type: integer
+                    example: 5
+                    default: 0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      parameters:
+      - in: query
+        name: param
+        schema:
+          type: string
+      tags:
+      - Search
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

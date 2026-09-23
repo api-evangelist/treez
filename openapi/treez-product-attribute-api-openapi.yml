@@ -1,0 +1,65 @@
+openapi: 3.2.0
+info:
+  title: catalog Productattribute API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: product attribute
+paths:
+  /v3/productattribute:
+    post:
+      summary: Attributes - Assign to Product
+      description: Adds existing attributes to a product.
+      operationId: catalog-attributes-assign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: array
+                  items:
+                    properties:
+                      attributeId:
+                        type: string
+                      productId:
+                        type: string
+                    required:
+                    - attributeId
+                    - productId
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - product attribute
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

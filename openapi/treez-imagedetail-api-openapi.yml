@@ -1,0 +1,71 @@
+openapi: 3.2.0
+info:
+  title: catalog Image Detail API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: ImageDetail
+paths:
+  /v3/imageDetail:
+    post:
+      summary: Link Image
+      description: This step links the uploaded images to a variant/sku.
+      operationId: catalog-image-link
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - imageId
+              properties:
+                imageId:
+                  type: string
+                  description: This is the `fileId` value that was returned in the response from the Create Pre-Signed URL endpoint
+                variantId:
+                  type: string
+                  description: Use for a SKU - the `id` of the SKU to which the image will be linked
+                order:
+                  type: integer
+                  description: The position of the image relative to any other images that may exist for the target product
+                  format: int32
+                name:
+                  type: string
+                  description: The name of the image
+                description:
+                  type: string
+                  description: The description of the image
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - ImageDetail
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

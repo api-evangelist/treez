@@ -1,0 +1,1002 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Collections API
+servers:
+- url: https://api-prod.treez.io/service/collection
+tags:
+- name: Collections
+paths:
+  /{ver}:
+    get:
+      description: ''
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    totalCount: 37
+                    data:
+                    - id: 6721f839-3595-4fe8-9dba-d3032b5f7c8c
+                      name: test-collection Discount 1
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2026-03-18T15:21:18.594Z'
+                      updatedAt: '2026-03-18T15:22:20.407Z'
+                      deletedAt: null
+                    - id: 0df6864c-99ec-4ed1-a1de-002925db2c53
+                      name: scotttest
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 6e73028e-3e8f-47e9-98b1-ef2b1b71a5bf
+                      createdAt: '2026-03-18T15:15:37.436Z'
+                      updatedAt: '2026-03-18T15:15:58.456Z'
+                      deletedAt: null
+                    - id: a30ff15d-44cf-4323-9013-423c4539b9ff
+                      name: Custom Test
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2026-03-18T14:53:30.528Z'
+                      updatedAt: '2026-03-18T14:53:30.528Z'
+                      deletedAt: null
+                    - id: 5308aec7-3827-44ac-92ee-73e6f41e186a
+                      name: Weedmaps
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-09-04T21:07:17.918Z'
+                      updatedAt: '2026-03-13T13:49:18.123Z'
+                      deletedAt: null
+                    - id: 0ac24f01-594e-418e-ae98-289be447c265
+                      name: Tropical Punch
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule: {}
+                      createdAt: '2025-12-30T14:07:41.587Z'
+                      updatedAt: '2026-03-12T12:12:25.572Z'
+                      deletedAt: null
+                    - id: a3ddf5c2-6b55-47ab-a20d-6815af598729
+                      name: Y2K
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2026-01-14T15:59:01.971Z'
+                      updatedAt: '2026-01-14T15:59:17.496Z'
+                      deletedAt: null
+                    - id: c08e8738-7a63-47f6-aac2-9160201c7972
+                      name: Extract
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - adfc3fde-a5ec-4bce-82b4-f82c3b3d646d
+                      createdAt: '2025-12-31T06:28:21.866Z'
+                      updatedAt: '2025-12-31T06:28:33.093Z'
+                      deletedAt: null
+                    - id: 387eac31-98f4-45c4-bd0f-3cb65d8a0af1
+                      name: BEVERAGE
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 96cfabcd-d951-4a1b-88a6-56c0601e269d
+                      createdAt: '2025-12-31T06:25:49.837Z'
+                      updatedAt: '2025-12-31T06:26:04.105Z'
+                      deletedAt: null
+                    - id: be2a0a9e-8fcf-447b-9b10-1832ac6ac2d7
+                      name: CARTRIDGE
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 47479cfd-c482-4077-98a1-6157097c3db7
+                      createdAt: '2025-12-31T06:14:23.836Z'
+                      updatedAt: '2025-12-31T06:14:35.430Z'
+                      deletedAt: null
+                    - id: ad8da9e1-adf2-411b-a279-9e514246e18e
+                      name: MERCH
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-09-18T05:07:46.423Z'
+                      updatedAt: '2025-12-31T06:02:51.529Z'
+                      deletedAt: null
+                    - id: 7145c4e6-7c9a-4bc4-8f93-064e9b0e487b
+                      name: New
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        brand:
+                        - 68b2d4ad-bb81-493e-a4d3-f602cf2782fe
+                      createdAt: '2025-12-30T22:27:42.291Z'
+                      updatedAt: '2025-12-30T22:34:17.963Z'
+                      deletedAt: null
+                    - id: 00770d9f-60ca-4e66-b73e-a160c3c639ea
+                      name: 'Chapos Churros test '
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        brand:
+                        - d53c3bcd-6b7d-43a4-b74d-4c98b029221a
+                      createdAt: '2025-12-30T13:54:23.541Z'
+                      updatedAt: '2025-12-30T13:55:54.510Z'
+                      deletedAt: null
+                    - id: 9d3c141a-8450-4b98-abfe-426c01fbc34a
+                      name: New Collection 1
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 47479cfd-c482-4077-98a1-6157097c3db7
+                      createdAt: '2025-12-30T08:19:45.160Z'
+                      updatedAt: '2025-12-30T08:20:17.001Z'
+                      deletedAt: null
+                    - id: 4b802254-2802-4329-93aa-6e56d5fc8266
+                      name: FnO Collection
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 96cfabcd-d951-4a1b-88a6-56c0601e269d
+                      createdAt: '2025-12-30T07:46:56.827Z'
+                      updatedAt: '2025-12-30T07:50:45.948Z'
+                      deletedAt: null
+                    - id: c0ba7050-57cc-4d69-90ba-f30697f3d403
+                      name: Preroll
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 39900cf2-a554-49f5-8992-f49e6e26404e
+                      createdAt: '2025-12-16T10:53:39.293Z'
+                      updatedAt: '2025-12-16T11:23:29.523Z'
+                      deletedAt: null
+                    - id: 9025054b-639b-4403-a511-22e81b395a01
+                      name: Flower And Edible
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-12-16T06:52:46.141Z'
+                      updatedAt: '2025-12-16T06:57:06.937Z'
+                      deletedAt: null
+                    - id: 38492d9f-8f1a-4b44-833d-f0dac5a32a44
+                      name: Medical
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - adfc3fde-a5ec-4bce-82b4-f82c3b3d646d
+                      createdAt: '2025-12-16T06:25:00.877Z'
+                      updatedAt: '2025-12-16T06:25:56.219Z'
+                      deletedAt: null
+                    - id: 1dbe6451-b7d5-4e57-ab06-c02448bba0f6
+                      name: Special discount
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - adfc3fde-a5ec-4bce-82b4-f82c3b3d646d
+                      createdAt: '2025-12-11T09:37:59.636Z'
+                      updatedAt: '2025-12-16T06:23:24.098Z'
+                      deletedAt: null
+                    - id: 72e594f8-fddd-45ce-9879-7c6b01f9ffeb
+                      name: Special product collection Extract
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - adfc3fde-a5ec-4bce-82b4-f82c3b3d646d
+                      createdAt: '2025-12-15T07:36:33.393Z'
+                      updatedAt: '2025-12-16T06:19:10.557Z'
+                      deletedAt: null
+                    - id: 97fb49f6-8fc3-43af-9066-d168de10acda
+                      name: Edible
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-11-27T12:30:36.531Z'
+                      updatedAt: '2025-12-12T06:34:53.639Z'
+                      deletedAt: null
+                    - id: 430c9808-605d-411a-845f-3a1686c3380b
+                      name: budsense collection - bb tier sales
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-10-07T19:29:13.267Z'
+                      updatedAt: '2025-11-27T13:17:59.580Z'
+                      deletedAt: null
+                    - id: be0d4595-1a7f-46b6-a7a4-8849aafaca60
+                      name: WM Weekday Test
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule: {}
+                      createdAt: '2025-10-17T14:39:09.252Z'
+                      updatedAt: '2025-11-10T15:58:03.008Z'
+                      deletedAt: null
+                    - id: fdae726e-4319-40c6-b577-75d9afe3ef4c
+                      name: WM Annual Test
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-11-06T14:27:37.781Z'
+                      updatedAt: '2025-11-06T14:28:16.954Z'
+                      deletedAt: null
+                    - id: c6020b28-f6ab-4214-a721-d78cefc60619
+                      name: Day Of Month Test
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-11-03T17:20:02.330Z'
+                      updatedAt: '2025-11-03T17:23:59.130Z'
+                      deletedAt: null
+                    - id: 8425f04f-eb17-4b61-b2a4-9ec0b7d4cde8
+                      name: ST Global Collection 2025-11
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule: {}
+                      createdAt: '2025-11-03T15:22:56.026Z'
+                      updatedAt: '2025-11-03T15:22:56.026Z'
+                      deletedAt: null
+                    - id: f3d2b0db-fc47-4bd1-931c-a331885fd17d
+                      name: ST Test Collection 2025-01
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-01-16T15:27:14.781Z'
+                      updatedAt: '2025-10-31T12:53:50.246Z'
+                      deletedAt: null
+                    - id: 218f8929-f432-45ce-8126-ba295f7bc555
+                      name: WM Weed Discount BAD
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-10-30T20:35:58.114Z'
+                      updatedAt: '2025-10-30T20:36:13.918Z'
+                      deletedAt: null
+                    - id: f6a192e6-c005-4f39-970a-a205305f6720
+                      name: Beverages
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule: {}
+                      createdAt: '2025-08-28T17:11:56.051Z'
+                      updatedAt: '2025-08-28T17:11:56.051Z'
+                      deletedAt: null
+                    - id: 463ee560-b0cb-4b1e-948f-98a2750a11c1
+                      name: Chase Test 2
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-08-28T17:11:22.531Z'
+                      updatedAt: '2025-08-28T17:11:35.321Z'
+                      deletedAt: null
+                    - id: 30d4653f-c080-4853-b68e-fdcd0177c6ad
+                      name: Chase Test
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-08-28T17:11:09.323Z'
+                      updatedAt: '2025-08-28T17:11:09.323Z'
+                      deletedAt: null
+                    - id: 0507fbc7-1151-4b7e-a9f4-1a1dc07640fb
+                      name: 'WEEKEND SPECIAL: 25% OFF ALL EDIBLES!'
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 6e73028e-3e8f-47e9-98b1-ef2b1b71a5bf
+                      createdAt: '2025-06-04T04:02:07.467Z'
+                      updatedAt: '2025-06-04T04:02:07.467Z'
+                      deletedAt: null
+                    - id: 384271f3-b970-4fb4-98a2-792f5c63b0c1
+                      name: WYLD Weekend
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-06-04T02:17:12.834Z'
+                      updatedAt: '2025-06-04T02:17:12.834Z'
+                      deletedAt: null
+                    - id: d9ab4b22-4cbb-490c-83f2-238f2bbad6a4
+                      name: toto the apricot
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 6e73028e-3e8f-47e9-98b1-ef2b1b71a5bf
+                      createdAt: '2025-06-02T22:05:16.197Z'
+                      updatedAt: '2025-06-02T22:05:16.197Z'
+                      deletedAt: null
+                    - id: 56d74d40-4e77-42a0-a327-3b14d406b676
+                      name: maxime-manual
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-06-02T19:23:42.228Z'
+                      updatedAt: '2025-06-02T19:23:42.228Z'
+                      deletedAt: null
+                    - id: f5addc59-b6e2-4298-83fd-690dd6d776ad
+                      name: maxime-auto-pc
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 96cfabcd-d951-4a1b-88a6-56c0601e269d
+                      createdAt: '2025-06-02T19:18:49.446Z'
+                      updatedAt: '2025-06-02T19:18:53.962Z'
+                      deletedAt: null
+                    - id: 5da2bd94-5a00-4668-a941-5f3532b82854
+                      name: PILL
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: true
+                      rule:
+                        category:
+                        - 8d156ef2-c522-4f43-ab67-b4d15144bb68
+                      createdAt: '2025-03-31T12:36:49.353Z'
+                      updatedAt: '2025-03-31T12:37:20.157Z'
+                      deletedAt: null
+                    - id: 14fdc3d0-db04-473b-a562-9207106429e0
+                      name: test
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      sync: false
+                      rule: null
+                      createdAt: '2025-01-09T06:57:43.247Z'
+                      updatedAt: '2025-01-13T14:32:44.422Z'
+                      deletedAt: null
+              schema:
+                type: object
+                properties:
+                  totalCount:
+                    type: integer
+                    example: 37
+                    default: 0
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 6721f839-3595-4fe8-9dba-d3032b5f7c8c
+                        name:
+                          type: string
+                          example: test-collection Discount 1
+                        organizationId:
+                          type: string
+                          example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                        sync:
+                          type: boolean
+                          example: false
+                          default: true
+                          description: '`true` for Automated Collections, `false` for Manual Collections'
+                        rule:
+                          type: object
+                          properties: {}
+                        createdAt:
+                          type: string
+                          example: '2026-03-18T15:21:18.594Z'
+                        updatedAt:
+                          type: string
+                          example: '2026-03-18T15:22:20.407Z'
+                        deletedAt:
+                          type: string
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      operationId: get_ver
+      tags:
+      - Collections
+      summary: Get ver
+      x-summary-source: derived
+    post:
+      description: ''
+      responses:
+        '202':
+          description: ''
+          content:
+            application/json:
+              examples:
+                Accepted:
+                  summary: Accepted
+                  value:
+                    id: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                    name: Prime Flower
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    sync: true
+                    rule:
+                      skuType:
+                      - baseSKU
+                      attr_ingredients:
+                      - a953f605-fe23-4a53-af5a-a814b20caf6d
+                      attr_internaltags:
+                      - c3dfbbff-d3f0-4679-8e0f-77738889e765
+                    createdAt: '2026-03-20T12:47:31.574Z'
+                    updatedAt: '2026-03-20T15:22:58.083Z'
+                    deletedAt: null
+                    collectionItems:
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: a4915ab7-8044-486d-bae5-441369aaaff9
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: 99dd4a54-4095-42e4-987e-b23ad59d2ac3
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: 8f05934a-6a7c-47ff-ab4f-026d0f98af3b
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                  name:
+                    type: string
+                    example: Prime Flower
+                  organizationId:
+                    type: string
+                    example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                  sync:
+                    type: boolean
+                    example: true
+                    default: 'false'
+                    description: '`true` for Automated Collections, `false` for Manual Collections'
+                  rule:
+                    type: object
+                    properties:
+                      skuType:
+                        type: array
+                        items:
+                          type: string
+                          example: baseSKU
+                      attr_ingredients:
+                        type: array
+                        items:
+                          type: string
+                          example: a953f605-fe23-4a53-af5a-a814b20caf6d
+                      attr_internaltags:
+                        type: array
+                        items:
+                          type: string
+                          example: c3dfbbff-d3f0-4679-8e0f-77738889e765
+                      category:
+                        type: array
+                        items:
+                          type: string
+                      attr_effects:
+                        type: array
+                        items:
+                          type: string
+                      attr_flavor:
+                        type: array
+                        items:
+                          type: string
+                      attr_general:
+                        type: array
+                        items:
+                          type: string
+                      brand:
+                        type: array
+                        items:
+                          type: string
+                      subCategory:
+                        type: array
+                        items:
+                          type: string
+                      amount:
+                        type: array
+                        items:
+                          type: string
+                  createdAt:
+                    type: string
+                    example: '2026-03-20T12:47:31.574Z'
+                  updatedAt:
+                    type: string
+                    example: '2026-03-20T15:22:58.083Z'
+                  deletedAt:
+                    type: string
+                  collectionItems:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        collectionId:
+                          type: string
+                          example: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                        variantId:
+                          type: string
+                          example: a4915ab7-8044-486d-bae5-441369aaaff9
+                        isExclude:
+                          type: boolean
+                          example: true
+                          default: true
+                        createdAt:
+                          type: string
+                          example: '2026-03-20T15:22:11.074Z'
+                        updatedAt:
+                          type: string
+                          example: '2026-03-20T15:22:58.083Z'
+                        deletedAt:
+                          type: string
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      summary: Collection - Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                sync:
+                  type: boolean
+                  description: '`true` for Automated Collections, `false` for Manual Collections'
+                  default: 'false'
+                collectionItems:
+                  type: array
+                  items:
+                    properties:
+                      variantId:
+                        type: string
+                      isExclude:
+                        type: boolean
+                        description: Use with an automated collection to exclude a product
+                    type: object
+                rule:
+                  type: object
+                  properties:
+                    category:
+                      type: array
+                      items:
+                        type: string
+                    brand:
+                      type: array
+                      items:
+                        type: string
+                    amount:
+                      type: array
+                      items:
+                        type: string
+                      description: 'Include Qty and UOM - e.g. `3.5 GRAMS`
+
+                        Accepted UOM values: `FLUID OUNCES`, `GRAMS`, `LITERS`, `MILLIGRAMS`, `MILLILITERS`, `OUNCES`, `EACH`'
+                    classification:
+                      type: array
+                      items:
+                        type: string
+                    attr_general:
+                      type: array
+                      items:
+                        type: string
+                    attr_effects:
+                      type: array
+                      items:
+                        type: string
+                    attr_flavor:
+                      type: array
+                      items:
+                        type: string
+                    attr_ingredients:
+                      type: array
+                      items:
+                        type: string
+                    attr_internaltags:
+                      type: array
+                      items:
+                        type: string
+                    skuType:
+                      type: array
+                      items:
+                        type: string
+                    subCategory:
+                      type: array
+                      items:
+                        type: string
+              required:
+              - name
+      operationId: post_ver
+      tags:
+      - Collections
+  /{ver}/{id}:
+    get:
+      description: ''
+      responses:
+        '200':
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    id: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                    name: test_automated
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    sync: true
+                    rule:
+                      skuType:
+                      - baseSKU
+                      attr_ingredients:
+                      - a953f605-fe23-4a53-af5a-a814b20caf6d
+                      attr_internaltags:
+                      - c3dfbbff-d3f0-4679-8e0f-77738889e765
+                    createdAt: '2026-03-20T12:47:31.574Z'
+                    updatedAt: '2026-03-20T15:22:58.083Z'
+                    deletedAt: null
+                    collectionItems:
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: 8f05934a-6a7c-47ff-ab4f-026d0f98af3b
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: 99dd4a54-4095-42e4-987e-b23ad59d2ac3
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: a4915ab7-8044-486d-bae5-441369aaaff9
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                  name:
+                    type: string
+                    example: test_automated
+                  organizationId:
+                    type: string
+                    example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                  sync:
+                    type: boolean
+                    example: true
+                    default: 'false'
+                    description: '`true` for Automated Collections, `false` for Manual Collections'
+                  rule:
+                    type: object
+                    properties:
+                      skuType:
+                        type: array
+                        items:
+                          type: string
+                          example: baseSKU
+                      attr_ingredients:
+                        type: array
+                        items:
+                          type: string
+                          example: a953f605-fe23-4a53-af5a-a814b20caf6d
+                      attr_internaltags:
+                        type: array
+                        items:
+                          type: string
+                          example: c3dfbbff-d3f0-4679-8e0f-77738889e765
+                      category:
+                        type: array
+                        items:
+                          type: string
+                      attr_effects:
+                        type: array
+                        items:
+                          type: string
+                      attr_flavor:
+                        type: array
+                        items:
+                          type: string
+                      attr_general:
+                        type: array
+                        items:
+                          type: string
+                      brand:
+                        type: array
+                        items:
+                          type: string
+                      subCategory:
+                        type: array
+                        items:
+                          type: string
+                  createdAt:
+                    type: string
+                    example: '2026-03-20T12:47:31.574Z'
+                  updatedAt:
+                    type: string
+                    example: '2026-03-20T15:22:58.083Z'
+                  deletedAt:
+                    type: string
+                  collectionItems:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        collectionId:
+                          type: string
+                          example: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                        variantId:
+                          type: string
+                          example: 8f05934a-6a7c-47ff-ab4f-026d0f98af3b
+                        isExclude:
+                          type: boolean
+                          example: true
+                          default: true
+                        createdAt:
+                          type: string
+                          example: '2026-03-20T15:22:11.074Z'
+                        updatedAt:
+                          type: string
+                          example: '2026-03-20T15:22:58.083Z'
+                        deletedAt:
+                          type: string
+          description: OK
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      summary: Copy of
+      operationId: get_ver-id
+      tags:
+      - Collections
+    put:
+      description: ''
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                  name:
+                    type: string
+                    example: Prime Flower
+                  organizationId:
+                    type: string
+                    example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                  sync:
+                    type: boolean
+                    example: true
+                    default: true
+                  rule:
+                    type: object
+                    properties:
+                      skuType:
+                        type: array
+                        items:
+                          type: string
+                          example: baseSKU
+                      attr_ingredients:
+                        type: array
+                        items:
+                          type: string
+                          example: a953f605-fe23-4a53-af5a-a814b20caf6d
+                      attr_internaltags:
+                        type: array
+                        items:
+                          type: string
+                          example: c3dfbbff-d3f0-4679-8e0f-77738889e765
+                      category:
+                        type: array
+                        items:
+                          type: string
+                      attr_effects:
+                        type: array
+                        items:
+                          type: string
+                      attr_flavor:
+                        type: array
+                        items:
+                          type: string
+                      attr_general:
+                        type: array
+                        items:
+                          type: string
+                      brand:
+                        type: array
+                        items:
+                          type: string
+                      subCategory:
+                        type: array
+                        items:
+                          type: string
+                      amount:
+                        type: array
+                        items:
+                          type: string
+                  createdAt:
+                    type: string
+                    example: '2026-03-20T12:47:31.574Z'
+                  updatedAt:
+                    type: string
+                    example: '2026-03-20T15:22:58.083Z'
+                  deletedAt:
+                    type: string
+                  collectionItems:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        collectionId:
+                          type: string
+                          example: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                        variantId:
+                          type: string
+                          example: a4915ab7-8044-486d-bae5-441369aaaff9
+                        isExclude:
+                          type: boolean
+                          example: true
+                          default: true
+                        createdAt:
+                          type: string
+                          example: '2026-03-20T15:22:11.074Z'
+                        updatedAt:
+                          type: string
+                          example: '2026-03-20T15:22:58.083Z'
+                        deletedAt: {}
+              examples:
+                Accepted:
+                  summary: Accepted
+                  value:
+                    id: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                    name: Prime Flower
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    sync: true
+                    rule:
+                      skuType:
+                      - baseSKU
+                      attr_ingredients:
+                      - a953f605-fe23-4a53-af5a-a814b20caf6d
+                      attr_internaltags:
+                      - c3dfbbff-d3f0-4679-8e0f-77738889e765
+                    createdAt: '2026-03-20T12:47:31.574Z'
+                    updatedAt: '2026-03-20T15:22:58.083Z'
+                    deletedAt: null
+                    collectionItems:
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: a4915ab7-8044-486d-bae5-441369aaaff9
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: 99dd4a54-4095-42e4-987e-b23ad59d2ac3
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+                    - collectionId: 58d6be61-9c53-4c62-b970-1aa5707c5700
+                      variantId: 8f05934a-6a7c-47ff-ab4f-026d0f98af3b
+                      isExclude: true
+                      createdAt: '2026-03-20T15:22:11.074Z'
+                      updatedAt: '2026-03-20T15:22:58.083Z'
+                      deletedAt: null
+          description: Accepted
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      summary: Collection - Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                collectionItems:
+                  type: array
+                  items:
+                    properties:
+                      variantId:
+                        type: string
+                      isExclude:
+                        type: boolean
+                        description: Use with an automated collection to exclude a product
+                    type: object
+                sync:
+                  type: boolean
+                  description: '`true` for Automated Collections, `false` for Manual Collections'
+                rule:
+                  type: object
+                  properties:
+                    category:
+                      type: array
+                      items:
+                        type: string
+                    subCategory:
+                      type: array
+                      items:
+                        type: string
+                    brand:
+                      type: array
+                      items:
+                        type: string
+                    amount:
+                      type: array
+                      items:
+                        type: string
+                      description: 'Include Qty and UOM - e.g. `3.5 GRAMS`
+
+                        Accepted UOM values: `FLUID OUNCES`, `GRAMS`, `LITERS`, `MILLIGRAMS`, `MILLILITERS`, `OUNCES`, `EACH`'
+                    classification:
+                      type: array
+                      items:
+                        type: string
+                    attr_general:
+                      type: array
+                      items:
+                        type: string
+                    attr_effects:
+                      type: array
+                      items:
+                        type: string
+                    attr_flavor:
+                      type: array
+                      items:
+                        type: string
+                    attr_ingredients:
+                      type: array
+                      items:
+                        type: string
+                    attr_internaltags:
+                      type: array
+                      items:
+                        type: string
+                    skuType:
+                      type: array
+                      items:
+                        type: string
+              required:
+              - name
+      operationId: put_ver-id
+      tags:
+      - Collections
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true

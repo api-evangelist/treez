@@ -1,0 +1,218 @@
+openapi: 3.2.0
+info:
+  title: catalog Resolved Subcategory API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: Resolved Subcategory
+paths:
+  /{ver}/resolved-subcategory:
+    get:
+      summary: Subcategories - Resolved
+      description: 'Returns the organization''s effective subcategory set: every custom subcategory the org has created, unioned with every global (canonical) subcategory. Each row is tagged `type: custom | canonical` and carries `isExcluded`, `isShadowed`, and the `shownInProductDropdown` rollup. With no parameters only rows where `shownInProductDropdown` is `true` are returned, which is the set a product picker should offer. Use `id + type` from this response when assigning a subcategory on product create/update: `customSubCategoryId` for custom rows, `productSubCategoryId` for canonical rows.'
+      operationId: catalog-categories-read-1-1
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+        description: ''
+      - in: query
+        name: productCategoryId
+        schema:
+          type: string
+        description: Scope the list to one product category. Required when `includeProductCounts` is `true`.
+      - in: query
+        name: includeShadowed
+        schema:
+          type: boolean
+        description: Also return rows hidden from the picker (canonicals that are shadowed by a custom, and excluded canonicals).
+      - in: query
+        name: includeProductCounts
+        schema:
+          type: boolean
+        description: Add `productCount` (direct assignments only) to each row. Requires `productCategoryId`.
+      - in: query
+        name: includeDeleted
+        schema:
+          type: boolean
+        description: 'Also return soft-deleted custom subcategories as display-only rows flagged `deleted: true`, so a stored id can still be labelled.'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - id: c1f4a6d2-3b7e-4c1a-9e2f-5d8b7a6c4e10
+                    type: custom
+                    displayName: Disposable
+                    productSubCategoryId: a5940bac-4853-46ed-aa04-a6d7eb271623
+                    canonicalSubCategoryName: All In One
+                    productCategoryId: 8b0d2c4e-6f1a-4b3c-9d7e-2a5f8c1b4d60
+                    productCategoryName: Cartridge
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    isExcluded: false
+                    isShadowed: false
+                    shownInProductDropdown: true
+                    isBulk: false
+                  - id: a5940bac-4853-46ed-aa04-a6d7eb271623
+                    type: canonical
+                    displayName: All In One
+                    productSubCategoryId: a5940bac-4853-46ed-aa04-a6d7eb271623
+                    canonicalSubCategoryName: All In One
+                    productCategoryId: 8b0d2c4e-6f1a-4b3c-9d7e-2a5f8c1b4d60
+                    productCategoryName: Cartridge
+                    organizationId: null
+                    isExcluded: false
+                    isShadowed: true
+                    shownInProductDropdown: false
+                    isBulk: false
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: c1f4a6d2-3b7e-4c1a-9e2f-5d8b7a6c4e10
+                    type:
+                      type: string
+                      example: custom
+                    displayName:
+                      type: string
+                      example: Disposable
+                    productSubCategoryId:
+                      type: string
+                      example: a5940bac-4853-46ed-aa04-a6d7eb271623
+                    canonicalSubCategoryName:
+                      type: string
+                      example: All In One
+                    productCategoryId:
+                      type: string
+                      example: 8b0d2c4e-6f1a-4b3c-9d7e-2a5f8c1b4d60
+                    productCategoryName:
+                      type: string
+                      example: Cartridge
+                    organizationId:
+                      type: string
+                      example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    isExcluded:
+                      type: boolean
+                      example: false
+                      default: true
+                    isShadowed:
+                      type: boolean
+                      example: false
+                      default: true
+                    shownInProductDropdown:
+                      type: boolean
+                      example: true
+                      default: true
+                    isBulk:
+                      type: boolean
+                      example: false
+                      default: true
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    message: Event Schema Validation Failed
+                    errorType: Validation
+                    errorMsgs:
+                    - '"productSubCategoryId" must be a valid GUID'
+                    - '"productSubCategoryId" must be a valid GUID'
+                    failed:
+                    - entity:
+                        key_0: 4708.6358186846
+                      errors:
+                      - string
+                      - string
+                      errorDetails:
+                        key_0:
+                          code: SUB_CATEGORY_EXCLUSION_ALREADY_EXCLUDED
+                        key_1:
+                          code: SUB_CATEGORY_EXCLUSION_NOT_EXCLUDED
+                    - entity:
+                        key_0: string
+                        key_1: false
+                        key_2: 9514.105203063558
+                      errors:
+                      - string
+                      - string
+                      errorDetails:
+                        key_0:
+                          code: SUB_CATEGORY_EXCLUSION_ALREADY_EXCLUDED
+                        key_1:
+                          code: SUB_CATEGORY_EXCLUSION_NOT_EXCLUDED
+                        key_2:
+                          code: SUB_CATEGORY_EXCLUSION_CANONICAL_HAS_CUSTOMS
+                        key_3:
+                          code: SUB_CATEGORY_EXCLUSION_NOT_EXCLUDED
+                        key_4:
+                          code: CUSTOM_SUBCATEGORY_IN_USE
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Event Schema Validation Failed
+                  errorType:
+                    type: string
+                    example: Validation
+                  errorMsgs:
+                    type: array
+                    items:
+                      type: string
+                      example: '"productSubCategoryId" must be a valid GUID'
+                  failed:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        entity:
+                          type: object
+                          properties:
+                            key_0:
+                              type: number
+                              example: 4708.6358186846
+                              default: 0
+                        errors:
+                          type: array
+                          items:
+                            type: string
+                            example: string
+                        errorDetails:
+                          type: object
+                          properties:
+                            key_0:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  example: SUB_CATEGORY_EXCLUSION_ALREADY_EXCLUDED
+                            key_1:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  example: SUB_CATEGORY_EXCLUSION_NOT_EXCLUDED
+      x-internal: false
+      tags:
+      - Resolved Subcategory
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

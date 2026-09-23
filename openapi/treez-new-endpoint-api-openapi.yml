@@ -1,0 +1,35 @@
+openapi: 3.2.0
+info:
+  title: Treez New Endpoint API
+  version: 1.0.0
+  description: 'Operations tagged New Endpoint across 3 of this provider''s published API definitions: treez-discount-openapi.json, treez-jwt-check-openapi.json, treez-tag-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api-prod.treez.io/service/discount
+- url: https://api-prod.treez.io/service
+- url: https://api-prod.treez.io/service/tag-group
+tags:
+- name: New Endpoint
+paths:
+  /new-endpoint:
+    get:
+      summary: New Endpoint
+      description: This is your first endpoint! Edit this page to start documenting your API.
+      operationId: get_new-endpoint
+      responses:
+        '200':
+          description: Successful response
+      tags:
+      - New Endpoint
+    servers:
+    - url: https://api-prod.treez.io/service/discount
+x-refined-from:
+- treez-discount-openapi.json
+- treez-jwt-check-openapi.json
+- treez-tag-openapi.json
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

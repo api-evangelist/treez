@@ -1,0 +1,1014 @@
+openapi: 3.2.0
+info:
+  title: dispensary Inventory API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/dispensary/v3
+security:
+- {}
+tags:
+- name: Inventory
+paths:
+  /{dispensary}/inventory/adjustment:
+    put:
+      description: ''
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - batch_id: P4UMM
+                      product_id: 006051c1-c3aa-4167-979b-cdc597c13945
+                      product_name: 3:1 CBD RICH TRANSDERMAL RELEAF PATCH - 7.5 MILLIGRAMS
+                      location: DISPLAY CASE 1
+                      sellable_location: true
+                      created_date: '2025-06-11 14:51:53'
+                      last_updated_date: '2026-04-10 08:47:24'
+                      quantity:
+                        available: 994
+                        reserved: 2
+                        packed_and_ready: 0
+                        returned: 0
+                        total: 996
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        batch_id:
+                          type: string
+                          example: P4UMM
+                        product_id:
+                          type: string
+                          example: 006051c1-c3aa-4167-979b-cdc597c13945
+                        product_name:
+                          type: string
+                          example: 3:1 CBD RICH TRANSDERMAL RELEAF PATCH - 7.5 MILLIGRAMS
+                        location:
+                          type: string
+                          example: DISPLAY CASE 1
+                        sellable_location:
+                          type: boolean
+                          example: true
+                          default: true
+                        created_date:
+                          type: string
+                          example: '2025-06-11 14:51:53'
+                        last_updated_date:
+                          type: string
+                          example: '2026-04-10 08:47:24'
+                        quantity:
+                          type: object
+                          properties:
+                            available:
+                              type: integer
+                              example: 994
+                              default: 0
+                            reserved:
+                              type: integer
+                              example: 2
+                              default: 0
+                            packed_and_ready:
+                              type: integer
+                              example: 0
+                              default: 0
+                            returned:
+                              type: integer
+                              example: 0
+                              default: 0
+                            total:
+                              type: integer
+                              example: 996
+                              default: 0
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                changes:
+                  type: array
+                  items:
+                    properties:
+                      batch_id:
+                        type: string
+                        description: The Treez batch ID
+                      quantity_change:
+                        type: integer
+                      reason:
+                        type: string
+                      notes:
+                        type: string
+                        default: ''
+                    type: object
+                    required:
+                    - batch_id
+                    - quantity_change
+                    - reason
+                    - notes
+              required:
+              - changes
+      summary: Adjust inventory
+      operationId: put_dispensary-inventory-adjustment
+      tags:
+      - Inventory
+  /{dispensary}/inventory/reasons:
+    get:
+      description: ''
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                      NO-LICENSE:
+                      - Display Sample
+                      - Enforcement Testing
+                      - Free Medicinal Cannabis Goods
+                      - Incorrect Quantity
+                      - Mandated Destruction
+                      - Oversold
+                      - Spoilage
+                      - Theft
+                      - Undersold
+                      - Voluntary Surrender
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      NO-LICENSE:
+                        type: array
+                        items:
+                          type: string
+                          example: Display Sample
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      summary: Adjustment reasons
+      operationId: get_dispensary-inventory-reasons
+      tags:
+      - Inventory
+  /{dispensary}/inventory/move:
+    put:
+      description: Use this endpoint to move inventory between locations in a store.
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - batch_id: 7CXQ6-2
+                      quantity: 100
+                      product_id: 6bfd5e76-f83e-4014-b32b-11771e5abb13
+                      product_name: 1:1 SOUR WATERMELON FRUIT CHEWS - 100 MILLIGRAMS
+                      location_id: f618df46-7643-43e3-a398-328270b3c703
+                      location: DISPLAY CASE 2
+                      sellable_location: true
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        batch_id:
+                          type: string
+                          example: 7CXQ6-2
+                        quantity:
+                          type: integer
+                          example: 100
+                          default: 0
+                        product_id:
+                          type: string
+                          example: 6bfd5e76-f83e-4014-b32b-11771e5abb13
+                        product_name:
+                          type: string
+                          example: 1:1 SOUR WATERMELON FRUIT CHEWS - 100 MILLIGRAMS
+                        location_id:
+                          type: string
+                          example: f618df46-7643-43e3-a398-328270b3c703
+                        location:
+                          type: string
+                          example: DISPLAY CASE 2
+                        sellable_location:
+                          type: boolean
+                          example: true
+                          default: true
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      summary: Move inventory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                changes:
+                  type: array
+                  items:
+                    properties:
+                      batch_id:
+                        type: string
+                        description: The Treez batch
+                      move_quantity:
+                        type: number
+                      from_location_id:
+                        type: string
+                      to_location_id:
+                        type: string
+                      notes:
+                        type: string
+                    type: object
+                    required:
+                    - batch_id
+                    - move_quantity
+                    - from_location_id
+                    - to_location_id
+              required:
+              - changes
+            examples: {}
+      operationId: put_dispensary-inventory-move
+      tags:
+      - Inventory
+  /{dispensary}/inventory/merge:
+    post:
+      description: Use this endpoint to merge two or more Treez batches into a single batch.
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          batch_id:
+                            type: string
+                            example: GOQOW-1-1
+                          quantity:
+                            type: integer
+                            example: 0
+                            default: 0
+                          product_id:
+                            type: string
+                            example: 93baec4d-105a-4d07-a3c6-e4c3343727ef
+                          product_name:
+                            type: string
+                            example: 710 LABS - DONNY BURGER - NOODLE DOINKS - 20G
+                          location_id:
+                            type: string
+                            example: e3e97008-6d31-11e9-bc22-0294c7956350
+                          location:
+                            type: string
+                            example: BACK OF HOUSE
+                          sellable_location:
+                            type: boolean
+                            example: false
+                            default: true
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - - batch_id: GOQOW-1-1
+                        quantity: 0
+                        product_id: 93baec4d-105a-4d07-a3c6-e4c3343727ef
+                        product_name: 710 LABS - DONNY BURGER - NOODLE DOINKS - 20G
+                        location_id: e3e97008-6d31-11e9-bc22-0294c7956350
+                        location: BACK OF HOUSE
+                        sellable_location: false
+                      - batch_id: GOQOW-1-2
+                        quantity: 0
+                        product_id: 93baec4d-105a-4d07-a3c6-e4c3343727ef
+                        product_name: 710 LABS - DONNY BURGER - NOODLE DOINKS - 20G
+                        location_id: e3e97008-6d31-11e9-bc22-0294c7956350
+                        location: BACK OF HOUSE
+                        sellable_location: false
+                      - batch_id: GOQOW-1-1-MERGE-1
+                        quantity: 2500
+                        product_id: 93baec4d-105a-4d07-a3c6-e4c3343727ef
+                        product_name: 710 LABS - DONNY BURGER - NOODLE DOINKS - 20G
+                        location_id: e3e97008-6d31-11e9-bc22-0294c7956350
+                        location: BACK OF HOUSE
+                        sellable_location: false
+        '404':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: No records were found matching the specified batch ID(s)
+                  data: {}
+              examples:
+                Not Found:
+                  summary: Not Found
+                  value:
+                    resultCode: FAIL
+                    resultReason: NOT_FOUND
+                    resultDetail: No records were found matching the specified batch ID(s)
+                    data: null
+          description: Not Found
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      summary: Merge Batches
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                changes:
+                  type: array
+                  items:
+                    properties:
+                      batch_ids:
+                        type: array
+                        description: The Treez batch ids to be merged
+                        items:
+                          type: string
+                      is_new_batch:
+                        type: boolean
+                        description: '`true` --> creates a new batch; the new batch id is generated based on the oldest batch id
+
+                          `false` --> quantities are merged into the the oldest batch'
+                    type: object
+                    required:
+                    - batch_ids
+                    - is_new_batch
+              required:
+              - changes
+            examples: {}
+      x-internal: false
+      operationId: post_dispensary-inventory-merge
+      tags:
+      - Inventory
+  /{dispensary}/inventory/labs:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - alpha-Bisabolol
+                    - alpha-Caryophyllene
+                    - alpha-Cedrene
+                    - alpha-Curcumene
+                    - alpha-Farnesene
+                    - alpha-Gurjunene
+                    - alpha-Humulene
+                    - alpha-Phellandrene
+                    - alpha-Pinene
+                    - alpha-Terpinene
+                    - alpha-Terpineol
+                    - alpha-Thujone
+                    - Bergamotene
+                    - beta-Caryophyllene
+                    - beta-Curcumene
+                    - beta-Myrcene
+                    - beta-Pinene
+                    - Borneol
+                    - Butane
+                    - Cadinene
+                    - Camphene
+                    - Camphor
+                    - Carvacrol
+                    - Carvone
+                    - Caryophyllene
+                    - Caryophyllene Oxide
+                    - CBC
+                    - CBCA
+                    - CBCV
+                    - CBD
+                    - CBDA
+                    - CBDV
+                    - CBG
+                    - CBGA
+                    - CBGV
+                    - CBN
+                    - Cedrene
+                    - Cedrol
+                    - cis-Citral
+                    - cis-Nerolidol
+                    - cis-Ocimene
+                    - Citral
+                    - Citronellal
+                    - Citronellol
+                    - Cuminaldehyde
+                    - Cuparene
+                    - Cymene
+                    - D-Limonene
+                    - D/L-Menthol
+                    - delta-10 THC
+                    - delta-3 Carene
+                    - delta-8 THC
+                    - delta-9 THC
+                    - endo-Fenchyl
+                    - Ethanol
+                    - Eucalyptol
+                    - Eugenol
+                    - Farnesene
+                    - Farnesol
+                    - Fenchol
+                    - Fenchone
+                    - Fenchyl Alcohol
+                    - gamma-Terpinene
+                    - Geraniol
+                    - Geranyl Acetate
+                    - Guaiazulene
+                    - Guaiol
+                    - Hexanhydrothymol
+                    - Humulene
+                    - Isoborneol
+                    - Isocannabispiran
+                    - Isolongifolene
+                    - Isopulegol
+                    - Ledene
+                    - Limonene
+                    - Linalool
+                    - Linalyl Acetate
+                    - m-Cymene
+                    - Menthofuran
+                    - Menthol
+                    - Moisture
+                    - Myrcene
+                    - Nerol
+                    - Nerolidol
+                    - Nookatone
+                    - Ocimene
+                    - Octanol
+                    - Orange Terpenes
+                    - para-Cymene
+                    - Phellandrene
+                    - Phytol
+                    - Pinene
+                    - Piperitone
+                    - Pulegone
+                    - Sabinene
+                    - Sabinene Hydrate
+                    - Terpinene
+                    - Terpineol
+                    - Terpinolene
+                    - THC
+                    - THCA
+                    - THCV
+                    - THCVA
+                    - Thujospene
+                    - Total Cannabinoids
+                    - Total Terpenes
+                    - trans-Caryophyllene
+                    - trans-Nerolido
+                    - trans-Nerolidol
+                    - Valencene
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: string
+                      example: alpha-Bisabolol
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      summary: Get all result types
+      operationId: get_ver-dispensary-inventory-labs-package-1-1
+      description: Returns all the lab test types for the dispensary
+      tags:
+      - Inventory
+    post:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - package_id: 5a14a8d7-9baf-4663-b85f-4dd5f450f2e2
+                      package_label: EYL9M6CYOLRNNDFSIDE4A62T
+                      lab_results:
+                      - name: CBD
+                        value: '20'
+                        unit_type: MG
+                        created_at: '2026-08-07 16:35:16'
+                        last_updated_at: '2026-08-07 16:35:16'
+                        last_updated_by: EXTERNAL API
+                      - name: THC
+                        value: '20'
+                        unit_type: MG
+                        created_at: '2026-08-05 19:21:54'
+                        last_updated_at: '2026-08-05 19:21:54'
+                        last_updated_by: Leeory Jenkins
+                      - name: alpha-Cedrene
+                        value: <LOQ
+                        unit_type: '%'
+                        created_at: '2026-08-07 15:52:32'
+                        last_updated_at: '2026-08-07 15:52:32'
+                        last_updated_by: EXTERNAL API
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      summary: Create results by package
+      operationId: get_ver-dispensary-inventory-labs-package-1-1-1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    properties:
+                      package_id:
+                        type: string
+                      lab_results:
+                        type: array
+                        items:
+                          properties:
+                            name:
+                              type: string
+                              description: The name of the compound, e.g. `THC`, `CBD`, `alpha-Cedrene`, etc.
+                            value:
+                              type: string
+                              description: Value can be an integer, `<LOQ`, or `ND`
+                            unit_type:
+                              type: string
+                              enum:
+                              - mg
+                              - '%'
+                          type: object
+                          required:
+                          - name
+                          - value
+                          - unit_type
+                    type: object
+                    required:
+                    - package_id
+                    - lab_results
+              required:
+              - data
+      tags:
+      - Inventory
+    put:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value: "{\n  \"resultCode\": \"SUCCESS\",\n  \"resultReason\": null,\n  \"resultDetail\": null,\n  \"data\": [\n    {\n      \"package_id\": \"5a14a8d7-9baf-4663-b85f-4dd5f450f2e2\",\n      \"package_label\": \"EYL9M6CYOLRNNDFSIDE4A62T\",\n      \"lab_results\": [\n        {\n          \"name\": \"CBD\",\n          \"value\": \"20\",\n          \"unit_type\": \"MG\",\n          \"created_at\": \"2026-08-07 16:35:16\",\n          \"last_updated_at\": \"2026-08-07 16:35:16\",\n          \"last_updated_by\": \"EXTERNAL API\"\n        },\n        {\n          \"name\": \"THC\",\n          \"value\": \"20\",\n          \"unit_type\": \"MG\",\n          \"created_at\": \"2026-08-05 19:21:54\",\n          \"last_updated_at\": \"2026-08-05 19:21:54\",\n          \"last_updated_by\": \"Leeroy Jenkins\"\n        },\n        {\n          \"name\": \"alpha-Cedrene\",\n          \"value\": \"<LOQ\",\n          \"unit_type\": \"%\",\n          \"created_at\": \"2026-08-07 15:52:32\",\n          \"last_updated_at\": \"2026-08-07 15:52:32\",\n          \"last_updated_by\": \"EXTERNAL API\"\n        }\n      ]\n    }\n  ]\n}y ekis"
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      summary: Update results by package
+      operationId: get_ver-dispensary-inventory-labs-package-1-1-1-1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    properties:
+                      package_id:
+                        type: string
+                      lab_results:
+                        type: array
+                        items:
+                          properties:
+                            name:
+                              type: string
+                              description: The name of the compound, e.g. `THC`, `CBD`, `alpha-Cedrene`, etc.
+                            value:
+                              type: string
+                              description: Value can be an integer, `<LOQ`, or `ND`
+                            unit_type:
+                              type: string
+                              enum:
+                              - mg
+                              - '%'
+                          type: object
+                          required:
+                          - name
+                          - value
+                          - unit_type
+                    type: object
+                    required:
+                    - package_id
+                    - lab_results
+              required:
+              - data
+      tags:
+      - Inventory
+  /{dispensary}/inventory/labs/package_id:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - package_id: 5a14a8d7-9baf-4663-b85f-4dd5f450f2e2
+                      package_label: EYL9M6CYOLRNNDFSIDE4A62T
+                      lab_results:
+                      - name: THC
+                        value: '20'
+                        unit_type: MG
+                        created_at: '2026-08-05 19:21:54'
+                        last_updated_at: '2026-08-05 19:21:54'
+                        last_updated_by: Leeroy Jenkins
+                      - name: alpha-Cedrene
+                        value: <LOQ
+                        unit_type: '%'
+                        created_at: '2026-08-07 15:52:32'
+                        last_updated_at: '2026-08-07 15:52:32'
+                        last_updated_by: EXTERNAL API
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        package_id:
+                          type: string
+                          example: 5a14a8d7-9baf-4663-b85f-4dd5f450f2e2
+                        package_label:
+                          type: string
+                          example: EYL9M6CYOLRNNDFSIDE4A62T
+                        lab_results:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                example: THC
+                              value:
+                                type: string
+                                example: '20'
+                              unit_type:
+                                type: string
+                                example: MG
+                              created_at:
+                                type: string
+                                example: '2026-08-05 19:21:54'
+                              last_updated_at:
+                                type: string
+                                example: '2026-08-05 19:21:54'
+                              last_updated_by:
+                                type: string
+                                example: Leeroy Jenkins
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      - in: query
+        name: package_id
+        schema:
+          type: array
+          items:
+            type: string
+      summary: Get results by package
+      description: Lookup lab results using the Treez `package_id`
+      operationId: get_dispensary-inventory-labs-package-id
+      tags:
+      - Inventory
+  /{dispensary}/inventory/labs/invoice_id:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - package_id: 5a14a8d7-9baf-4663-b85f-4dd5f450f2e2
+                      package_label: EYL9M6CYOLRNNDFSIDE4A62T
+                      lab_results:
+                      - name: THC
+                        value: '20'
+                        unit_type: MG
+                        created_at: '2026-08-05 19:21:54'
+                        last_updated_at: '2026-08-05 19:21:54'
+                        last_updated_by: Leeroy Jenkins
+                      - name: alpha-Cedrene
+                        value: <LOQ
+                        unit_type: '%'
+                        created_at: '2026-08-07 15:52:32'
+                        last_updated_at: '2026-08-07 15:52:32'
+                        last_updated_by: EXTERNAL API
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        package_id:
+                          type: string
+                          example: 5a14a8d7-9baf-4663-b85f-4dd5f450f2e2
+                        package_label:
+                          type: string
+                          example: EYL9M6CYOLRNNDFSIDE4A62T
+                        lab_results:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                                example: THC
+                              value:
+                                type: string
+                                example: '20'
+                              unit_type:
+                                type: string
+                                example: MG
+                              created_at:
+                                type: string
+                                example: '2026-08-05 19:21:54'
+                              last_updated_at:
+                                type: string
+                                example: '2026-08-05 19:21:54'
+                              last_updated_by:
+                                type: string
+                                example: Leeroy Jenkins
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      - in: query
+        name: invoice_id
+        schema:
+          type: array
+          items:
+            type: string
+      summary: Get results by invoice
+      description: Lookup lab results using the Treez `invoice_id`
+      operationId: get_dispensary-inventory-labs-invoice-id
+      tags:
+      - Inventory
+  /{dispensary}/inventory/labs/package_label:
+    get:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                    - package_id: 5a14a8d7-9baf-4663-b85f-4dd5f450f2e2
+                      package_label: EYL9M6CYOLRNNDFSIDE4A62T
+                      lab_results:
+                      - name: THC
+                        value: '20'
+                        unit_type: MG
+                        created_at: '2026-08-05 19:21:54'
+                        last_updated_at: '2026-08-05 19:21:54'
+                        last_updated_by: Leeroy Jenkins
+                      - name: alpha-Cedrene
+                        value: <LOQ
+                        unit_type: '%'
+                        created_at: '2026-08-07 15:52:32'
+                        last_updated_at: '2026-08-07 15:52:32'
+                        last_updated_by: EXTERNAL API
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      - in: query
+        name: package_label
+        schema:
+          type: array
+          items:
+            type: string
+      summary: Get results by package label
+      operationId: get_ver-dispensary-inventory-labs-package-1
+      description: Lookup lab results using the package label (aka METRC package tag)
+      tags:
+      - Inventory
+  /{dispensary}/inventory/labs-1:
+    patch:
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value: "{\n  \"resultCode\": \"SUCCESS\",\n  \"resultReason\": null,\n  \"resultDetail\": null,\n  \"data\": [\n    {\n      \"package_id\": \"5a14a8d7-9baf-4663-b85f-4dd5f450f2e2\",\n      \"package_label\": \"EYL9M6CYOLRNNDFSIDE4A62T\",\n      \"lab_results\": [\n        {\n          \"name\": \"CBD\",\n          \"value\": \"20\",\n          \"unit_type\": \"MG\",\n          \"created_at\": \"2026-08-07 16:35:16\",\n          \"last_updated_at\": \"2026-08-07 16:35:16\",\n          \"last_updated_by\": \"EXTERNAL API\"\n        },\n        {\n          \"name\": \"THC\",\n          \"value\": \"20\",\n          \"unit_type\": \"MG\",\n          \"created_at\": \"2026-08-05 19:21:54\",\n          \"last_updated_at\": \"2026-08-05 19:21:54\",\n          \"last_updated_by\": \"Leeroy Jenkins\"\n        },\n        {\n          \"name\": \"alpha-Cedrene\",\n          \"value\": \"<LOQ\",\n          \"unit_type\": \"%\",\n          \"created_at\": \"2026-08-07 15:52:32\",\n          \"last_updated_at\": \"2026-08-07 15:52:32\",\n          \"last_updated_by\": \"EXTERNAL API\"\n        }\n      ]\n    }\n  ]\n}y ekis"
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      summary: Update results by package
+      operationId: get_ver-dispensary-inventory-labs-package-1-1-1-1-1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    properties:
+                      package_id:
+                        type: string
+                      lab_results:
+                        type: array
+                        items:
+                          properties:
+                            name:
+                              type: string
+                              description: The name of the compound, e.g. `THC`, `CBD`, `alpha-Cedrene`, etc.
+                            value:
+                              type: string
+                              description: Value can be an integer, `<LOQ`, or `ND`
+                            unit_type:
+                              type: string
+                              enum:
+                              - mg
+                              - '%'
+                          type: object
+                          required:
+                          - name
+                          - value
+                          - unit_type
+                    type: object
+                    required:
+                    - package_id
+                    - lab_results
+              required:
+              - data
+      tags:
+      - Inventory
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip,br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

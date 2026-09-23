@@ -1,0 +1,175 @@
+openapi: 3.2.0
+info:
+  title: catalog Brand API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: Brand
+paths:
+  /v3/brand:
+    get:
+      summary: Brands - Read
+      description: ''
+      operationId: catalog-brands-read
+      parameters:
+      - name: ids
+        in: query
+        description: (optional) The `id` GUID of the brand to be returned. Exclude to return all records.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[\n    {\n        \"id\": \"a5b07a98-6696-4bab-9876-ffb552f6bb16\",\n        \"createdAt\": \"2024-12-12T16:38:10.082Z\",\n        \"updatedAt\": \"2024-12-12T16:38:10.082Z\",\n        \"deletedAt\": null,\n        \"name\": \"turn\",\n        \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\"\n    },\n    {\n        \"id\": \"794474de-d4b3-4f35-adeb-e0b41296cdfb\",\n        \"createdAt\": \"2024-12-12T16:38:10.125Z\",\n        \"updatedAt\": \"2024-12-12T16:38:10.125Z\",\n        \"deletedAt\": null,\n        \"name\": \"Alien Labs\",\n        \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\"\n    },\n    {\n        \"id\": \"e46c7281-2d59-4d63-8560-c33c445bfff1\",\n        \"createdAt\": \"2024-12-12T16:38:09.936Z\",\n        \"updatedAt\": \"2024-12-12T16:38:09.936Z\",\n        \"deletedAt\": null,\n        \"name\": \"Dr. Norms\",\n        \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\"\n    }\n]  "
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: a5b07a98-6696-4bab-9876-ffb552f6bb16
+                    createdAt:
+                      type: string
+                      example: '2024-12-12T16:38:10.082Z'
+                    updatedAt:
+                      type: string
+                      example: '2024-12-12T16:38:10.082Z'
+                    deletedAt: {}
+                    name:
+                      type: string
+                      example: turn
+                    organizationId:
+                      type: string
+                      example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Brand
+    post:
+      summary: Brand - Create
+      description: ''
+      operationId: catalog-brand-create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - name
+                properties:
+                  name:
+                    type: string
+                    description: The name of the brand
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"data\": [\n        {\n            \"id\": \"59d023f0-460e-471f-adf7-d0daa1148fa0\",\n            \"createdAt\": \"2024-12-13T21:10:52.795Z\",\n            \"updatedAt\": \"2024-12-13T21:10:52.795Z\",\n            \"deletedAt\": null,\n            \"name\": \"Scruffy's Best\"\n            \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\"\n        }\n    ]\n}"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - Brand
+    patch:
+      summary: Brand - Update
+      description: ''
+      operationId: catalog-brand-update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                required:
+                - id
+                - name
+                properties:
+                  id:
+                    type: string
+                    description: The `id` GUID of the brand to be updated
+                  name:
+                    type: string
+                    description: The name of the brand to be updated
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"data\": [\n        {\n            \"id\": \"59d023f0-460e-471f-adf7-d0daa1148fa0\",\n            \"createdAt\": \"2024-12-13T21:10:52.795Z\",\n            \"updatedAt\": \"2024-12-13T21:10:52.795Z\",\n            \"deletedAt\": null,\n            \"name\": \"Scruffy's Best\",\n            \"organizationId\": \"b1226d0b-4940-4edf-aab3-dbd1642f7f69\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 59d023f0-460e-471f-adf7-d0daa1148fa0
+                        createdAt:
+                          type: string
+                          example: '2024-12-13T21:10:52.795Z'
+                        updatedAt:
+                          type: string
+                          example: '2024-12-13T21:10:52.795Z'
+                        deletedAt: {}
+                        name:
+                          type: string
+                          example: Scruffy's Best
+                        organizationId:
+                          type: string
+                          example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - Brand
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

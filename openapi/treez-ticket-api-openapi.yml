@@ -1,0 +1,3016 @@
+openapi: 3.2.0
+info:
+  title: dispensary Ticket API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/dispensary/v3
+security:
+- {}
+tags:
+- name: Ticket
+paths:
+  /{dispensary}/ticket/ordernumber/{order_number}:
+    get:
+      summary: Get by order number
+      description: Lookup a ticket using the 6-character customer-facing `order_number`
+      operationId: ticket-get-by-order-number
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: order_number
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: include_cost
+        in: query
+        description: 🔑 Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                      type: DRIVE_THRU
+                      ticket_id: b211e864-0c1b-40a3-8e32-32aedf251fe3
+                      order_number: null
+                      external_order_number: null
+                      order_source: ECOMMERCE
+                      created_by_employee:
+                        employee_id: Default
+                        name: Default
+                        role: employee
+                      packed_by_employee: null
+                      customer_id: 20
+                      ticket_patient_type: MEDICAL-MMID
+                      cash_register_id: null
+                      order_status: PREVIEW
+                      payment_status: UNPAID
+                      payment_authorization: null
+                      payment_processor_name: null
+                      payment_charge_id: null
+                      payment_fee: null
+                      payment_treezpay_id: null
+                      date_created: '2026-07-14T10:41:24.816-07:00'
+                      last_updated_at: null
+                      date_closed: null
+                      post_tax_pricing: false
+                      sub_total: 3
+                      post_tax_subtotal: null
+                      tax_total: 0.39
+                      discount_total: 0
+                      post_tax_discount_total: null
+                      total: 3.39
+                      ticket_note: null
+                      refund_reason: null
+                      original_ticket_id: null
+                      refund_ticket_ids: null
+                      delivery_address: null
+                      delivery_route: null
+                      scheduled_start_date: null
+                      scheduled_date: null
+                      discount_ids: []
+                      items:
+                      - id: d3b0e69c-5edf-4b2d-b21f-12f8b8fefbab
+                        product_id: c6beed87-febe-409c-82df-d55186663b23
+                        barcodes: []
+                        inventory_barcodes:
+                        - Buw
+                        location_name: FRONT OF HOUSE MED
+                        size_id: c6beed87-febe-409c-82df-d55186663b23
+                        product_size_name: 1:1 BALANCED TRANSDERMAL RELEAF PATCH - 15 MILLIGRAMS
+                        product_type: TOPICAL
+                        product_brand: PAPA & BARKLEY
+                        product_subtype: PATCH
+                        quantity: 3
+                        price_total: 3.39
+                        price_sell: 3
+                        post_tax_original_price: null
+                        product_unit: MILLIGRAMS
+                        product_amount: 15
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts: []
+                        tax:
+                        - id: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                          rate: 0.09
+                          tax_name: NY State Excise Tax (9%)
+                          amount: 0.27
+                        - id: aee43959-fc86-4d9f-a934-dcd3f6334f6c
+                          rate: 0.04
+                          tax_name: NY Local Excise Tax (4%)
+                          amount: 0.12
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      fees: []
+                      payments: []
+                      reward_eligible: true
+                      reward_points_earned: 0
+                      reward_points_used: 0
+                      purchase_limit:
+                        concentrated: 0.045/8
+                        non_concentrated: 0/228
+                        plant: 0/12
+                      employee_id: null
+                      cash_drawer_name: null
+                      terminal_location_id: null
+                      terminal_location_name: null
+                      revenue_source: Treez API Testing
+                      delivery_minimum_total: null
+                      free_delivery_threshold: null
+                      delivery_group_id: null
+                      delivery_partner_details: null
+                      coupon_codes: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: DRIVE_THRU
+                      ticket_id:
+                        type: string
+                        example: b211e864-0c1b-40a3-8e32-32aedf251fe3
+                      order_number: {}
+                      external_order_number: {}
+                      order_source:
+                        type: string
+                        example: ECOMMERCE
+                      created_by_employee:
+                        type: object
+                        properties:
+                          employee_id:
+                            type: string
+                            example: Default
+                          name:
+                            type: string
+                            example: Default
+                          role:
+                            type: string
+                            example: employee
+                      packed_by_employee: {}
+                      customer_id:
+                        type: integer
+                        example: 20
+                        default: 0
+                      ticket_patient_type:
+                        type: string
+                        example: MEDICAL-MMID
+                      cash_register_id: {}
+                      order_status:
+                        type: string
+                        example: PREVIEW
+                      payment_status:
+                        type: string
+                        example: UNPAID
+                      payment_authorization: {}
+                      payment_processor_name: {}
+                      payment_charge_id: {}
+                      payment_fee: {}
+                      payment_treezpay_id: {}
+                      date_created:
+                        type: string
+                        example: '2026-07-14T10:41:24.816-07:00'
+                      last_updated_at: {}
+                      date_closed: {}
+                      post_tax_pricing:
+                        type: boolean
+                        example: false
+                        default: true
+                      sub_total:
+                        type: integer
+                        example: 3
+                        default: 0
+                      post_tax_subtotal: {}
+                      tax_total:
+                        type: number
+                        example: 0.39
+                        default: 0
+                      discount_total:
+                        type: integer
+                        example: 0
+                        default: 0
+                      post_tax_discount_total: {}
+                      total:
+                        type: number
+                        example: 3.39
+                        default: 0
+                      ticket_note: {}
+                      refund_reason: {}
+                      original_ticket_id: {}
+                      refund_ticket_ids: {}
+                      delivery_address: {}
+                      delivery_route: {}
+                      scheduled_start_date: {}
+                      scheduled_date: {}
+                      discount_ids:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: d3b0e69c-5edf-4b2d-b21f-12f8b8fefbab
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            barcodes:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            inventory_barcodes:
+                              type: array
+                              items:
+                                type: string
+                                example: Buw
+                            location_name:
+                              type: string
+                              example: FRONT OF HOUSE MED
+                            size_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            product_size_name:
+                              type: string
+                              example: 1:1 BALANCED TRANSDERMAL RELEAF PATCH - 15 MILLIGRAMS
+                            product_type:
+                              type: string
+                              example: TOPICAL
+                            product_brand:
+                              type: string
+                              example: PAPA & BARKLEY
+                            product_subtype:
+                              type: string
+                              example: PATCH
+                            quantity:
+                              type: integer
+                              example: 3
+                              default: 0
+                            price_total:
+                              type: number
+                              example: 3.39
+                              default: 0
+                            price_sell:
+                              type: integer
+                              example: 3
+                              default: 0
+                            post_tax_original_price: {}
+                            product_unit:
+                              type: string
+                              example: MILLIGRAMS
+                            product_amount:
+                              type: integer
+                              example: 15
+                              default: 0
+                            state_tracking_uom: {}
+                            apply_automatic_discounts:
+                              type: boolean
+                              example: true
+                              default: true
+                            POS_discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            tax:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                                  rate:
+                                    type: number
+                                    example: 0.09
+                                    default: 0
+                                  tax_name:
+                                    type: string
+                                    example: NY State Excise Tax (9%)
+                                  amount:
+                                    type: number
+                                    example: 0.27
+                                    default: 0
+                            reward_dollars: {}
+                            price_target: {}
+                            price_target_note: {}
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      reward_eligible:
+                        type: boolean
+                        example: true
+                        default: true
+                      reward_points_earned:
+                        type: integer
+                        example: 0
+                        default: 0
+                      reward_points_used:
+                        type: integer
+                        example: 0
+                        default: 0
+                      purchase_limit:
+                        type: object
+                        properties:
+                          concentrated:
+                            type: string
+                            example: 0.045/8
+                          non_concentrated:
+                            type: string
+                            example: 0/228
+                          plant:
+                            type: string
+                            example: 0/12
+                      employee_id: {}
+                      cash_drawer_name: {}
+                      terminal_location_id: {}
+                      terminal_location_name: {}
+                      revenue_source:
+                        type: string
+                        example: Treez API Testing
+                      delivery_minimum_total: {}
+                      free_delivery_threshold: {}
+                      delivery_group_id: {}
+                      delivery_partner_details: {}
+                      coupon_codes:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: FAIL
+                    resultReason: TICKET_NOT_FOUND
+                    resultDetail: Cannot find the ticket WIYXA
+                    ticketList: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: TICKET_NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: Cannot find the ticket WIYXA
+                  ticketList:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+      tags:
+      - Ticket
+  /{dispensary}/ticket/{ticket_id}:
+    get:
+      summary: Get by ID
+      description: Lookup a ticket using the `ticket_id` GUID
+      operationId: ticket-get-by-id
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: ticket_id
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: include_cost
+        in: query
+        description: Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    ticketList:
+                    - type: DRIVE_THRU
+                      ticket_id: 43161ebb-8537-463a-9848-a44faaaeb503
+                      order_number: WIYXAP
+                      external_order_number: null
+                      order_source: IN_STORE
+                      created_by_employee:
+                        employee_id: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                        name: ADMIN_TREEZ
+                        role: manager
+                      packed_by_employee: null
+                      customer_id: 1305
+                      ticket_patient_type: ADULT
+                      cash_register_id: d3c43364-95f9-486e-9bfd-8b64cfcdba33
+                      order_status: IN_PROCESS
+                      payment_status: UNPAID
+                      payment_authorization: null
+                      payment_processor_name: null
+                      payment_charge_id: null
+                      payment_fee: null
+                      payment_treezpay_id: null
+                      date_created: '2026-07-14T10:40:31.000-07:00'
+                      last_updated_at: '2026-07-14T10:40:57.000-07:00'
+                      date_closed: null
+                      post_tax_pricing: false
+                      sub_total: 11
+                      post_tax_subtotal: null
+                      tax_total: 1.43
+                      discount_total: -11
+                      post_tax_discount_total: null
+                      total: 12.43
+                      ticket_note: null
+                      refund_reason: null
+                      original_ticket_id: null
+                      refund_ticket_ids: null
+                      delivery_address: null
+                      delivery_route: null
+                      scheduled_start_date: '2026-07-14T11:00:00.000-07:00'
+                      scheduled_date: '2026-07-14T11:00:00.000-07:00'
+                      discount_ids: []
+                      items:
+                      - id: 94ddf0b4-4b6f-4af8-b3b8-6ad373ecb3a6
+                        product_id: 9f3fadfb-2f24-4a08-bd3b-a430e267b72f
+                        barcodes: []
+                        inventory_barcodes:
+                        - dap
+                        location_name: FRONT OF HOUSE REC
+                        size_id: 9f3fadfb-2f24-4a08-bd3b-a430e267b72f
+                        product_size_name: 1:1 CINNAMON MINTS - 100 MILLIGRAMS
+                        product_type: EDIBLE
+                        product_brand: PETRA
+                        product_subtype: MINTS
+                        quantity: 1
+                        price_total: 12.43
+                        price_sell: 11
+                        post_tax_original_price: null
+                        product_unit: MILLIGRAMS
+                        product_amount: 100
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts:
+                        - id: null
+                          discount_id: 1a1fcd84-361a-431e-8ee3-d042929bac9f
+                          discount_title: ST Test for expiring products
+                          discount_amount: 50
+                          discount_method: PERCENT
+                          savings: 11
+                          discount_category: AUTOMATIC_DISCOUNT
+                          discount_reason: null
+                          cart: false
+                        tax:
+                        - id: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                          rate: 0.09
+                          tax_name: NY State Excise Tax (9%)
+                          amount: 0.99
+                        - id: aee43959-fc86-4d9f-a934-dcd3f6334f6c
+                          rate: 0.04
+                          tax_name: NY Local Excise Tax (4%)
+                          amount: 0.44
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      fees: []
+                      payments: []
+                      reward_eligible: true
+                      reward_points_earned: 0
+                      reward_points_used: 0
+                      purchase_limit:
+                        concentrated: 0.1/8
+                        non_concentrated: 0/28.5
+                        plant: 0/6
+                      employee_id: null
+                      cash_drawer_name: CD01
+                      terminal_location_id: null
+                      terminal_location_name: null
+                      revenue_source: null
+                      delivery_minimum_total: null
+                      free_delivery_threshold: null
+                      delivery_group_id: null
+                      delivery_partner_details: null
+                      coupon_codes: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  ticketList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: DRIVE_THRU
+                        ticket_id:
+                          type: string
+                          example: 43161ebb-8537-463a-9848-a44faaaeb503
+                        order_number:
+                          type: string
+                          example: WIYXAP
+                        external_order_number: {}
+                        order_source:
+                          type: string
+                          example: IN_STORE
+                        created_by_employee:
+                          type: object
+                          properties:
+                            employee_id:
+                              type: string
+                              example: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                            name:
+                              type: string
+                              example: ADMIN_TREEZ
+                            role:
+                              type: string
+                              example: manager
+                        packed_by_employee: {}
+                        customer_id:
+                          type: integer
+                          example: 1305
+                          default: 0
+                        ticket_patient_type:
+                          type: string
+                          example: ADULT
+                        cash_register_id:
+                          type: string
+                          example: d3c43364-95f9-486e-9bfd-8b64cfcdba33
+                        order_status:
+                          type: string
+                          example: IN_PROCESS
+                        payment_status:
+                          type: string
+                          example: UNPAID
+                        payment_authorization: {}
+                        payment_processor_name: {}
+                        payment_charge_id: {}
+                        payment_fee: {}
+                        payment_treezpay_id: {}
+                        date_created:
+                          type: string
+                          example: '2026-07-14T10:40:31.000-07:00'
+                        last_updated_at:
+                          type: string
+                          example: '2026-07-14T10:40:57.000-07:00'
+                        date_closed: {}
+                        post_tax_pricing:
+                          type: boolean
+                          example: false
+                          default: true
+                        sub_total:
+                          type: integer
+                          example: 11
+                          default: 0
+                        post_tax_subtotal: {}
+                        tax_total:
+                          type: number
+                          example: 1.43
+                          default: 0
+                        discount_total:
+                          type: integer
+                          example: -11
+                          default: 0
+                        post_tax_discount_total: {}
+                        total:
+                          type: number
+                          example: 12.43
+                          default: 0
+                        ticket_note: {}
+                        refund_reason: {}
+                        original_ticket_id: {}
+                        refund_ticket_ids: {}
+                        delivery_address: {}
+                        delivery_route: {}
+                        scheduled_start_date:
+                          type: string
+                          example: '2026-07-14T11:00:00.000-07:00'
+                        scheduled_date:
+                          type: string
+                          example: '2026-07-14T11:00:00.000-07:00'
+                        discount_ids:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: 94ddf0b4-4b6f-4af8-b3b8-6ad373ecb3a6
+                              product_id:
+                                type: string
+                                example: 9f3fadfb-2f24-4a08-bd3b-a430e267b72f
+                              barcodes:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              inventory_barcodes:
+                                type: array
+                                items:
+                                  type: string
+                                  example: dap
+                              location_name:
+                                type: string
+                                example: FRONT OF HOUSE REC
+                              size_id:
+                                type: string
+                                example: 9f3fadfb-2f24-4a08-bd3b-a430e267b72f
+                              product_size_name:
+                                type: string
+                                example: 1:1 CINNAMON MINTS - 100 MILLIGRAMS
+                              product_type:
+                                type: string
+                                example: EDIBLE
+                              product_brand:
+                                type: string
+                                example: PETRA
+                              product_subtype:
+                                type: string
+                                example: MINTS
+                              quantity:
+                                type: integer
+                                example: 1
+                                default: 0
+                              price_total:
+                                type: number
+                                example: 12.43
+                                default: 0
+                              price_sell:
+                                type: integer
+                                example: 11
+                                default: 0
+                              post_tax_original_price: {}
+                              product_unit:
+                                type: string
+                                example: MILLIGRAMS
+                              product_amount:
+                                type: integer
+                                example: 100
+                                default: 0
+                              state_tracking_uom: {}
+                              apply_automatic_discounts:
+                                type: boolean
+                                example: true
+                                default: true
+                              POS_discounts:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              discounts:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id: {}
+                                    discount_id:
+                                      type: string
+                                      example: 1a1fcd84-361a-431e-8ee3-d042929bac9f
+                                    discount_title:
+                                      type: string
+                                      example: ST Test for expiring products
+                                    discount_amount:
+                                      type: integer
+                                      example: 50
+                                      default: 0
+                                    discount_method:
+                                      type: string
+                                      example: PERCENT
+                                    savings:
+                                      type: integer
+                                      example: 11
+                                      default: 0
+                                    discount_category:
+                                      type: string
+                                      example: AUTOMATIC_DISCOUNT
+                                    discount_reason: {}
+                                    cart:
+                                      type: boolean
+                                      example: false
+                                      default: true
+                              tax:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                      example: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                                    rate:
+                                      type: number
+                                      example: 0.09
+                                      default: 0
+                                    tax_name:
+                                      type: string
+                                      example: NY State Excise Tax (9%)
+                                    amount:
+                                      type: number
+                                      example: 0.99
+                                      default: 0
+                              reward_dollars: {}
+                              price_target: {}
+                              price_target_note: {}
+                        fees:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        payments:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        reward_eligible:
+                          type: boolean
+                          example: true
+                          default: true
+                        reward_points_earned:
+                          type: integer
+                          example: 0
+                          default: 0
+                        reward_points_used:
+                          type: integer
+                          example: 0
+                          default: 0
+                        purchase_limit:
+                          type: object
+                          properties:
+                            concentrated:
+                              type: string
+                              example: 0.1/8
+                            non_concentrated:
+                              type: string
+                              example: 0/28.5
+                            plant:
+                              type: string
+                              example: 0/6
+                        employee_id: {}
+                        cash_drawer_name:
+                          type: string
+                          example: CD01
+                        terminal_location_id: {}
+                        terminal_location_name: {}
+                        revenue_source: {}
+                        delivery_minimum_total: {}
+                        free_delivery_threshold: {}
+                        delivery_group_id: {}
+                        delivery_partner_details: {}
+                        coupon_codes:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: FAIL
+                    resultReason: TICKET_NOT_FOUND
+                    resultDetail: Cannot find the ticket 1b847596-53ba-47be-b47d-b0dcd71d56
+                    ticketList: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: TICKET_NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: Cannot find the ticket 1b847596-53ba-47be-b47d-b0dcd71d56
+                  ticketList:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+      tags:
+      - Ticket
+  /{dispensary}/ticket/status/{order_status}/page/{page}/pagesize/{pagesize}:
+    get:
+      summary: Get by status
+      description: Lookup tickets by their current status
+      operationId: ticket-get-by-status
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: order_status
+        in: path
+        schema:
+          type: string
+          enum:
+          - PREVIEW
+          - VERIFICATION_PENDING
+          - AWAITING_PROCESSING
+          - IN_PROCESS
+          - PACKED_READY
+          - OUT_FOR_DELIVERY
+          - COMPLETED
+          - CANCELED
+          - REMOVED
+        required: true
+      - name: page
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: pagesize
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: hide_empty_tickets
+        in: query
+        description: Excludes tickets that have no ticketlines.
+        schema:
+          type: boolean
+      - name: sort_by_field
+        in: query
+        description: Returns results sorted by Last Update instead of Create Date
+        schema:
+          type: string
+          default: lastUpdatedAt
+      - name: sort_order
+        in: query
+        description: Used in conjunction with "sort_by_field=lastUpdateAt" to specify sort direction.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: include_cost
+        in: query
+        description: Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    pageElements: 2
+                    totalElements: 19
+                    ticketList:
+                    - type: PICKUP
+                      ticket_id: 45306345-9640-4916-bd1e-a1d445cdf1b5
+                      order_number: AIISV2
+                      external_order_number: null
+                      order_source: ECOMMERCE
+                      created_by_employee:
+                        employee_id: Default
+                        name: Default
+                        role: employee
+                      packed_by_employee:
+                        name: Christian Empire
+                      customer_id: 1298
+                      ticket_patient_type: ADULT
+                      cash_register_id: null
+                      order_status: PACKED_READY
+                      payment_status: UNPAID
+                      payment_authorization: null
+                      payment_processor_name: null
+                      payment_charge_id: null
+                      payment_fee: null
+                      payment_treezpay_id: null
+                      date_created: '2026-07-13T14:27:04.000-07:00'
+                      last_updated_at: '2026-07-13T18:38:33.000-07:00'
+                      date_closed: null
+                      post_tax_pricing: false
+                      sub_total: 10
+                      post_tax_subtotal: null
+                      tax_total: 1.3
+                      discount_total: 0
+                      post_tax_discount_total: null
+                      total: 11.3
+                      ticket_note: null
+                      refund_reason: null
+                      original_ticket_id: null
+                      refund_ticket_ids: null
+                      delivery_address: null
+                      delivery_route: null
+                      scheduled_start_date: null
+                      scheduled_date: null
+                      discount_ids: []
+                      items:
+                      - id: 2868b04e-0876-44fc-b2c7-75c8c0d5f0db
+                        product_id: f5a53806-42ff-4e2a-a121-2857f0fc6e8c
+                        barcodes: []
+                        inventory_barcodes:
+                        - Tmg
+                        location_name: FRONT OF HOUSE REC
+                        size_id: f5a53806-42ff-4e2a-a121-2857f0fc6e8c
+                        product_size_name: MINT TOPICAL - 1 MG
+                        product_type: TOPICAL
+                        product_brand: 710 LABS
+                        product_subtype: PATCH
+                        quantity: 1
+                        price_total: 11.3
+                        price_sell: 10
+                        post_tax_original_price: null
+                        product_unit: MILLIGRAMS
+                        product_amount: 1
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts: []
+                        tax:
+                        - id: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                          rate: 0.09
+                          tax_name: NY State Excise Tax (9%)
+                          amount: 0.9
+                        - id: aee43959-fc86-4d9f-a934-dcd3f6334f6c
+                          rate: 0.04
+                          tax_name: NY Local Excise Tax (4%)
+                          amount: 0.4
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      fees: []
+                      payments: []
+                      reward_eligible: true
+                      reward_points_earned: 0
+                      reward_points_used: 0
+                      purchase_limit:
+                        concentrated: 0.001/8
+                        non_concentrated: 0/28.5
+                        plant: 0/6
+                      employee_id: null
+                      cash_drawer_name: null
+                      terminal_location_id: null
+                      terminal_location_name: null
+                      revenue_source: WEED WIZARD
+                      delivery_minimum_total: null
+                      free_delivery_threshold: null
+                      delivery_group_id: null
+                      delivery_partner_details: null
+                      coupon_codes: []
+                    - type: DELIVERY
+                      ticket_id: a6c1ca58-08dd-46c6-8d11-ac43ee62af3a
+                      order_number: LPRBQP
+                      external_order_number: 71ff5a4d-fe08-4eff-9325-eecea74d6b5a
+                      order_source: ECOMMERCE
+                      created_by_employee:
+                        employee_id: Default
+                        name: Default
+                        role: employee
+                      packed_by_employee:
+                        name: Chaitra Shivanand
+                      customer_id: 1285
+                      ticket_patient_type: ADULT
+                      cash_register_id: null
+                      order_status: PACKED_READY
+                      payment_status: PAID
+                      payment_authorization: false
+                      payment_processor_name: null
+                      payment_charge_id: null
+                      payment_fee: null
+                      payment_treezpay_id: null
+                      date_created: '2026-07-07T05:40:28.000-07:00'
+                      last_updated_at: '2026-07-07T05:43:15.000-07:00'
+                      date_closed: null
+                      post_tax_pricing: false
+                      sub_total: 70
+                      post_tax_subtotal: null
+                      tax_total: 9.1
+                      discount_total: 0
+                      post_tax_discount_total: null
+                      total: 84.6
+                      ticket_note: '
+
+                        DELIVERY: On 07-08-2026 between 09:00 AM - 09:30 AM'
+                      refund_reason: null
+                      original_ticket_id: null
+                      refund_ticket_ids: null
+                      delivery_address:
+                        id: 51
+                        street: 308 Willow Avenue
+                        street2: null
+                        city: Hoboken
+                        county: null
+                        state: NJ
+                        zip: 07030 3808
+                      delivery_route: null
+                      scheduled_start_date: '2026-07-08T06:00:00.000-07:00'
+                      scheduled_date: '2026-07-08T06:30:00.000-07:00'
+                      discount_ids: []
+                      items:
+                      - id: 36449af5-baa5-48e3-8959-abd4abe81118
+                        product_id: 28a66e97-54c0-476d-aafd-b83f5a9488b1
+                        barcodes: []
+                        inventory_barcodes:
+                        - JWT
+                        location_name: FRONT OF HOUSE REC
+                        size_id: 28a66e97-54c0-476d-aafd-b83f5a9488b1
+                        product_size_name: CORE PRODUCT 2 - 200 MG
+                        product_type: BEVERAGE
+                        product_brand: ABSOLUTEXTRACTS
+                        product_subtype: OTHER
+                        quantity: 1
+                        price_total: 79.1
+                        price_sell: 70
+                        post_tax_original_price: null
+                        product_unit: MILLIGRAMS
+                        product_amount: 200
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts: []
+                        tax:
+                        - id: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                          rate: 0.09
+                          tax_name: NY State Excise Tax (9%)
+                          amount: 6.3
+                        - id: aee43959-fc86-4d9f-a934-dcd3f6334f6c
+                          rate: 0.04
+                          tax_name: NY Local Excise Tax (4%)
+                          amount: 2.8
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      - id: d54b324c-247b-4651-be59-be29b23e7c9a
+                        product_id: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                        barcodes: []
+                        inventory_barcodes: []
+                        location_name: null
+                        size_id: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                        product_size_name: DELIVERY FEE
+                        product_type: NON-INV
+                        product_brand: null
+                        product_subtype: FEE
+                        quantity: 1
+                        price_total: 5.5
+                        price_sell: 5.5
+                        post_tax_original_price: null
+                        product_unit: count
+                        product_amount: null
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts: []
+                        tax: []
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      fees:
+                      - type: DELIVERY FEE
+                        total_amount: 5.5
+                      payments:
+                      - payment_id: 1c308bab-0916-4168-adb7-15ae5fcf15dc
+                        payment_source: ECOMMERCE
+                        payment_method: CREDIT
+                        amount_paid: 84.6
+                        payment_date: '2026-07-07T05:42:08.000-07:00'
+                        processor_fee: null
+                        processor_tip: null
+                      reward_eligible: true
+                      reward_points_earned: 0
+                      reward_points_used: 0
+                      purchase_limit:
+                        concentrated: 0.2/8
+                        non_concentrated: 0/28.5
+                        plant: 0/6
+                      employee_id: null
+                      cash_drawer_name: null
+                      terminal_location_id: null
+                      terminal_location_name: null
+                      revenue_source: Mosaic
+                      delivery_minimum_total: '20'
+                      free_delivery_threshold: null
+                      delivery_group_id: null
+                      delivery_partner_details: null
+                      coupon_codes: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  pageElements:
+                    type: integer
+                    example: 2
+                    default: 0
+                  totalElements:
+                    type: integer
+                    example: 19
+                    default: 0
+                  ticketList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          example: PICKUP
+                        ticket_id:
+                          type: string
+                          example: 45306345-9640-4916-bd1e-a1d445cdf1b5
+                        order_number:
+                          type: string
+                          example: AIISV2
+                        external_order_number: {}
+                        order_source:
+                          type: string
+                          example: ECOMMERCE
+                        created_by_employee:
+                          type: object
+                          properties:
+                            employee_id:
+                              type: string
+                              example: Default
+                            name:
+                              type: string
+                              example: Default
+                            role:
+                              type: string
+                              example: employee
+                        packed_by_employee:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                              example: Christian Empire
+                        customer_id:
+                          type: integer
+                          example: 1298
+                          default: 0
+                        ticket_patient_type:
+                          type: string
+                          example: ADULT
+                        cash_register_id: {}
+                        order_status:
+                          type: string
+                          example: PACKED_READY
+                        payment_status:
+                          type: string
+                          example: UNPAID
+                        payment_authorization: {}
+                        payment_processor_name: {}
+                        payment_charge_id: {}
+                        payment_fee: {}
+                        payment_treezpay_id: {}
+                        date_created:
+                          type: string
+                          example: '2026-07-13T14:27:04.000-07:00'
+                        last_updated_at:
+                          type: string
+                          example: '2026-07-13T18:38:33.000-07:00'
+                        date_closed: {}
+                        post_tax_pricing:
+                          type: boolean
+                          example: false
+                          default: true
+                        sub_total:
+                          type: integer
+                          example: 10
+                          default: 0
+                        post_tax_subtotal: {}
+                        tax_total:
+                          type: number
+                          example: 1.3
+                          default: 0
+                        discount_total:
+                          type: integer
+                          example: 0
+                          default: 0
+                        post_tax_discount_total: {}
+                        total:
+                          type: number
+                          example: 11.3
+                          default: 0
+                        ticket_note: {}
+                        refund_reason: {}
+                        original_ticket_id: {}
+                        refund_ticket_ids: {}
+                        delivery_address: {}
+                        delivery_route: {}
+                        scheduled_start_date: {}
+                        scheduled_date: {}
+                        discount_ids:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        items:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: 2868b04e-0876-44fc-b2c7-75c8c0d5f0db
+                              product_id:
+                                type: string
+                                example: f5a53806-42ff-4e2a-a121-2857f0fc6e8c
+                              barcodes:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              inventory_barcodes:
+                                type: array
+                                items:
+                                  type: string
+                                  example: Tmg
+                              location_name:
+                                type: string
+                                example: FRONT OF HOUSE REC
+                              size_id:
+                                type: string
+                                example: f5a53806-42ff-4e2a-a121-2857f0fc6e8c
+                              product_size_name:
+                                type: string
+                                example: MINT TOPICAL - 1 MG
+                              product_type:
+                                type: string
+                                example: TOPICAL
+                              product_brand:
+                                type: string
+                                example: 710 LABS
+                              product_subtype:
+                                type: string
+                                example: PATCH
+                              quantity:
+                                type: integer
+                                example: 1
+                                default: 0
+                              price_total:
+                                type: number
+                                example: 11.3
+                                default: 0
+                              price_sell:
+                                type: integer
+                                example: 10
+                                default: 0
+                              post_tax_original_price: {}
+                              product_unit:
+                                type: string
+                                example: MILLIGRAMS
+                              product_amount:
+                                type: integer
+                                example: 1
+                                default: 0
+                              state_tracking_uom: {}
+                              apply_automatic_discounts:
+                                type: boolean
+                                example: true
+                                default: true
+                              POS_discounts:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              discounts:
+                                type: array
+                                items:
+                                  type: object
+                                  properties: {}
+                              tax:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: string
+                                      example: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                                    rate:
+                                      type: number
+                                      example: 0.09
+                                      default: 0
+                                    tax_name:
+                                      type: string
+                                      example: NY State Excise Tax (9%)
+                                    amount:
+                                      type: number
+                                      example: 0.9
+                                      default: 0
+                              reward_dollars: {}
+                              price_target: {}
+                              price_target_note: {}
+                        fees:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        payments:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+                        reward_eligible:
+                          type: boolean
+                          example: true
+                          default: true
+                        reward_points_earned:
+                          type: integer
+                          example: 0
+                          default: 0
+                        reward_points_used:
+                          type: integer
+                          example: 0
+                          default: 0
+                        purchase_limit:
+                          type: object
+                          properties:
+                            concentrated:
+                              type: string
+                              example: 0.001/8
+                            non_concentrated:
+                              type: string
+                              example: 0/28.5
+                            plant:
+                              type: string
+                              example: 0/6
+                        employee_id: {}
+                        cash_drawer_name: {}
+                        terminal_location_id: {}
+                        terminal_location_name: {}
+                        revenue_source:
+                          type: string
+                          example: WEED WIZARD
+                        delivery_minimum_total: {}
+                        free_delivery_threshold: {}
+                        delivery_group_id: {}
+                        delivery_partner_details: {}
+                        coupon_codes:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: FAIL
+                    resultReason: INVALID_TICKET_STATUS
+                    resultDetail: '''PACKED'' is invalid value. Possible values are: VERIFICATION_PENDING, AWAITING_PROCESSING, IN_PROCESS, PACKED_READY, OUT_FOR_DELIVERY, COMPLETED, CANCELED, REMOVED, PREVIEW'
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INVALID_TICKET_STATUS
+                  resultDetail:
+                    type: string
+                    example: '''PACKED'' is invalid value. Possible values are: VERIFICATION_PENDING, AWAITING_PROCESSING, IN_PROCESS, PACKED_READY, OUT_FOR_DELIVERY, COMPLETED, CANCELED, REMOVED, PREVIEW'
+      tags:
+      - Ticket
+  /{dispensary}/ticket/history/{ticket_id}:
+    get:
+      summary: Get history by ID
+      description: Returns the history of a ticket.
+      operationId: ticket-get-history-by-id
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: ticket_id
+        in: path
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    data:
+                    - status: IN_PROCESS
+                      description: POS STATUS CHANGE
+                      date: '2026-07-14T17:40:47.000Z'
+                      user: ADMIN TREEZ
+                      userId: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                      employeeNumber: null
+                    - status: IN_PROCESS
+                      description: Ticket processed at POS
+                      date: '2026-07-14T17:49:06.000Z'
+                      user: ADMIN TREEZ
+                      userId: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                      employeeNumber: null
+                    - status: IN_PROCESS
+                      description: Ticket processed at POS
+                      date: '2026-07-14T17:49:08.000Z'
+                      user: ADMIN TREEZ
+                      userId: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                      employeeNumber: null
+                    - status: PACKED_READY
+                      description: 'Order #WIYXAP moved forward to "PACKED_READY"'
+                      date: '2026-07-14T17:50:16.000Z'
+                      user: Scott Thacher
+                      userId: a6827ed2-0878-4ead-9c89-e50c23883704
+                      employeeNumber: 5CZ4WH
+                    - status: COMPLETED
+                      description: Ticket Paid
+                      date: '2026-07-14T17:50:43.000Z'
+                      user: ADMIN TREEZ
+                      userId: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                      employeeNumber: null
+                    totalPages: 0
+                    totalElements: 0
+                    resultDetail: null
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          example: IN_PROCESS
+                        description:
+                          type: string
+                          example: POS STATUS CHANGE
+                        date:
+                          type: string
+                          example: '2026-07-14T17:40:47.000Z'
+                        user:
+                          type: string
+                          example: ADMIN TREEZ
+                        userId:
+                          type: string
+                          example: f072eff5-ea9e-11e9-b0d6-028ca56774da
+                        employeeNumber: {}
+                  totalPages:
+                    type: integer
+                    example: 0
+                    default: 0
+                  totalElements:
+                    type: integer
+                    example: 0
+                    default: 0
+                  resultDetail: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - Ticket
+  /{dispensary}/ticket/customer/{customer_id}/page/{page}/pagesize/{pagesize}:
+    get:
+      summary: Get by customer ID
+      description: Lookup ticket history of a customer using the `customer_id` value
+      operationId: ticket-get-by-customer-id
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: customer_id
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: pagesize
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: include_cost
+        in: query
+        description: Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ticket
+  /{dispensary}/ticket/opendate/{date}/page/{page}/pagesize/{pagesize}:
+    get:
+      summary: Get by open date
+      description: Lookup tickets created on the specified date
+      operationId: ticket-get-by-open-date
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: date
+        in: path
+        description: YYYY-MM-DD
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: pagesize
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: include_cost
+        in: query
+        description: Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ticket
+  /{dispensary}/ticket/closedate/{date}/page/{page}/pagesize/{pagesize}:
+    get:
+      summary: Get by close date
+      description: Lookup tickets closed on the specified date
+      operationId: ticket-get-by-close-date
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: date
+        in: path
+        description: YYYY-MM-DD
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: pagesize
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: include_cost
+        in: query
+        description: Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ticket
+  /{dispensary}/ticket/lastUpdated/{date}/page/{page}/pagesize/{pagesize}:
+    get:
+      summary: Get by last updated date
+      description: Lookup tickets closed on the specified date
+      operationId: ticket-get-by-last-updated-date
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: full_decimals
+        in: query
+        description: Shows un-rounded decimals on all dollar values when applicable.
+        schema:
+          type: boolean
+      - name: date
+        in: path
+        description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+        schema:
+          type: string
+          format: date-time
+        required: true
+      - name: page
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: pagesize
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: include_cost
+        in: query
+        description: Restricted by permission
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ticket
+  /{dispensary}/ticket/previewticket:
+    post:
+      summary: Preview Ticket
+      description: ''
+      operationId: ticket-preview
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - order_source
+              - order_status
+              - revenue_source
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - DELIVERY
+                  - PICKUP
+                  - EXPRESS
+                  - POS
+                  - DRIVE_THRU
+                  - CURBSIDE
+                order_source:
+                  type: string
+                  enum:
+                  - ECOMMERCE
+                  - IN_STORE
+                  - VENDING_MACHINE
+                  - KIOSK
+                order_status:
+                  type: string
+                  enum:
+                  - DRAFT
+                  - VERIFICATION_PENDING
+                  - AWAITING_PROCESSING
+                  - IN_PROCESS
+                  - PACKED_READY
+                  - OUT_FOR_DELIVERY
+                customer_id:
+                  type: string
+                external_order_number:
+                  type: string
+                ticket_note:
+                  type: string
+                delivery_address:
+                  type: object
+                  properties: {}
+                schedule_start_date:
+                  type: string
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`.  The start time of a delivery window. Must be used with `scheduled_date`.'
+                scheduled_date:
+                  type: string
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`. The end of a delivery window if used with `scheduled_start_date`. Can be used independently as a delivery target time.'
+                items:
+                  type: array
+                  items:
+                    properties:
+                      inventory_id:
+                        type: string
+                        description: The external batch id (state tracking id)
+                      inventory_batch_id:
+                        type: string
+                        description: The Treez batch id. Can be used in conjunction with `inventory_id` to specify a child batch when a split has been done.
+                      inventory_type:
+                        type: string
+                        enum:
+                        - ADULT
+                        - MEDICAL
+                      location_name:
+                        type: string
+                        description: 'Treez product location.
+
+                          Retrieve list from GET location endpoint'
+                      size_id:
+                        type: string
+                        description: Same as `product_id`
+                      quantity:
+                        type: integer
+                        format: int32
+                      apply_automatic_discounts:
+                        type: boolean
+                      pos_discounts:
+                        type: array
+                        items:
+                          properties:
+                            discount_id:
+                              type: string
+                            discount_title:
+                              type: string
+                            discount_amount:
+                              type: integer
+                              format: int32
+                            discount_method:
+                              type: string
+                              enum:
+                              - DOLLAR
+                              - PERCENT
+                          type: object
+                      reward_dollars:
+                        type: integer
+                        description: Used to redeem Treez Reward Dollars
+                        format: int32
+                    type: object
+                revenue_source:
+                  type: string
+                  description: Name of the integrator. Once a value is used, do not change.
+                fees:
+                  type: array
+                  items:
+                    properties:
+                      type:
+                        type: string
+                        default: DELIVERY FEE
+                      total_amount:
+                        type: integer
+                        format: int32
+                    type: object
+                discount_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: Used to specify cart-level discounts
+                coupon_codes:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                      type: DRIVE_THRU
+                      ticket_id: c24a8e49-ecee-4f72-9a2b-d28531f810dd
+                      order_number: null
+                      external_order_number: null
+                      order_source: ECOMMERCE
+                      created_by_employee:
+                        employee_id: Default
+                        name: Default
+                        role: employee
+                      packed_by_employee: null
+                      customer_id: 20
+                      ticket_patient_type: MEDICAL-MMID
+                      cash_register_id: null
+                      order_status: PREVIEW
+                      payment_status: UNPAID
+                      payment_authorization: null
+                      payment_processor_name: null
+                      payment_charge_id: null
+                      payment_fee: null
+                      payment_treezpay_id: null
+                      date_created: '2026-07-14T10:53:46.741-07:00'
+                      last_updated_at: null
+                      date_closed: null
+                      post_tax_pricing: false
+                      sub_total: 3
+                      post_tax_subtotal: null
+                      tax_total: 0.39
+                      discount_total: 0
+                      post_tax_discount_total: null
+                      total: 3.39
+                      ticket_note: null
+                      refund_reason: null
+                      original_ticket_id: null
+                      refund_ticket_ids: null
+                      delivery_address: null
+                      delivery_route: null
+                      scheduled_start_date: null
+                      scheduled_date: null
+                      discount_ids: []
+                      items:
+                      - id: 97af32ba-603d-4187-a5a4-2e99abd9a415
+                        product_id: c6beed87-febe-409c-82df-d55186663b23
+                        barcodes: []
+                        inventory_barcodes:
+                        - Buw
+                        location_name: FRONT OF HOUSE MED
+                        size_id: c6beed87-febe-409c-82df-d55186663b23
+                        product_size_name: 1:1 BALANCED TRANSDERMAL RELEAF PATCH - 15 MILLIGRAMS
+                        product_type: TOPICAL
+                        product_brand: PAPA & BARKLEY
+                        product_subtype: PATCH
+                        quantity: 3
+                        price_total: 3.39
+                        price_sell: 3
+                        post_tax_original_price: null
+                        product_unit: MILLIGRAMS
+                        product_amount: 15
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts: []
+                        tax:
+                        - id: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                          rate: 0.09
+                          tax_name: NY State Excise Tax (9%)
+                          amount: 0.27
+                        - id: aee43959-fc86-4d9f-a934-dcd3f6334f6c
+                          rate: 0.04
+                          tax_name: NY Local Excise Tax (4%)
+                          amount: 0.12
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      fees: []
+                      payments: []
+                      reward_eligible: true
+                      reward_points_earned: 0
+                      reward_points_used: 0
+                      purchase_limit:
+                        concentrated: 0.045/8
+                        non_concentrated: 0/228
+                        plant: 0/12
+                      employee_id: null
+                      cash_drawer_name: null
+                      terminal_location_id: null
+                      terminal_location_name: null
+                      revenue_source: Treez API Testing
+                      delivery_minimum_total: null
+                      free_delivery_threshold: null
+                      delivery_group_id: null
+                      delivery_partner_details: null
+                      coupon_codes: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: DRIVE_THRU
+                      ticket_id:
+                        type: string
+                        example: c24a8e49-ecee-4f72-9a2b-d28531f810dd
+                      order_number: {}
+                      external_order_number: {}
+                      order_source:
+                        type: string
+                        example: ECOMMERCE
+                      created_by_employee:
+                        type: object
+                        properties:
+                          employee_id:
+                            type: string
+                            example: Default
+                          name:
+                            type: string
+                            example: Default
+                          role:
+                            type: string
+                            example: employee
+                      packed_by_employee: {}
+                      customer_id:
+                        type: integer
+                        example: 20
+                        default: 0
+                      ticket_patient_type:
+                        type: string
+                        example: MEDICAL-MMID
+                      cash_register_id: {}
+                      order_status:
+                        type: string
+                        example: PREVIEW
+                      payment_status:
+                        type: string
+                        example: UNPAID
+                      payment_authorization: {}
+                      payment_processor_name: {}
+                      payment_charge_id: {}
+                      payment_fee: {}
+                      payment_treezpay_id: {}
+                      date_created:
+                        type: string
+                        example: '2026-07-14T10:53:46.741-07:00'
+                      last_updated_at: {}
+                      date_closed: {}
+                      post_tax_pricing:
+                        type: boolean
+                        example: false
+                        default: true
+                      sub_total:
+                        type: integer
+                        example: 3
+                        default: 0
+                      post_tax_subtotal: {}
+                      tax_total:
+                        type: number
+                        example: 0.39
+                        default: 0
+                      discount_total:
+                        type: integer
+                        example: 0
+                        default: 0
+                      post_tax_discount_total: {}
+                      total:
+                        type: number
+                        example: 3.39
+                        default: 0
+                      ticket_note: {}
+                      refund_reason: {}
+                      original_ticket_id: {}
+                      refund_ticket_ids: {}
+                      delivery_address: {}
+                      delivery_route: {}
+                      scheduled_start_date: {}
+                      scheduled_date: {}
+                      discount_ids:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 97af32ba-603d-4187-a5a4-2e99abd9a415
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            barcodes:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            inventory_barcodes:
+                              type: array
+                              items:
+                                type: string
+                                example: Buw
+                            location_name:
+                              type: string
+                              example: FRONT OF HOUSE MED
+                            size_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            product_size_name:
+                              type: string
+                              example: 1:1 BALANCED TRANSDERMAL RELEAF PATCH - 15 MILLIGRAMS
+                            product_type:
+                              type: string
+                              example: TOPICAL
+                            product_brand:
+                              type: string
+                              example: PAPA & BARKLEY
+                            product_subtype:
+                              type: string
+                              example: PATCH
+                            quantity:
+                              type: integer
+                              example: 3
+                              default: 0
+                            price_total:
+                              type: number
+                              example: 3.39
+                              default: 0
+                            price_sell:
+                              type: integer
+                              example: 3
+                              default: 0
+                            post_tax_original_price: {}
+                            product_unit:
+                              type: string
+                              example: MILLIGRAMS
+                            product_amount:
+                              type: integer
+                              example: 15
+                              default: 0
+                            state_tracking_uom: {}
+                            apply_automatic_discounts:
+                              type: boolean
+                              example: true
+                              default: true
+                            POS_discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            tax:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                                  rate:
+                                    type: number
+                                    example: 0.09
+                                    default: 0
+                                  tax_name:
+                                    type: string
+                                    example: NY State Excise Tax (9%)
+                                  amount:
+                                    type: number
+                                    example: 0.27
+                                    default: 0
+                            reward_dollars: {}
+                            price_target: {}
+                            price_target_note: {}
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      reward_eligible:
+                        type: boolean
+                        example: true
+                        default: true
+                      reward_points_earned:
+                        type: integer
+                        example: 0
+                        default: 0
+                      reward_points_used:
+                        type: integer
+                        example: 0
+                        default: 0
+                      purchase_limit:
+                        type: object
+                        properties:
+                          concentrated:
+                            type: string
+                            example: 0.045/8
+                          non_concentrated:
+                            type: string
+                            example: 0/228
+                          plant:
+                            type: string
+                            example: 0/12
+                      employee_id: {}
+                      cash_drawer_name: {}
+                      terminal_location_id: {}
+                      terminal_location_name: {}
+                      revenue_source:
+                        type: string
+                        example: Treez API Testing
+                      delivery_minimum_total: {}
+                      free_delivery_threshold: {}
+                      delivery_group_id: {}
+                      delivery_partner_details: {}
+                      coupon_codes:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: FAIL
+                    resultReason: TICKET_FORMAT_ERROR
+                    resultDetail: Invalid UUID format
+                    data: null
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: TICKET_FORMAT_ERROR
+                  resultDetail:
+                    type: string
+                    example: Invalid UUID format
+                  data: {}
+      tags:
+      - Ticket
+  /{dispensary}/ticket/detailticket:
+    post:
+      summary: Create Ticket
+      description: ''
+      operationId: create-ticket
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - order_source
+              - order_status
+              - revenue_source
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - DELIVERY
+                  - PICKUP
+                  - EXPRESS
+                  - POS
+                  - DRIVE_THRU
+                  - CURBSIDE
+                order_source:
+                  type: string
+                  enum:
+                  - ECOMMERCE
+                  - IN_STORE
+                  - VENDING_MACHINE
+                  - KIOSK
+                order_status:
+                  type: string
+                  enum:
+                  - DRAFT
+                  - VERIFICATION_PENDING
+                  - AWAITING_PROCESSING
+                  - IN_PROCESS
+                  - PACKED_READY
+                  - OUT_FOR_DELIVERY
+                customer_id:
+                  type: string
+                state_of_residency:
+                  type: string
+                  description: Used only for determining resident vs. non-resident purchase limits for Illinois dispensaries. Accepted values are state postal codes, e.g. `IL`, `MN`, `IN`, `OH`, etc.
+                external_order_number:
+                  type: string
+                ticket_note:
+                  type: string
+                delivery_address:
+                  type: object
+                  properties: {}
+                schedule_start_date:
+                  type: string
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`.  The start time of a delivery window. Must be used with `scheduled_date`.'
+                scheduled_date:
+                  type: string
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`. The end of a delivery window if used with `scheduled_start_date`. Can be used independently as a delivery target time.'
+                items:
+                  type: array
+                  items:
+                    properties:
+                      inventory_id:
+                        type: string
+                        description: The external batch id (state tracking id)
+                      inventory_batch_id:
+                        type: string
+                        description: The Treez batch id. Can be used in conjunction with `inventory_id` to specify a child batch when a split has been done.
+                      inventory_type:
+                        type: string
+                        enum:
+                        - ADULT
+                        - MEDICAL
+                      location_name:
+                        type: string
+                        description: 'Treez product location.
+
+                          Retrieve list from GET location endpoint'
+                      size_id:
+                        type: string
+                        description: Same as `product_id`
+                      quantity:
+                        type: integer
+                        format: int32
+                      apply_automatic_discounts:
+                        type: boolean
+                      pos_discounts:
+                        type: array
+                        items:
+                          properties:
+                            discount_id:
+                              type: string
+                            discount_title:
+                              type: string
+                            discount_amount:
+                              type: integer
+                              format: int32
+                            discount_method:
+                              type: string
+                              enum:
+                              - DOLLAR
+                              - PERCENT
+                          type: object
+                      reward_dollars:
+                        type: integer
+                        description: Used to redeem Treez Reward Dollars
+                        format: int32
+                    type: object
+                revenue_source:
+                  type: string
+                fees:
+                  type: array
+                  items:
+                    properties:
+                      type:
+                        type: string
+                        default: DELIVERY FEE
+                      total_amount:
+                        type: integer
+                        format: int32
+                    type: object
+                discount_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: Used to specify cart-level discounts
+                coupon_codes:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                      type: DRIVE_THRU
+                      ticket_id: 577c8103-617b-4d0d-8904-98a94abb43c1
+                      order_number: A0II1B
+                      external_order_number: null
+                      order_source: ECOMMERCE
+                      created_by_employee:
+                        employee_id: Default
+                        name: Default
+                        role: employee
+                      packed_by_employee: null
+                      customer_id: 20
+                      ticket_patient_type: MEDICAL-MMID
+                      cash_register_id: null
+                      order_status: AWAITING_PROCESSING
+                      payment_status: UNPAID
+                      payment_authorization: null
+                      payment_processor_name: null
+                      payment_charge_id: null
+                      payment_fee: null
+                      payment_treezpay_id: null
+                      date_created: '2026-07-14T10:55:58.000-07:00'
+                      last_updated_at: '2026-07-14T10:55:58.000-07:00'
+                      date_closed: null
+                      post_tax_pricing: false
+                      sub_total: 3
+                      post_tax_subtotal: null
+                      tax_total: 0.39
+                      discount_total: 0
+                      post_tax_discount_total: null
+                      total: 3.39
+                      ticket_note: null
+                      refund_reason: null
+                      original_ticket_id: null
+                      refund_ticket_ids: null
+                      delivery_address: null
+                      delivery_route: null
+                      scheduled_start_date: null
+                      scheduled_date: null
+                      discount_ids: []
+                      items:
+                      - id: fc2a837f-b875-46a3-b491-8e41e75bd3a6
+                        product_id: c6beed87-febe-409c-82df-d55186663b23
+                        barcodes: []
+                        inventory_barcodes:
+                        - Buw
+                        location_name: FRONT OF HOUSE MED
+                        size_id: c6beed87-febe-409c-82df-d55186663b23
+                        product_size_name: 1:1 BALANCED TRANSDERMAL RELEAF PATCH - 15 MILLIGRAMS
+                        product_type: TOPICAL
+                        product_brand: PAPA & BARKLEY
+                        product_subtype: PATCH
+                        quantity: 3
+                        price_total: 3.39
+                        price_sell: 3
+                        post_tax_original_price: null
+                        product_unit: MILLIGRAMS
+                        product_amount: 15
+                        state_tracking_uom: null
+                        apply_automatic_discounts: true
+                        POS_discounts: []
+                        discounts: []
+                        tax:
+                        - id: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                          rate: 0.09
+                          tax_name: NY State Excise Tax (9%)
+                          amount: 0.27
+                        - id: aee43959-fc86-4d9f-a934-dcd3f6334f6c
+                          rate: 0.04
+                          tax_name: NY Local Excise Tax (4%)
+                          amount: 0.12
+                        reward_dollars: null
+                        price_target: null
+                        price_target_note: null
+                      fees: []
+                      payments: []
+                      reward_eligible: true
+                      reward_points_earned: 0
+                      reward_points_used: 0
+                      purchase_limit:
+                        concentrated: 0.045/8
+                        non_concentrated: 0/228
+                        plant: 0/12
+                      employee_id: null
+                      cash_drawer_name: null
+                      terminal_location_id: null
+                      terminal_location_name: null
+                      revenue_source: Treez API Testing
+                      delivery_minimum_total: null
+                      free_delivery_threshold: null
+                      delivery_group_id: null
+                      delivery_partner_details: null
+                      coupon_codes: []
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        example: DRIVE_THRU
+                      ticket_id:
+                        type: string
+                        example: 577c8103-617b-4d0d-8904-98a94abb43c1
+                      order_number:
+                        type: string
+                        example: A0II1B
+                      external_order_number: {}
+                      order_source:
+                        type: string
+                        example: ECOMMERCE
+                      created_by_employee:
+                        type: object
+                        properties:
+                          employee_id:
+                            type: string
+                            example: Default
+                          name:
+                            type: string
+                            example: Default
+                          role:
+                            type: string
+                            example: employee
+                      packed_by_employee: {}
+                      customer_id:
+                        type: integer
+                        example: 20
+                        default: 0
+                      ticket_patient_type:
+                        type: string
+                        example: MEDICAL-MMID
+                      cash_register_id: {}
+                      order_status:
+                        type: string
+                        example: AWAITING_PROCESSING
+                      payment_status:
+                        type: string
+                        example: UNPAID
+                      payment_authorization: {}
+                      payment_processor_name: {}
+                      payment_charge_id: {}
+                      payment_fee: {}
+                      payment_treezpay_id: {}
+                      date_created:
+                        type: string
+                        example: '2026-07-14T10:55:58.000-07:00'
+                      last_updated_at:
+                        type: string
+                        example: '2026-07-14T10:55:58.000-07:00'
+                      date_closed: {}
+                      post_tax_pricing:
+                        type: boolean
+                        example: false
+                        default: true
+                      sub_total:
+                        type: integer
+                        example: 3
+                        default: 0
+                      post_tax_subtotal: {}
+                      tax_total:
+                        type: number
+                        example: 0.39
+                        default: 0
+                      discount_total:
+                        type: integer
+                        example: 0
+                        default: 0
+                      post_tax_discount_total: {}
+                      total:
+                        type: number
+                        example: 3.39
+                        default: 0
+                      ticket_note: {}
+                      refund_reason: {}
+                      original_ticket_id: {}
+                      refund_ticket_ids: {}
+                      delivery_address: {}
+                      delivery_route: {}
+                      scheduled_start_date: {}
+                      scheduled_date: {}
+                      discount_ids:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: fc2a837f-b875-46a3-b491-8e41e75bd3a6
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            barcodes:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            inventory_barcodes:
+                              type: array
+                              items:
+                                type: string
+                                example: Buw
+                            location_name:
+                              type: string
+                              example: FRONT OF HOUSE MED
+                            size_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            product_size_name:
+                              type: string
+                              example: 1:1 BALANCED TRANSDERMAL RELEAF PATCH - 15 MILLIGRAMS
+                            product_type:
+                              type: string
+                              example: TOPICAL
+                            product_brand:
+                              type: string
+                              example: PAPA & BARKLEY
+                            product_subtype:
+                              type: string
+                              example: PATCH
+                            quantity:
+                              type: integer
+                              example: 3
+                              default: 0
+                            price_total:
+                              type: number
+                              example: 3.39
+                              default: 0
+                            price_sell:
+                              type: integer
+                              example: 3
+                              default: 0
+                            post_tax_original_price: {}
+                            product_unit:
+                              type: string
+                              example: MILLIGRAMS
+                            product_amount:
+                              type: integer
+                              example: 15
+                              default: 0
+                            state_tracking_uom: {}
+                            apply_automatic_discounts:
+                              type: boolean
+                              example: true
+                              default: true
+                            POS_discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            tax:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: d781eb92-5735-44ce-a2c9-e8748f8f0007
+                                  rate:
+                                    type: number
+                                    example: 0.09
+                                    default: 0
+                                  tax_name:
+                                    type: string
+                                    example: NY State Excise Tax (9%)
+                                  amount:
+                                    type: number
+                                    example: 0.27
+                                    default: 0
+                            reward_dollars: {}
+                            price_target: {}
+                            price_target_note: {}
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      reward_eligible:
+                        type: boolean
+                        example: true
+                        default: true
+                      reward_points_earned:
+                        type: integer
+                        example: 0
+                        default: 0
+                      reward_points_used:
+                        type: integer
+                        example: 0
+                        default: 0
+                      purchase_limit:
+                        type: object
+                        properties:
+                          concentrated:
+                            type: string
+                            example: 0.045/8
+                          non_concentrated:
+                            type: string
+                            example: 0/228
+                          plant:
+                            type: string
+                            example: 0/12
+                      employee_id: {}
+                      cash_drawer_name: {}
+                      terminal_location_id: {}
+                      terminal_location_name: {}
+                      revenue_source:
+                        type: string
+                        example: Treez API Testing
+                      delivery_minimum_total: {}
+                      free_delivery_threshold: {}
+                      delivery_group_id: {}
+                      delivery_partner_details: {}
+                      coupon_codes:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: FAIL
+                    resultReason: TICKET_FORMAT_ERROR
+                    resultDetail: Invalid UUID format, size_id is required
+                    data: null
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: TICKET_FORMAT_ERROR
+                  resultDetail:
+                    type: string
+                    example: Invalid UUID format, size_id is required
+                  data: {}
+      tags:
+      - Ticket
+  /{dispensary}/ticket/update/{ticket_id}:
+    put:
+      summary: Update Ticket
+      description: ''
+      operationId: ticket-update
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: ticket_id
+        in: path
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - order_source
+              - order_status
+              - revenue_source
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - DELIVERY
+                  - PICKUP
+                  - EXPRESS
+                  - POS
+                  - DRIVE_THRU
+                  - CURBSIDE
+                order_source:
+                  type: string
+                  enum:
+                  - ECOMMERCE
+                  - IN_STORE
+                  - VENDING_MACHINE
+                  - KIOSK
+                order_status:
+                  type: string
+                  enum:
+                  - DRAFT
+                  - VERIFICATION_PENDING
+                  - AWAITING_PROCESSING
+                  - IN_PROCESS
+                  - PACKED_READY
+                  - OUT_FOR_DELIVERY
+                  - CANCELED
+                customer_id:
+                  type: string
+                state_of_residency:
+                  type: string
+                  description: Used only for determining resident vs. non-resident purchase limits for Illinois dispensaries. Accepted values are state postal codes, e.g. `IL`, `MN`, `IN`, `OH`, etc.
+                external_order_number:
+                  type: string
+                ticket_note:
+                  type: string
+                delivery_address:
+                  type: object
+                  properties: {}
+                schedule_start_date:
+                  type: string
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`.  The start time of a delivery window. Must be used with `scheduled_date`.'
+                  format: date
+                scheduled_date:
+                  type: string
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`. The end of a delivery window if used with `scheduled_start_date`. Can be used independently as a delivery target time.'
+                  format: date
+                items:
+                  type: array
+                  items:
+                    properties:
+                      inventory_id:
+                        type: string
+                      inventory_batch_id:
+                        type: string
+                      inventory_type:
+                        type: string
+                      location_name:
+                        type: string
+                      size_id:
+                        type: string
+                      quantity:
+                        type: integer
+                        format: int32
+                      apply_automatic_discounts:
+                        type: boolean
+                      pos_discounts:
+                        type: array
+                        items:
+                          properties:
+                            discount_id:
+                              type: string
+                            discount_title:
+                              type: string
+                            discount_amount:
+                              type: integer
+                              format: int32
+                            discount_method:
+                              type: string
+                              enum:
+                              - DOLLAR
+                              - PERCENT
+                          type: object
+                      reward_dollars:
+                        type: integer
+                        description: Used to redeem Treez Reward Dollars
+                        format: int32
+                    type: object
+                revenue_source:
+                  type: string
+                fees:
+                  type: array
+                  items:
+                    properties:
+                      type:
+                        type: string
+                        default: DELIVERY FEE
+                      total_amount:
+                        type: integer
+                        format: int32
+                    type: object
+                discount_ids:
+                  type: array
+                  items:
+                    type: string
+                  description: Used to specify cart-level discounts
+                coupon_codes:
+                  type: array
+                  items:
+                    type: string
+                payments:
+                  type: array
+                  items:
+                    properties:
+                      payment_source:
+                        type: string
+                        enum:
+                        - KIOSK
+                        - ECOMMERCE
+                        - IN_STORE
+                        - VENDING_MACHINE
+                      payment_method:
+                        type: string
+                        description: Custom payment methods must have `_CUSTOM` suffix added
+                        enum:
+                        - CREDIT
+                        - DEBIT
+                        - CASH
+                        - CHECK
+                        - ACH
+                      amount_paid:
+                        type: integer
+                        description: Amount must match the ticket `total`
+                        format: int32
+                    required:
+                    - payment_source
+                    - payment_method
+                    - amount_paid
+                    type: object
+                employee_id:
+                  type: string
+                cash_drawer_name:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      tags:
+      - Ticket
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip,br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

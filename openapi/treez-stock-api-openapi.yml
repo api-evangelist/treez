@@ -1,0 +1,200 @@
+openapi: 3.2.0
+info:
+  title: dispensary Stock API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/dispensary/v3
+security:
+- {}
+tags:
+- name: Stock
+paths:
+  /{dispensary}/stock/getStock:
+    get:
+      summary: Get product stock
+      description: ''
+      operationId: dispensary-inventory-get-stock
+      parameters:
+      - name: dispensary
+        in: path
+        schema:
+          type: string
+          default: partnersandbox3
+        required: true
+      - name: include_non_sellable
+        in: query
+        description: Default = `false`
+        schema:
+          type: boolean
+      - name: group_by_package
+        in: query
+        description: Group results by METRC package ID<br>Default=`false`
+        schema:
+          type: boolean
+      - name: group_by_batch
+        in: query
+        description: Group result by Treez batch ID<br>Default=`false`
+        schema:
+          type: boolean
+      - name: product_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - BEVERAGE
+          - PLANT
+          - PREROLL
+          - MERCH
+          - NON-INV
+          - TINCTURE
+          - MISC
+          - TOPICAL
+          - CARTRIDGE
+          - FLOWER
+          - PILL
+          - EXTRACT
+          - EDIBLE
+      - name: product_id
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+      - name: minimum_sellable_quantity
+        in: query
+        schema:
+          type: string
+      - name: active
+        in: query
+        schema:
+          type: boolean
+      - name: inventory_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - ADULT
+          - MEDICAL
+          - ALL
+      - name: last_update_date
+        in: query
+        description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+        schema:
+          type: string
+      - name: location_name
+        in: query
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"page_elements\": 5,\n        \"total_elements\": 277,\n        \"stock\": [\n            {\n                \"product_id\": \"006051c1-c3aa-4167-979b-cdc597c13945\",\n                \"product_status\": \"ACTIVE\",\n                \"product_name\": \"3:1 CBD RICH TRANSDERMAL RELEAF PATCH - 7.5 MILLIGRAMS\",\n                \"product_brand\": \"PAPA & BARKLEY\",\n                \"product_type\": \"TOPICAL\",\n                \"product_subtype\": \"PATCH\",\n                \"product_uom\": \"MILLIGRAMS\",\n                \"product_amount\": 7.5,\n                \"product_classification\": \"CBD\",\n                \"product_sku\": [],\n                \"inventory_details\": [\n                    {\n                        \"location_name\": \"DISPLAY CASE 1\",\n                        \"inventory_type\": \"ADULT\",\n                        \"sellable_quantity\": 998.0,\n                        \"last_updated_at\": \"2025-12-19T01:44:15.000-08:00\"\n                    }\n                ]\n            },\n            {\n                \"product_id\": \"00781822-9a00-433e-96ea-cb129286e571\",\n                \"product_status\": \"ACTIVE\",\n                \"product_name\": \"GELATO MINTZ SOLVENTLESS POD - 0.5 GRAMS\",\n                \"product_brand\": \"STIIIZY\",\n                \"product_type\": \"CARTRIDGE\",\n                \"product_subtype\": \"POD\",\n                \"product_uom\": \"GRAMS\",\n                \"product_amount\": 0.5,\n                \"product_classification\": \"INDICA\",\n                \"product_sku\": [],\n                \"inventory_details\": [\n                    {\n                        \"location_name\": \"DISPLAY CASE 1\",\n                        \"inventory_type\": \"ADULT\",\n                        \"sellable_quantity\": 1000.0,\n                        \"last_updated_at\": \"2025-12-04T00:15:27.000-08:00\"\n                    }\n                ]\n            },\n            {\n                \"product_id\": \"00df1cb5-e18b-49f1-95a1-e4ca0fe818bd\",\n                \"product_status\": \"ACTIVE\",\n                \"product_name\": \"710 LIST | HAZELNUT CREAM #13 | PERSY POD | 1G\",\n                \"product_brand\": \"710 LABS\",\n                \"product_type\": \"CARTRIDGE\",\n                \"product_subtype\": \"POD\",\n                \"product_uom\": \"GRAMS\",\n                \"product_amount\": 1,\n                \"product_classification\": null,\n                \"product_sku\": [\n                    \"710 List | Hazelnut Cream #13 | Persy Pod | 1g\"\n                ],\n                \"inventory_details\": [\n                    {\n                        \"location_name\": \"BACK OF HOUSE\",\n                        \"inventory_type\": \"ADULT\",\n                        \"sellable_quantity\": 5000.0,\n                        \"last_updated_at\": \"2025-12-15T18:18:12.000-08:00\"\n                    }\n                ]\n            },\n            {\n                \"product_id\": \"0160bfb5-3da0-4146-8c98-59eedac49a1a\",\n                \"product_status\": \"ACTIVE\",\n                \"product_name\": \"MEGA YUM YUMS - 50 MG\",\n                \"product_brand\": \"CAMINO\",\n                \"product_type\": \"EDIBLE\",\n                \"product_subtype\": \"GUMMY\",\n                \"product_uom\": \"MILLIGRAMS\",\n                \"product_amount\": 50,\n                \"product_classification\": null,\n                \"product_sku\": [\n                    \"564564\",\n                    \"8897987\"\n                ],\n                \"inventory_details\": [\n                    {\n                        \"location_name\": \"DISPLAY CASE 1\",\n                        \"inventory_type\": \"ADULT\",\n                        \"sellable_quantity\": 1000.0,\n                        \"last_updated_at\": \"2025-09-19T01:44:47.000-07:00\"\n                    }\n                ]\n            },\n            {\n                \"product_id\": \"0238cdfa-9cb9-46ce-a295-c1f9a494506e\",\n                \"product_status\": \"ACTIVE\",\n                \"product_name\": \"STRAWNANA ORANGE POWDER HASH - 1 GRAMS\",\n                \"product_brand\": \"NASHA\",\n                \"product_type\": \"EXTRACT\",\n                \"product_subtype\": \"POWDER HASH\",\n                \"product_uom\": \"GRAMS\",\n                \"product_amount\": 1,\n                \"product_classification\": \"I/S\",\n                \"product_sku\": [],\n                \"inventory_details\": [\n                    {\n                        \"location_name\": \"DISPLAY CASE 1\",\n                        \"inventory_type\": \"ADULT\",\n                        \"sellable_quantity\": 999.0,\n                        \"last_updated_at\": \"2026-01-05T19:24:30.000-08:00\"\n                    }\n                ]\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      page_elements:
+                        type: integer
+                        example: 5
+                        default: 0
+                      total_elements:
+                        type: integer
+                        example: 277
+                        default: 0
+                      stock:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            product_id:
+                              type: string
+                              example: 006051c1-c3aa-4167-979b-cdc597c13945
+                            product_status:
+                              type: string
+                              example: ACTIVE
+                            product_name:
+                              type: string
+                              example: 3:1 CBD RICH TRANSDERMAL RELEAF PATCH - 7.5 MILLIGRAMS
+                            product_brand:
+                              type: string
+                              example: PAPA & BARKLEY
+                            product_type:
+                              type: string
+                              example: TOPICAL
+                            product_subtype:
+                              type: string
+                              example: PATCH
+                            product_uom:
+                              type: string
+                              example: MILLIGRAMS
+                            product_amount:
+                              type: number
+                              example: 7.5
+                              default: 0
+                            product_classification:
+                              type: string
+                              example: CBD
+                            product_sku:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            inventory_details:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  location_name:
+                                    type: string
+                                    example: DISPLAY CASE 1
+                                  inventory_type:
+                                    type: string
+                                    example: ADULT
+                                  sellable_quantity:
+                                    type: integer
+                                    example: 998
+                                    default: 0
+                                  last_updated_at:
+                                    type: string
+                                    example: '2025-12-19T01:44:15.000-08:00'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Stock
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip,br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

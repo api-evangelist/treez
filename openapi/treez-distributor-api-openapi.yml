@@ -1,0 +1,570 @@
+openapi: 3.2.0
+info:
+  title: dispensary Distributor API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/dispensary/v3
+security:
+- {}
+tags:
+- name: Distributor
+paths:
+  /{dispensary}/distributor/list:
+    get:
+      summary: Distributor - Get all
+      description: ''
+      operationId: dispensary-distributor-get-all
+      parameters:
+      - name: page_size
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: page
+        in: query
+        schema:
+          type: integer
+          format: int32
+      - name: active
+        in: query
+        description: All records are returned if not specified.
+        schema:
+          type: boolean
+      - name: id
+        in: query
+        schema:
+          type: string
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"totalPages\": 1,\n    \"totalElements\": 36,\n    \"resultDetail\": null,\n    \"data\": [\n        {\n            \"id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"WYLD\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 680.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"054a57b1-01fa-41ab-a9e4-be130d377e86\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"DR. NORMS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1450.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"16fd56ae-54c2-4898-abed-c5b3b2a2bf1c\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"NORTHERN EMERALDS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1600.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"19b04928-a59e-48e1-8b3c-541f07d99c9b\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"CAMINO\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"5\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"2068d428-5f66-4dfb-883d-261be890016d\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"GLASS HOUSE FARMS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"7\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1300.00,\n            \"licenses\": [\n                {\n                    \"id\": \"1d67ea37-7712-4048-8f6f-1a7a5b918428\",\n                    \"label\": \"DISTRIBUTOR - Test\",\n                    \"type\": \"ALL\",\n                    \"license_number\": \"wqeqweqw001\",\n                    \"expiration_date\": \"2024-08-31T00:00:00.000-07:00\",\n                    \"status\": \"active\"\n                }\n            ]\n        },\n        {\n            \"id\": \"32649cff-3319-413f-9940-cca179bc1367\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"TREEZ TEST\",\n            \"doing_business_as\": \"\",\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"false\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"359b4cbd-eb0e-46bf-963c-3e1cbf36c5f5\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"PAPA & BARKLEY\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 3200.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"3d4d9efe-7d05-4882-a785-851398744567\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"BREEZ\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"7\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 8215.00,\n            \"available_credit\": 320.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"4798f2b0-e13f-4f64-a167-ce2a0abb5598\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"RAW GARDEN\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1400.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"4a0698e8-f3c3-4853-9a64-71ed194b99bf\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"STIIIZY\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 13000.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"504f1a83-42aa-4130-a794-44e7d648455e\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"KIKOKO\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 350.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"567a8fe3-ce13-4988-adbb-a9a985e597f6\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"LEVEL\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 250.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"5c782809-3a02-4e84-aa30-3e7c3d156b3f\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"SMOKIEZ\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 380.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"6a83f8de-d938-44bd-86ed-471697b575ae\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"CANNABIOTIX\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"5\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 2200.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"7baa70c3-9805-42a2-bbdf-074997497046\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"COOKIES\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 550.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"7cf08662-f889-4bc1-a2b5-abce91f5256b\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"WM DISTRIBUTOR TEST\",\n            \"doing_business_as\": \"WM DISTRIBUTOR\",\n            \"address\": \"41 DISCOVERY\",\n            \"phone\": \"222-222-2222\",\n            \"email\": \"wmacreynolds@weedmaps.com\",\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": \"MON, TUE, WED, THU, FRI, SAT, SUN\",\n            \"preferred_payment_method\": \"CASH\",\n            \"active\": \"true\",\n            \"outstanding_balance\": 14000000.00,\n            \"available_credit\": 0.00,\n            \"licenses\": [\n                {\n                    \"id\": \"be0e5074-1e43-4965-90fa-f6c7642f6570\",\n                    \"label\": \"DISTRIBUTOR\",\n                    \"type\": \"ALL\",\n                    \"license_number\": \"wm-distributor-license-i-found-on-a-walk\",\n                    \"expiration_date\": \"2027-01-28T00:00:00.000-08:00\",\n                    \"status\": \"active\"\n                }\n            ]\n        },\n        {\n            \"id\": \"7fc11b9d-201e-420c-939b-aae75a60ed94\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"KEEF\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 400.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"a47cb392-2465-4e05-9097-d47d4d7e5f99\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"PROOF\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 200.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"a8e9986f-5075-405e-a76a-de83a81e3ce5\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"CANNAVIS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"7\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"a9175526-d8e8-4e3c-9533-df74dc88df4b\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"PUFFCO\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 4300.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"aac8e100-cf08-4384-8e70-1980dc483850\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"KIVA\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 2500.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"b1f1cdf8-32ca-449f-8bde-66998b6ffa6e\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"RAW\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"b22fd640-af50-4975-91dd-a92d28b18abb\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"DRINK LOUD\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 650.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"b446e06d-ccc7-4a43-ac9a-7ee4ad42b22d\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"NASHA\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 750.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"b4830747-6947-4d49-8419-8e51758de810\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"ABSOLUTEXTRACTS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"bdc2278b-0620-11e8-b4e9-02429027d658\",\n            \"type\": \"ARMS_LENGTH\",\n            \"company\": \"TREEZ\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 337487.25,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"bffba3fe-5f91-4be7-959f-57e7b926d575\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"JEETER\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1500.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"c50e88f0-9461-4d19-b27e-e0244d3f98a7\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"NAMELESS GENETICS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1500.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"d190fcd7-c75e-46da-a390-f38518fcb8a0\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"LAGUNITAS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 175.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"d2fe8f13-1f09-4d2d-aebf-aa4cb528c51d\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"PETRA\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 150.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"db10a938-757e-4101-be1b-cc46ae04cc2b\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"WEST COAST CURE\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1300.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"dc70b477-2a7e-4ab3-aeba-9756f536b5ee\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"KANHA\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"e32d4202-16e2-43a2-a3f7-1f707d72a20b\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"DECIBEL GARDENS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"7\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 6500.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"f56fb55b-3a8f-438d-9f8e-b7d9ae448d95\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"KAMIL2-SAND3\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"Net 30\",\n            \"lead_time\": null,\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 0.00,\n            \"licenses\": [\n                {\n                    \"id\": \"f9d98b14-6079-4b99-a261-7abcb3eebda5\",\n                    \"label\": \"DISTRIBUTOR\",\n                    \"type\": \"ALL\",\n                    \"license_number\": \"C11-1822834-LIC\",\n                    \"expiration_date\": \"2026-04-16T15:00:00.000-07:00\",\n                    \"status\": \"active\"\n                }\n            ]\n        },\n        {\n            \"id\": \"f6caba9b-f8a6-4dd8-b0f5-92d1577cefc3\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"CANN\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"7\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 0.00,\n            \"available_credit\": 1000.00,\n            \"licenses\": []\n        },\n        {\n            \"id\": \"f8d2b476-4ba9-48ad-be5f-718ad39d1ca7\",\n            \"type\": \"NON_ARMS_LENGTH\",\n            \"company\": \"ALIEN LABS\",\n            \"doing_business_as\": null,\n            \"address\": null,\n            \"phone\": null,\n            \"email\": null,\n            \"default_payment_term\": \"COD\",\n            \"lead_time\": \"5\",\n            \"delivery_days\": null,\n            \"preferred_payment_method\": null,\n            \"active\": \"true\",\n            \"outstanding_balance\": 2000.00,\n            \"available_credit\": 290.00,\n            \"licenses\": []\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  totalPages:
+                    type: integer
+                    example: 1
+                    default: 0
+                  totalElements:
+                    type: integer
+                    example: 36
+                    default: 0
+                  resultDetail: {}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                        type:
+                          type: string
+                          example: NON_ARMS_LENGTH
+                        company:
+                          type: string
+                          example: WYLD
+                        doing_business_as: {}
+                        address: {}
+                        phone: {}
+                        email: {}
+                        default_payment_term:
+                          type: string
+                          example: COD
+                        lead_time: {}
+                        delivery_days: {}
+                        preferred_payment_method: {}
+                        active:
+                          type: string
+                          example: 'true'
+                        outstanding_balance:
+                          type: integer
+                          example: 0
+                          default: 0
+                        available_credit:
+                          type: integer
+                          example: 680
+                          default: 0
+                        licenses:
+                          type: array
+                          items:
+                            type: object
+                            properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Distributor
+  /{dispensary}/distributor/{id}:
+    get:
+      summary: Distributor - Get by id
+      description: ''
+      operationId: dispensary-distributor-get-by-id
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"type\": \"NON_ARMS_LENGTH\",\n        \"company\": \"WYLD\",\n        \"doing_business_as\": null,\n        \"address\": null,\n        \"phone\": null,\n        \"email\": null,\n        \"default_payment_term\": \"COD\",\n        \"lead_time\": null,\n        \"delivery_days\": null,\n        \"preferred_payment_method\": null,\n        \"active\": \"true\",\n        \"outstanding_balance\": 0.00,\n        \"available_credit\": 680.00,\n        \"licenses\": []\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      type:
+                        type: string
+                        example: NON_ARMS_LENGTH
+                      company:
+                        type: string
+                        example: WYLD
+                      doing_business_as: {}
+                      address: {}
+                      phone: {}
+                      email: {}
+                      default_payment_term:
+                        type: string
+                        example: COD
+                      lead_time: {}
+                      delivery_days: {}
+                      preferred_payment_method: {}
+                      active:
+                        type: string
+                        example: 'true'
+                      outstanding_balance:
+                        type: integer
+                        example: 0
+                        default: 0
+                      available_credit:
+                        type: integer
+                        example: 680
+                        default: 0
+                      licenses:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"NOT_FOUND\",\n    \"resultDetail\": \"Unable to find Distributor with ID: 00dfb0c3-19af-438b-afd0-a4335cf11d1\",\n    \"data\": null\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: 'Unable to find Distributor with ID: 00dfb0c3-19af-438b-afd0-a4335cf11d1'
+                  data: {}
+      deprecated: false
+      tags:
+      - Distributor
+  /{dispensary}/distributor:
+    post:
+      summary: Distributor - Create
+      description: ''
+      operationId: distributor-create
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              - company
+              - default_payment_term
+              - active
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - arms_length
+                  - non_arms_length
+                company:
+                  type: string
+                doing_business_as:
+                  type: string
+                address:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                lead_time:
+                  type: string
+                delivery_days:
+                  type: string
+                  enum:
+                  - SUN
+                  - MON
+                  - TUE
+                  - WED
+                  - THU
+                  - FRI
+                  - SAT
+                default_payment_term:
+                  type: string
+                  description: Uses values from the `/paymentTerm/list` endpoint
+                preferred_payment_method:
+                  type: string
+                  enum:
+                  - ACH
+                  - CASH
+                  - CHECK
+                  - WIRE
+                active:
+                  type: boolean
+                licenses:
+                  type: array
+                  items:
+                    properties:
+                      license_number:
+                        type: string
+                      expiration_date:
+                        type: string
+                        description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"a65867db-683c-44ce-9174-6190386e75b1\",\n        \"type\": \"NON_ARMS_LENGTH\",\n        \"company\": \"GOLDEN MULLET DISTRIBUTION\",\n        \"doing_business_as\": null,\n        \"address\": \"999 STREET, FL\",\n        \"phone\": \"8888888888\",\n        \"email\": \"email@email.com\",\n        \"default_payment_term\": \"Net 30\",\n        \"lead_time\": \"10\",\n        \"delivery_days\": \"MON, TUE, SAT\",\n        \"preferred_payment_method\": \"ACH\",\n        \"active\": \"false\",\n        \"outstanding_balance\": 0.00,\n        \"available_credit\": 0.00,\n        \"licenses\": [\n            {\n                \"id\": \"883a1443-7645-4183-bdf8-46cf3e637ab6\",\n                \"label\": \"DISTRIBUTOR\",\n                \"type\": \"ALL\",\n                \"license_number\": \"FL5956C\",\n                \"expiration_date\": \"2024-12-31T23:01:59.000-08:00\",\n                \"status\": \"inactive\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: a65867db-683c-44ce-9174-6190386e75b1
+                      type:
+                        type: string
+                        example: NON_ARMS_LENGTH
+                      company:
+                        type: string
+                        example: GOLDEN MULLET DISTRIBUTION
+                      doing_business_as: {}
+                      address:
+                        type: string
+                        example: 999 STREET, FL
+                      phone:
+                        type: string
+                        example: '8888888888'
+                      email:
+                        type: string
+                        example: email@email.com
+                      default_payment_term:
+                        type: string
+                        example: Net 30
+                      lead_time:
+                        type: string
+                        example: '10'
+                      delivery_days:
+                        type: string
+                        example: MON, TUE, SAT
+                      preferred_payment_method:
+                        type: string
+                        example: ACH
+                      active:
+                        type: string
+                        example: 'false'
+                      outstanding_balance:
+                        type: integer
+                        example: 0
+                        default: 0
+                      available_credit:
+                        type: integer
+                        example: 0
+                        default: 0
+                      licenses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 883a1443-7645-4183-bdf8-46cf3e637ab6
+                            label:
+                              type: string
+                              example: DISTRIBUTOR
+                            type:
+                              type: string
+                              example: ALL
+                            license_number:
+                              type: string
+                              example: FL5956C
+                            expiration_date:
+                              type: string
+                              example: '2024-12-31T23:01:59.000-08:00'
+                            status:
+                              type: string
+                              example: inactive
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Distributor
+    put:
+      summary: Distributor - Update
+      description: ''
+      operationId: distributor-update
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - type
+              - company
+              - default_payment_term
+              - active
+              properties:
+                id:
+                  type: string
+                type:
+                  type: string
+                  enum:
+                  - arms_length
+                  - non_arms_length
+                company:
+                  type: string
+                doing_business_as:
+                  type: string
+                address:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                lead_time:
+                  type: string
+                delivery_days:
+                  type: string
+                  enum:
+                  - SUN
+                  - MON
+                  - TUE
+                  - WED
+                  - THU
+                  - FRI
+                  - SAT
+                default_payment_term:
+                  type: string
+                  description: Uses values from the `/paymentTerm/list` endpoint
+                preferred_payment_method:
+                  type: string
+                  enum:
+                  - ACH
+                  - CASH
+                  - CHECK
+                  - WIRE
+                active:
+                  type: boolean
+                licenses:
+                  type: array
+                  items:
+                    properties:
+                      license_number:
+                        type: string
+                      expiration_date:
+                        type: string
+                        description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"a65867db-683c-44ce-9174-6190386e75b1\",\n        \"type\": \"NON_ARMS_LENGTH\",\n        \"company\": \"GOLDEN MULLET DISTRIBUTION\",\n        \"doing_business_as\": null,\n        \"address\": \"999 STREET, FL\",\n        \"phone\": \"8888888888\",\n        \"email\": \"email@email.com\",\n        \"default_payment_term\": \"Net 30\",\n        \"lead_time\": \"10\",\n        \"delivery_days\": \"MON, TUE, SAT\",\n        \"preferred_payment_method\": \"ACH\",\n        \"active\": \"false\",\n        \"outstanding_balance\": 0.00,\n        \"available_credit\": 0.00,\n        \"licenses\": [\n            {\n                \"id\": \"883a1443-7645-4183-bdf8-46cf3e637ab6\",\n                \"label\": \"DISTRIBUTOR\",\n                \"type\": \"ALL\",\n                \"license_number\": \"FL5956C\",\n                \"expiration_date\": \"2024-12-31T23:01:59.000-08:00\",\n                \"status\": \"inactive\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: a65867db-683c-44ce-9174-6190386e75b1
+                      type:
+                        type: string
+                        example: NON_ARMS_LENGTH
+                      company:
+                        type: string
+                        example: GOLDEN MULLET DISTRIBUTION
+                      doing_business_as: {}
+                      address:
+                        type: string
+                        example: 999 STREET, FL
+                      phone:
+                        type: string
+                        example: '8888888888'
+                      email:
+                        type: string
+                        example: email@email.com
+                      default_payment_term:
+                        type: string
+                        example: Net 30
+                      lead_time:
+                        type: string
+                        example: '10'
+                      delivery_days:
+                        type: string
+                        example: MON, TUE, SAT
+                      preferred_payment_method:
+                        type: string
+                        example: ACH
+                      active:
+                        type: string
+                        example: 'false'
+                      outstanding_balance:
+                        type: integer
+                        example: 0
+                        default: 0
+                      available_credit:
+                        type: integer
+                        example: 0
+                        default: 0
+                      licenses:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 883a1443-7645-4183-bdf8-46cf3e637ab6
+                            label:
+                              type: string
+                              example: DISTRIBUTOR
+                            type:
+                              type: string
+                              example: ALL
+                            license_number:
+                              type: string
+                              example: FL5956C
+                            expiration_date:
+                              type: string
+                              example: '2024-12-31T23:01:59.000-08:00'
+                            status:
+                              type: string
+                              example: inactive
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"NOT_FOUND\",\n    \"resultDetail\": \"Unable to find Distributor with ID: 2068d428-5f66-4dfb-883d-261be890016\",\n    \"data\": null\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: 'Unable to find Distributor with ID: 2068d428-5f66-4dfb-883d-261be890016'
+                  data: {}
+      deprecated: false
+      tags:
+      - Distributor
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip,br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

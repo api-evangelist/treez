@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: catalog Product Category API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: Product Category
+paths:
+  /{ver}/product-category:
+    get:
+      summary: Categories - Read
+      description: This endpoint returns product category records. All records will be returned if the optional `ids` param is excluded.
+      operationId: catalog-categories-read
+      parameters:
+      - name: ids
+        in: query
+        description: (optional) The `id` GUID of the product category to be returned. Exclude to return all values.
+        schema:
+          type: array
+          items:
+            type: string
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "[\n    {\n        \"id\": \"39900cf2-a554-49f5-8992-f49e6e26404e\",\n        \"createdAt\": \"2023-06-30T23:06:02.856Z\",\n        \"updatedAt\": \"2024-01-19T17:35:34.710Z\",\n        \"deletedAt\": null,\n        \"name\": \"Preroll\",\n        \"isCannabis\": true,\n        \"uoms\": [\n            {\n                \"label\": \"GRAMS\",\n                \"value\": \"GRAMS\",\n                \"isDefault\": true\n            },\n            {\n                \"label\": \"MILLIGRAMS\",\n                \"value\": \"MILLIGRAMS\",\n                \"isDefault\": false\n            }\n        ],\n        \"productFormDetails\": [\n            {\n                \"input\": \"classification\",\n                \"label\": \"Classification\",\n                \"state\": [],\n                \"required\": false,\n                \"inputType\": \"string\"\n            },\n            {\n                \"input\": \"strain\",\n                \"label\": \"Strain\",\n                \"state\": [],\n                \"required\": false,\n                \"inputType\": \"string\"\n            }\n        ],\n        \"variantFormDetails\": [\n            {\n                \"input\": \"totalMgCbd\",\n                \"label\": \"Total mg CBD\",\n                \"state\": [],\n                \"required\": false,\n                \"inputType\": \"number\"\n            },\n            {\n                \"input\": \"totalMgThc\",\n                \"label\": \"Total mg THC\",\n                \"state\": [],\n                \"required\": false,\n                \"inputType\": \"number\"\n            },\n            {\n                \"icon\": \"PL\",\n                \"input\": \"totalFlowerWeight\",\n                \"label\": \"Total Flower Weight (g) *\",\n                \"state\": [],\n                \"required\": true,\n                \"inputType\": \"number\"\n            },\n            {\n                \"input\": \"totalConcentrateWeight\",\n                \"label\": \"Total Concentrate Weight (g) *\",\n                \"state\": [],\n                \"toolTip\": \"This field is only required for the Infused Preroll subcategory.\",\n                \"required\": false,\n                \"inputType\": \"number\"\n            },\n            {\n                \"input\": \"netWeight\",\n                \"label\": \"Net Weight\",\n                \"state\": [],\n                \"required\": false,\n                \"inputType\": \"number\"\n            },\n            {\n                \"input\": \"netWeightUom\",\n                \"label\": \"Net Weight UoM\",\n                \"state\": [],\n                \"required\": false,\n                \"inputType\": \"string\"\n            }\n        ]\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 39900cf2-a554-49f5-8992-f49e6e26404e
+                    createdAt:
+                      type: string
+                      example: '2023-06-30T23:06:02.856Z'
+                    updatedAt:
+                      type: string
+                      example: '2024-01-19T17:35:34.710Z'
+                    deletedAt: {}
+                    name:
+                      type: string
+                      example: Preroll
+                    isCannabis:
+                      type: boolean
+                      example: true
+                      default: true
+                    uoms:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          label:
+                            type: string
+                            example: GRAMS
+                          value:
+                            type: string
+                            example: GRAMS
+                          isDefault:
+                            type: boolean
+                            example: true
+                            default: true
+                    productFormDetails:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          input:
+                            type: string
+                            example: classification
+                          label:
+                            type: string
+                            example: Classification
+                          state:
+                            type: array
+                            items:
+                              type: object
+                              properties: {}
+                          required:
+                            type: boolean
+                            example: false
+                            default: true
+                          inputType:
+                            type: string
+                            example: string
+                    variantFormDetails:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          input:
+                            type: string
+                            example: totalMgCbd
+                          label:
+                            type: string
+                            example: Total mg CBD
+                          state:
+                            type: array
+                            items:
+                              type: object
+                              properties: {}
+                          required:
+                            type: boolean
+                            example: false
+                            default: true
+                          inputType:
+                            type: string
+                            example: number
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Product Category
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

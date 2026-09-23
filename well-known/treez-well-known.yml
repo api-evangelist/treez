@@ -1,26 +1,24 @@
 generated: '2026-08-30'
 method: probed
-source: 'Direct anonymous GET of each /.well-known/ path on every Treez host named by apis.yml baseURL and OpenAPI servers[], 2026-08-30'
-note: >-
-  One real document was served: an RFC 9727 API Catalog (linkset) at
-  https://code.treez.io/.well-known/api-catalog, which names all seven Treez OpenAPI definitions
-  with service-desc + service-doc links. Every other path 404d or was refused. The api-prod.treez.io
-  and api.treez.io hosts return a blanket {"message":"Forbidden"} (403) to unauthenticated requests
-  on every path including /.well-known/*, so absence there is unproven rather than confirmed.
-  www.treez.io returns a soft-404 SPA shell (HTTP 404 with HTML body) on every /.well-known/ path.
+source: Direct anonymous GET of each /.well-known/ path on every Treez host named by apis.yml baseURL
+  and OpenAPI servers[], 2026-08-30
+note: 'One real document was served: an RFC 9727 API Catalog (linkset) at https://code.treez.io/.well-known/api-catalog,
+  which names all seven Treez OpenAPI definitions with service-desc + service-doc links. Every other path
+  404d or was refused. The api-prod.treez.io and api.treez.io hosts return a blanket {"message":"Forbidden"}
+  (403) to unauthenticated requests on every path including /.well-known/*, so absence there is unproven
+  rather than confirmed. www.treez.io returns a soft-404 SPA shell (HTTP 404 with HTML body) on every
+  /.well-known/ path.'
 hosts:
 - host: code.treez.io
   role: developer documentation portal (ReadMe-hosted, code.treez.io)
   documents:
   - path: /.well-known/api-catalog
     status: 200
-    file: well-known/treez-api-catalog.json
+    file: treez-api-catalog.json
     content_type: application/json
-    note: >-
-      RFC 9727 API Catalog. linkset[] carries 7 anchors, each with a service-desc href to
-      https://code.treez.io/openapi/<name>.json (application/vnd.oai.openapi+json) and a
-      service-doc href to https://code.treez.io/reference. This is the document that confirmed
-      the exact set of seven published Treez OpenAPI definitions.
+    note: RFC 9727 API Catalog. linkset[] carries 7 anchors, each with a service-desc href to https://code.treez.io/openapi/<name>.json
+      (application/vnd.oai.openapi+json) and a service-doc href to https://code.treez.io/reference. This
+      is the document that confirmed the exact set of seven published Treez OpenAPI definitions.
   - path: /.well-known/security.txt
     status: 404
     file: null

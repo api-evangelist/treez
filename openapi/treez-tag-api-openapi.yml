@@ -1,0 +1,278 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Tag API
+servers:
+- url: https://api-prod.treez.io/service/tag-group
+tags:
+- name: Tag
+paths:
+  /{ver}/{id}:
+    get:
+      description: ''
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    id: 4a632469-1baf-d119-0df6-d51e5e049b35
+                    name: Customer Group
+                    createdAt: '2024-02-08T00:42:01.574Z'
+                    updatedAt: '2024-02-08T00:42:01.574Z'
+                    deletedAt: null
+                    tags:
+                    - id: 2a38b24b-5a7b-4166-aad5-56bb6a441081
+                      tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      name: EMPLOYEES
+                      createdAt: '2025-01-08T13:21:41.712+00:00'
+                      updatedAt: '2026-03-24T13:59:35.412+00:00'
+                      deletedAt: null
+                    - id: dcb98634-4e9b-4400-aa9f-d8eea48db9b5
+                      tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      name: FRIENDS AND FAMILY
+                      createdAt: '2025-01-08T13:21:39.971+00:00'
+                      updatedAt: '2025-01-08T13:21:39.971+00:00'
+                      deletedAt: null
+                    - id: 60666bfa-50d9-4d78-abe2-f2387ee06bb5
+                      tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      name: INDUSTRY
+                      createdAt: '2025-01-08T13:21:42.451+00:00'
+                      updatedAt: '2025-01-08T13:21:42.451+00:00'
+                      deletedAt: null
+                    - id: e434e3c2-dee9-49fc-8415-02e441d65ca5
+                      tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      name: SENIOR
+                      createdAt: '2025-01-08T13:21:41.092+00:00'
+                      updatedAt: '2025-01-08T13:21:41.092+00:00'
+                      deletedAt: null
+                    - id: 678e52f5-286d-46b0-81a5-489c6941abab
+                      tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      name: STUDENT
+                      createdAt: '2025-01-08T13:21:38.858+00:00'
+                      updatedAt: '2025-01-08T13:21:38.858+00:00'
+                      deletedAt: null
+                    - id: 40d8b920-5e9e-48cb-ba39-2c56190e20c4
+                      tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                      organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                      name: VETERAN
+                      createdAt: '2026-03-18T21:28:36.843+00:00'
+                      updatedAt: '2026-03-18T21:28:36.843+00:00'
+                      deletedAt: null
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 4a632469-1baf-d119-0df6-d51e5e049b35
+                  name:
+                    type: string
+                    example: Customer Group
+                  createdAt:
+                    type: string
+                    example: '2024-02-08T00:42:01.574Z'
+                  updatedAt:
+                    type: string
+                    example: '2024-02-08T00:42:01.574Z'
+                  deletedAt: {}
+                  tags:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 2a38b24b-5a7b-4166-aad5-56bb6a441081
+                        tagGroupId:
+                          type: string
+                          example: 4a632469-1baf-d119-0df6-d51e5e049b35
+                        organizationId:
+                          type: string
+                          example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                        name:
+                          type: string
+                          example: EMPLOYEES
+                        createdAt:
+                          type: string
+                          example: '2025-01-08T13:21:41.712+00:00'
+                        updatedAt:
+                          type: string
+                          example: '2026-03-24T13:59:35.412+00:00'
+                        deletedAt: {}
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      summary: Copy of
+      operationId: get_ver-id
+      tags:
+      - Tag
+    put:
+      description: ''
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 156a4a11-2e97-4a41-88cb-00dadeb0d181
+                  name:
+                    type: string
+                    example: LOCALS
+                  organizationId:
+                    type: string
+                    example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                  tagGroupId:
+                    type: string
+                    example: 4a632469-1baf-d119-0df6-d51e5e049b35
+                  createdAt:
+                    type: string
+                    example: '2026-03-24T17:50:43.854Z'
+                  updatedAt:
+                    type: string
+                    example: '2026-03-24T18:13:40.282Z'
+                  deletedAt: {}
+              examples:
+                OK:
+                  summary: OK
+                  value:
+                    id: 156a4a11-2e97-4a41-88cb-00dadeb0d181
+                    name: LOCALS
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                    createdAt: '2026-03-24T17:50:43.854Z'
+                    updatedAt: '2026-03-24T18:13:40.282Z'
+                    deletedAt: null
+          description: OK
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      summary: Copy of Copy of Copy of
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tagGroupId:
+                  type: string
+                organizationId:
+                  type: string
+                name:
+                  type: string
+                createdAt:
+                  type: string
+                  format: date-time
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                updatedAt:
+                  type: string
+                  format: date-time
+                  description: 'ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+              required:
+              - organizationId
+              - tagGroupId
+              - createdAt
+              - updatedAt
+              - name
+      operationId: put_ver-id
+      tags:
+      - Tag
+  /{ver}:
+    post:
+      description: ''
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 156a4a11-2e97-4a41-88cb-00dadeb0d181
+                  name:
+                    type: string
+                    example: LOCAL
+                  organizationId:
+                    type: string
+                    example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                  tagGroupId:
+                    type: string
+                    example: 4a632469-1baf-d119-0df6-d51e5e049b35
+                  createdAt:
+                    type: string
+                    example: '2026-03-24T17:50:43.854Z'
+                  updatedAt:
+                    type: string
+                    example: '2026-03-24T17:50:43.854Z'
+                  deletedAt: {}
+              examples:
+                Created:
+                  summary: Created
+                  value:
+                    id: 156a4a11-2e97-4a41-88cb-00dadeb0d181
+                    name: LOCAL
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    tagGroupId: 4a632469-1baf-d119-0df6-d51e5e049b35
+                    createdAt: '2026-03-24T17:50:43.854Z'
+                    updatedAt: '2026-03-24T17:50:43.854Z'
+                    deletedAt: null
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+      summary: Copy of Copy of
+      operationId: post_ver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tagGroupId:
+                  type: string
+                organizationId:
+                  type: string
+                name:
+                  type: string
+              required:
+              - organizationId
+              - name
+              - tagGroupId
+      tags:
+      - Tag
+x-readme:
+  explorer-enabled: true
+  proxy-enabled: true

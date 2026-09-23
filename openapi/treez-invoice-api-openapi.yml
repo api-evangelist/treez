@@ -1,0 +1,2584 @@
+openapi: 3.2.0
+info:
+  title: dispensary Invoice API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/dispensary/v3
+security:
+- {}
+tags:
+- name: Invoice
+paths:
+  /{dispensary}/invoice/credit/create:
+    post:
+      summary: Distributor Credit - Create
+      description: Create a new vendor credit that can be applied to an invoice. This endpoint only creates the credit - it does not apply it to a specific invoice.
+      operationId: invoice-apply-credit-1
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - amount
+              properties:
+                id:
+                  type: string
+                  description: The `id` of the distributor for which the credit is being created
+                amount:
+                  type: number
+                  description: The dollar amount of the credit
+                notes:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"5f33d387-8f7c-4068-bd48-b920a5efd267\",\n        \"payment_status\": \"PARTIALLY PAID\",\n        \"payments\": [\n            {\n                \"payment_date\": \"2025-12-11T15:00:17.175-0800\",\n                \"payment_user\": \"API\",\n                \"payment_amount\": 50.00,\n                \"transaction_type\": \"Credit Note\",\n                \"payment_source\": \"N/A\",\n                \"payment_notes\": \"Distributor credit applied\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason:
+                    type: string
+                  resultDetail:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 5f33d387-8f7c-4068-bd48-b920a5efd267
+                      payment_status:
+                        type: string
+                        example: PARTIALLY PAID
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            payment_date:
+                              type: string
+                              example: 2025-12-11T15:00:17.175-0800
+                            payment_user:
+                              type: string
+                              example: API
+                            payment_amount:
+                              type: integer
+                              example: 50
+                              default: 0
+                            transaction_type:
+                              type: string
+                              example: Credit Note
+                            payment_source:
+                              type: string
+                              example: N/A
+                            payment_notes:
+                              type: string
+                              example: Distributor credit applied
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      x-internal: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice/credit/apply:
+    post:
+      summary: Distributor Credit - Apply to Invoice
+      description: Apply an existing vendor credit as payment toward an invoice.
+      operationId: invoice-apply-credit
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - distributor_id
+              - payment_amount
+              properties:
+                id:
+                  type: string
+                  description: The `id` of the invoice to which the payment will be applied.
+                distributor_id:
+                  type: string
+                payment_amount:
+                  type: string
+                payment_notes:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"5f33d387-8f7c-4068-bd48-b920a5efd267\",\n        \"payment_status\": \"PARTIALLY PAID\",\n        \"payments\": [\n            {\n                \"payment_date\": \"2025-12-11T15:00:17.175-0800\",\n                \"payment_user\": \"API\",\n                \"payment_amount\": 50.00,\n                \"transaction_type\": \"Credit Note\",\n                \"payment_source\": \"N/A\",\n                \"payment_notes\": \"Distributor credit applied\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason:
+                    type: string
+                  resultDetail:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 5f33d387-8f7c-4068-bd48-b920a5efd267
+                      payment_status:
+                        type: string
+                        example: PARTIALLY PAID
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            payment_date:
+                              type: string
+                              example: 2025-12-11T15:00:17.175-0800
+                            payment_user:
+                              type: string
+                              example: API
+                            payment_amount:
+                              type: integer
+                              example: 50
+                              default: 0
+                            transaction_type:
+                              type: string
+                              example: Credit Note
+                            payment_source:
+                              type: string
+                              example: N/A
+                            payment_notes:
+                              type: string
+                              example: Distributor credit applied
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      x-internal: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice/paymentTerm:
+    post:
+      summary: Payment Terms - Create
+      description: ''
+      operationId: payment-terms-get-all-1
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    resultCode: SUCCESS
+                    resultReason: null
+                    resultDetail: null
+                    data:
+                      id: 9791f7aa-dcaf-42db-b0e4-e169166802d0
+                      label: Net 60
+                      payment_due: Net 60
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 9791f7aa-dcaf-42db-b0e4-e169166802d0
+                      label:
+                        type: string
+                        example: Net 120
+                      payment_due:
+                        type: string
+                        example: Net 120
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  summary: INCORRECT_VALUE
+                  value:
+                    resultCode: FAIL
+                    resultReason: INCORRECT_VALUE
+                    resultDetail:
+                    - 'label: Label cannot be blank or empty'
+                    - 'paymentDue: Payment Due cannot be blank or empty'
+                INVALID_REQUEST:
+                  value:
+                    resultCode: FAIL
+                    resultReason: INVALID_REQUEST
+                    resultDetail: Payment terms with the specified label already exist.
+                    data: null
+                  summary: INVALID_REQUEST
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INVALID_REQUEST
+                  resultDetail:
+                    type: string
+                    example: Payment terms with the specified label already exist.
+                  data: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  type: string
+                payment_due:
+                  type: integer
+              required:
+              - label
+              - payment_due
+      tags:
+      - Invoice
+  /{dispensary}/invoice/{id}:
+    get:
+      summary: Invoice - Get by id
+      description: ''
+      operationId: invoice-get-by-id
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"3d56d148-53b3-4fef-be81-a283eed25eb5\",\n        \"visible_id\": \"21\",\n        \"total_cost\": 277.25,\n        \"outstanding_balance\": 277.25,\n        \"payment_status\": \"DRAFT\",\n        \"payments\": null,\n        \"distributor_id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"inventory_location\": \"BACK OF HOUSE\",\n        \"inventory_type\": \"CUSTOM\",\n        \"external_invoice_id\": \"st14567\",\n        \"status\": \"DRAFT\",\n        \"note\": \"This is a note\",\n        \"payment_terms\": \"Net 30\",\n        \"created_date\": \"2024-07-09T10:00:01.000-07:00\",\n        \"last_updated_date\": \"2025-10-28T13:28:51.000-07:00\",\n        \"accepted_date\": null,\n        \"due_date\": \"2024-08-09T10:00:01.000-07:00\",\n        \"discounts\": [\n            {\n                \"id\": \"4130c425-b3ff-4ab7-80aa-8d640671e5a2\",\n                \"label\": \"10% Discount\",\n                \"discount_type\": \"PERCENTAGE\",\n                \"discount_amount\": \"10.000000\"\n            }\n        ],\n        \"fees\": [\n            {\n                \"id\": \"273bec18-4126-4bb6-a3e7-365d547bc8df\",\n                \"label\": \"10 Fee\",\n                \"fee_type\": \"DOLLAR\",\n                \"fee_amount\": \"10.000000\"\n            }\n        ],\n        \"custom_invoice_fields\": [],\n        \"invoice_line_list\": [\n            {\n                \"id\": \"8d91cc7b-7659-40b4-9990-cabe8d7ec90e\",\n                \"product_id\": \"c6beed87-febe-409c-82df-d55186663b23\",\n                \"quantity\": \"15.000000\",\n                \"base_cost_unit\": \"17.000000\",\n                \"excise_tax_unit\": \"0.000000\",\n                \"true_cost_unit\": 18.483333,\n                \"total_cost\": 277.249995,\n                \"manifest_number\": null,\n                \"dispensary_license\": \"C23423-LIC\",\n                \"harvest_date\": \"2022-06-15\",\n                \"received_date\": \"2022-08-20\",\n                \"expiration_date\": \"2023-10-28\",\n                \"lot_number\": null,\n                \"production_run\": null,\n                \"inventory_type\": \"RECREATIONAL\",\n                \"external_batch_id\": \"8I4SAZ4IOFZTPM1UH1TOY0LT\",\n                \"barcode\": [],\n                \"discounts\": [\n                    {\n                        \"id\": \"8ffc5735-1adf-472d-a327-62566f6e1534\",\n                        \"label\": \"Invoice Line 5% Discount\",\n                        \"discount_type\": \"PERCENTAGE\",\n                        \"discount_amount\": \"-5.000000\"\n                    }\n                ],\n                \"fees\": [\n                    {\n                        \"id\": \"3cbbaf1d-54b3-4d0b-a339-d6104999c473\",\n                        \"label\": \"Invoice Line 25 Fee\",\n                        \"fee_type\": \"DOLLAR\",\n                        \"fee_amount\": \"25.000000\"\n                    }\n                ],\n                \"open_label_field_1\": \"Label 1\",\n                \"open_label_field_2\": null,\n                \"open_label_field_3\": \"Label 3\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 3d56d148-53b3-4fef-be81-a283eed25eb5
+                      visible_id:
+                        type: string
+                        example: '21'
+                      total_cost:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      outstanding_balance:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      payment_status:
+                        type: string
+                        example: DRAFT
+                      payments: {}
+                      distributor_id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      inventory_location:
+                        type: string
+                        example: BACK OF HOUSE
+                      inventory_type:
+                        type: string
+                        example: CUSTOM
+                      external_invoice_id:
+                        type: string
+                        example: st14567
+                      status:
+                        type: string
+                        example: DRAFT
+                      note:
+                        type: string
+                        example: This is a note
+                      payment_terms:
+                        type: string
+                        example: Net 30
+                      created_date:
+                        type: string
+                        example: '2024-07-09T10:00:01.000-07:00'
+                      last_updated_date:
+                        type: string
+                        example: '2025-10-28T13:28:51.000-07:00'
+                      accepted_date: {}
+                      due_date:
+                        type: string
+                        example: '2024-08-09T10:00:01.000-07:00'
+                      discounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 4130c425-b3ff-4ab7-80aa-8d640671e5a2
+                            label:
+                              type: string
+                              example: 10% Discount
+                            discount_type:
+                              type: string
+                              example: PERCENTAGE
+                            discount_amount:
+                              type: string
+                              example: '10.000000'
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 273bec18-4126-4bb6-a3e7-365d547bc8df
+                            label:
+                              type: string
+                              example: 10 Fee
+                            fee_type:
+                              type: string
+                              example: DOLLAR
+                            fee_amount:
+                              type: string
+                              example: '10.000000'
+                      custom_invoice_fields:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      invoice_line_list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 8d91cc7b-7659-40b4-9990-cabe8d7ec90e
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            quantity:
+                              type: string
+                              example: '15.000000'
+                            base_cost_unit:
+                              type: string
+                              example: '17.000000'
+                            excise_tax_unit:
+                              type: string
+                              example: '0.000000'
+                            true_cost_unit:
+                              type: number
+                              example: 18.483333
+                              default: 0
+                            total_cost:
+                              type: number
+                              example: 277.249995
+                              default: 0
+                            manifest_number: {}
+                            dispensary_license:
+                              type: string
+                              example: C23423-LIC
+                            harvest_date:
+                              type: string
+                              example: '2022-06-15'
+                            received_date:
+                              type: string
+                              example: '2022-08-20'
+                            expiration_date:
+                              type: string
+                              example: '2023-10-28'
+                            lot_number: {}
+                            production_run: {}
+                            inventory_type:
+                              type: string
+                              example: RECREATIONAL
+                            external_batch_id:
+                              type: string
+                              example: 8I4SAZ4IOFZTPM1UH1TOY0LT
+                            barcode:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 8ffc5735-1adf-472d-a327-62566f6e1534
+                                  label:
+                                    type: string
+                                    example: Invoice Line 5% Discount
+                                  discount_type:
+                                    type: string
+                                    example: PERCENTAGE
+                                  discount_amount:
+                                    type: string
+                                    example: '-5.000000'
+                            fees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 3cbbaf1d-54b3-4d0b-a339-d6104999c473
+                                  label:
+                                    type: string
+                                    example: Invoice Line 25 Fee
+                                  fee_type:
+                                    type: string
+                                    example: DOLLAR
+                                  fee_amount:
+                                    type: string
+                                    example: '25.000000'
+                            open_label_field_1:
+                              type: string
+                              example: Label 1
+                            open_label_field_2: {}
+                            open_label_field_3:
+                              type: string
+                              example: Label 3
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"NOT_FOUND\",\n    \"resultDetail\": \"Unable to find Invoice with ID: a34a52ff-d462-4e36-b014-4239edd265e\",\n    \"data\": null\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: 'Unable to find Invoice with ID: a34a52ff-d462-4e36-b014-4239edd265e'
+                  data: {}
+      deprecated: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice/number/{number}:
+    get:
+      summary: Invoice - Get by number
+      description: ''
+      operationId: invoice-get-by-number
+      parameters:
+      - name: number
+        in: path
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"3d56d148-53b3-4fef-be81-a283eed25eb5\",\n        \"visible_id\": \"21\",\n        \"total_cost\": 277.25,\n        \"outstanding_balance\": 277.25,\n        \"payment_status\": \"DRAFT\",\n        \"payments\": null,\n        \"distributor_id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"inventory_location\": \"BACK OF HOUSE\",\n        \"inventory_type\": \"CUSTOM\",\n        \"external_invoice_id\": \"st14567\",\n        \"status\": \"DRAFT\",\n        \"note\": \"This is a note\",\n        \"payment_terms\": \"Net 30\",\n        \"created_date\": \"2024-07-09T10:00:01.000-07:00\",\n        \"last_updated_date\": \"2025-10-28T13:28:51.000-07:00\",\n        \"accepted_date\": null,\n        \"due_date\": \"2024-08-09T10:00:01.000-07:00\",\n        \"discounts\": [\n            {\n                \"id\": \"4130c425-b3ff-4ab7-80aa-8d640671e5a2\",\n                \"label\": \"10% Discount\",\n                \"discount_type\": \"PERCENTAGE\",\n                \"discount_amount\": \"10.000000\"\n            }\n        ],\n        \"fees\": [\n            {\n                \"id\": \"273bec18-4126-4bb6-a3e7-365d547bc8df\",\n                \"label\": \"10 Fee\",\n                \"fee_type\": \"DOLLAR\",\n                \"fee_amount\": \"10.000000\"\n            }\n        ],\n        \"custom_invoice_fields\": [],\n        \"invoice_line_list\": [\n            {\n                \"id\": \"8d91cc7b-7659-40b4-9990-cabe8d7ec90e\",\n                \"product_id\": \"c6beed87-febe-409c-82df-d55186663b23\",\n                \"quantity\": \"15.000000\",\n                \"base_cost_unit\": \"17.000000\",\n                \"excise_tax_unit\": \"0.000000\",\n                \"true_cost_unit\": 18.483333,\n                \"total_cost\": 277.249995,\n                \"manifest_number\": null,\n                \"dispensary_license\": \"C23423-LIC\",\n                \"harvest_date\": \"2022-06-15\",\n                \"received_date\": \"2022-08-20\",\n                \"expiration_date\": \"2023-10-28\",\n                \"lot_number\": null,\n                \"production_run\": null,\n                \"inventory_type\": \"RECREATIONAL\",\n                \"external_batch_id\": \"8I4SAZ4IOFZTPM1UH1TOY0LT\",\n                \"barcode\": [],\n                \"discounts\": [\n                    {\n                        \"id\": \"8ffc5735-1adf-472d-a327-62566f6e1534\",\n                        \"label\": \"Invoice Line 5% Discount\",\n                        \"discount_type\": \"PERCENTAGE\",\n                        \"discount_amount\": \"-5.000000\"\n                    }\n                ],\n                \"fees\": [\n                    {\n                        \"id\": \"3cbbaf1d-54b3-4d0b-a339-d6104999c473\",\n                        \"label\": \"Invoice Line 25 Fee\",\n                        \"fee_type\": \"DOLLAR\",\n                        \"fee_amount\": \"25.000000\"\n                    }\n                ],\n                \"open_label_field_1\": \"Label 1\",\n                \"open_label_field_2\": null,\n                \"open_label_field_3\": \"Label 3\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 3d56d148-53b3-4fef-be81-a283eed25eb5
+                      visible_id:
+                        type: string
+                        example: '21'
+                      total_cost:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      outstanding_balance:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      payment_status:
+                        type: string
+                        example: DRAFT
+                      payments: {}
+                      distributor_id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      inventory_location:
+                        type: string
+                        example: BACK OF HOUSE
+                      inventory_type:
+                        type: string
+                        example: CUSTOM
+                      external_invoice_id:
+                        type: string
+                        example: st14567
+                      status:
+                        type: string
+                        example: DRAFT
+                      note:
+                        type: string
+                        example: This is a note
+                      payment_terms:
+                        type: string
+                        example: Net 30
+                      created_date:
+                        type: string
+                        example: '2024-07-09T10:00:01.000-07:00'
+                      last_updated_date:
+                        type: string
+                        example: '2025-10-28T13:28:51.000-07:00'
+                      accepted_date: {}
+                      due_date:
+                        type: string
+                        example: '2024-08-09T10:00:01.000-07:00'
+                      discounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 4130c425-b3ff-4ab7-80aa-8d640671e5a2
+                            label:
+                              type: string
+                              example: 10% Discount
+                            discount_type:
+                              type: string
+                              example: PERCENTAGE
+                            discount_amount:
+                              type: string
+                              example: '10.000000'
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 273bec18-4126-4bb6-a3e7-365d547bc8df
+                            label:
+                              type: string
+                              example: 10 Fee
+                            fee_type:
+                              type: string
+                              example: DOLLAR
+                            fee_amount:
+                              type: string
+                              example: '10.000000'
+                      custom_invoice_fields:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      invoice_line_list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 8d91cc7b-7659-40b4-9990-cabe8d7ec90e
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            quantity:
+                              type: string
+                              example: '15.000000'
+                            base_cost_unit:
+                              type: string
+                              example: '17.000000'
+                            excise_tax_unit:
+                              type: string
+                              example: '0.000000'
+                            true_cost_unit:
+                              type: number
+                              example: 18.483333
+                              default: 0
+                            total_cost:
+                              type: number
+                              example: 277.249995
+                              default: 0
+                            manifest_number: {}
+                            dispensary_license:
+                              type: string
+                              example: C23423-LIC
+                            harvest_date:
+                              type: string
+                              example: '2022-06-15'
+                            received_date:
+                              type: string
+                              example: '2022-08-20'
+                            expiration_date:
+                              type: string
+                              example: '2023-10-28'
+                            lot_number: {}
+                            production_run: {}
+                            inventory_type:
+                              type: string
+                              example: RECREATIONAL
+                            external_batch_id:
+                              type: string
+                              example: 8I4SAZ4IOFZTPM1UH1TOY0LT
+                            barcode:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 8ffc5735-1adf-472d-a327-62566f6e1534
+                                  label:
+                                    type: string
+                                    example: Invoice Line 5% Discount
+                                  discount_type:
+                                    type: string
+                                    example: PERCENTAGE
+                                  discount_amount:
+                                    type: string
+                                    example: '-5.000000'
+                            fees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 3cbbaf1d-54b3-4d0b-a339-d6104999c473
+                                  label:
+                                    type: string
+                                    example: Invoice Line 25 Fee
+                                  fee_type:
+                                    type: string
+                                    example: DOLLAR
+                                  fee_amount:
+                                    type: string
+                                    example: '25.000000'
+                            open_label_field_1:
+                              type: string
+                              example: Label 1
+                            open_label_field_2: {}
+                            open_label_field_3:
+                              type: string
+                              example: Label 3
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"NOT_FOUND\",\n    \"resultDetail\": \"Unable to find Invoice with ID: 210\",\n    \"data\": null\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: 'Unable to find Invoice with ID: 210'
+                  data: {}
+      deprecated: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice/updated/from/{fromdate}/to/{todate}:
+    get:
+      summary: Invoice - Get by date range
+      description: Retrieve invoices from a range of dates, up to 30 days per request.
+      operationId: invoice-get-by-date-range
+      parameters:
+      - name: fromdate
+        in: path
+        description: YYYY-MM-DD
+        schema:
+          type: string
+          default: ''
+        required: true
+      - name: todate
+        in: path
+        description: YYYY-MM-DD
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: query
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        schema:
+          type: string
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"3d56d148-53b3-4fef-be81-a283eed25eb5\",\n        \"visible_id\": \"21\",\n        \"total_cost\": 277.25,\n        \"outstanding_balance\": 277.25,\n        \"payment_status\": \"DRAFT\",\n        \"payments\": null,\n        \"distributor_id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"inventory_location\": \"BACK OF HOUSE\",\n        \"inventory_type\": \"CUSTOM\",\n        \"external_invoice_id\": \"st14567\",\n        \"status\": \"DRAFT\",\n        \"note\": \"This is a note\",\n        \"payment_terms\": \"Net 30\",\n        \"created_date\": \"2024-07-09T10:00:01.000-07:00\",\n        \"last_updated_date\": \"2025-10-28T13:28:51.000-07:00\",\n        \"accepted_date\": null,\n        \"due_date\": \"2024-08-09T10:00:01.000-07:00\",\n        \"discounts\": [\n            {\n                \"id\": \"4130c425-b3ff-4ab7-80aa-8d640671e5a2\",\n                \"label\": \"10% Discount\",\n                \"discount_type\": \"PERCENTAGE\",\n                \"discount_amount\": \"10.000000\"\n            }\n        ],\n        \"fees\": [\n            {\n                \"id\": \"273bec18-4126-4bb6-a3e7-365d547bc8df\",\n                \"label\": \"10 Fee\",\n                \"fee_type\": \"DOLLAR\",\n                \"fee_amount\": \"10.000000\"\n            }\n        ],\n        \"custom_invoice_fields\": [],\n        \"invoice_line_list\": [\n            {\n                \"id\": \"8d91cc7b-7659-40b4-9990-cabe8d7ec90e\",\n                \"product_id\": \"c6beed87-febe-409c-82df-d55186663b23\",\n                \"quantity\": \"15.000000\",\n                \"base_cost_unit\": \"17.000000\",\n                \"excise_tax_unit\": \"0.000000\",\n                \"true_cost_unit\": 18.483333,\n                \"total_cost\": 277.249995,\n                \"manifest_number\": null,\n                \"dispensary_license\": \"C23423-LIC\",\n                \"harvest_date\": \"2022-06-15\",\n                \"received_date\": \"2022-08-20\",\n                \"expiration_date\": \"2023-10-28\",\n                \"lot_number\": null,\n                \"production_run\": null,\n                \"inventory_type\": \"RECREATIONAL\",\n                \"external_batch_id\": \"8I4SAZ4IOFZTPM1UH1TOY0LT\",\n                \"barcode\": [],\n                \"discounts\": [\n                    {\n                        \"id\": \"8ffc5735-1adf-472d-a327-62566f6e1534\",\n                        \"label\": \"Invoice Line 5% Discount\",\n                        \"discount_type\": \"PERCENTAGE\",\n                        \"discount_amount\": \"-5.000000\"\n                    }\n                ],\n                \"fees\": [\n                    {\n                        \"id\": \"3cbbaf1d-54b3-4d0b-a339-d6104999c473\",\n                        \"label\": \"Invoice Line 25 Fee\",\n                        \"fee_type\": \"DOLLAR\",\n                        \"fee_amount\": \"25.000000\"\n                    }\n                ],\n                \"open_label_field_1\": \"Label 1\",\n                \"open_label_field_2\": null,\n                \"open_label_field_3\": \"Label 3\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 3d56d148-53b3-4fef-be81-a283eed25eb5
+                      visible_id:
+                        type: string
+                        example: '21'
+                      total_cost:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      outstanding_balance:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      payment_status:
+                        type: string
+                        example: DRAFT
+                      payments: {}
+                      distributor_id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      inventory_location:
+                        type: string
+                        example: BACK OF HOUSE
+                      inventory_type:
+                        type: string
+                        example: CUSTOM
+                      external_invoice_id:
+                        type: string
+                        example: st14567
+                      status:
+                        type: string
+                        example: DRAFT
+                      note:
+                        type: string
+                        example: This is a note
+                      payment_terms:
+                        type: string
+                        example: Net 30
+                      created_date:
+                        type: string
+                        example: '2024-07-09T10:00:01.000-07:00'
+                      last_updated_date:
+                        type: string
+                        example: '2025-10-28T13:28:51.000-07:00'
+                      accepted_date: {}
+                      due_date:
+                        type: string
+                        example: '2024-08-09T10:00:01.000-07:00'
+                      discounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 4130c425-b3ff-4ab7-80aa-8d640671e5a2
+                            label:
+                              type: string
+                              example: 10% Discount
+                            discount_type:
+                              type: string
+                              example: PERCENTAGE
+                            discount_amount:
+                              type: string
+                              example: '10.000000'
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 273bec18-4126-4bb6-a3e7-365d547bc8df
+                            label:
+                              type: string
+                              example: 10 Fee
+                            fee_type:
+                              type: string
+                              example: DOLLAR
+                            fee_amount:
+                              type: string
+                              example: '10.000000'
+                      custom_invoice_fields:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      invoice_line_list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 8d91cc7b-7659-40b4-9990-cabe8d7ec90e
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            quantity:
+                              type: string
+                              example: '15.000000'
+                            base_cost_unit:
+                              type: string
+                              example: '17.000000'
+                            excise_tax_unit:
+                              type: string
+                              example: '0.000000'
+                            true_cost_unit:
+                              type: number
+                              example: 18.483333
+                              default: 0
+                            total_cost:
+                              type: number
+                              example: 277.249995
+                              default: 0
+                            manifest_number: {}
+                            dispensary_license:
+                              type: string
+                              example: C23423-LIC
+                            harvest_date:
+                              type: string
+                              example: '2022-06-15'
+                            received_date:
+                              type: string
+                              example: '2022-08-20'
+                            expiration_date:
+                              type: string
+                              example: '2023-10-28'
+                            lot_number: {}
+                            production_run: {}
+                            inventory_type:
+                              type: string
+                              example: RECREATIONAL
+                            external_batch_id:
+                              type: string
+                              example: 8I4SAZ4IOFZTPM1UH1TOY0LT
+                            barcode:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 8ffc5735-1adf-472d-a327-62566f6e1534
+                                  label:
+                                    type: string
+                                    example: Invoice Line 5% Discount
+                                  discount_type:
+                                    type: string
+                                    example: PERCENTAGE
+                                  discount_amount:
+                                    type: string
+                                    example: '-5.000000'
+                            fees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 3cbbaf1d-54b3-4d0b-a339-d6104999c473
+                                  label:
+                                    type: string
+                                    example: Invoice Line 25 Fee
+                                  fee_type:
+                                    type: string
+                                    example: DOLLAR
+                                  fee_amount:
+                                    type: string
+                                    example: '25.000000'
+                            open_label_field_1:
+                              type: string
+                              example: Label 1
+                            open_label_field_2: {}
+                            open_label_field_3:
+                              type: string
+                              example: Label 3
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"NOT_FOUND\",\n    \"resultDetail\": \"Unable to find Invoice with ID: a34a52ff-d462-4e36-b014-4239edd265e\",\n    \"data\": null\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: NOT_FOUND
+                  resultDetail:
+                    type: string
+                    example: 'Unable to find Invoice with ID: a34a52ff-d462-4e36-b014-4239edd265e'
+                  data: {}
+      deprecated: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice:
+    post:
+      summary: Invoice - Create
+      description: ''
+      operationId: invoice-create
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - distributor_id
+              - inventory_location
+              - status
+              - payment_terms
+              - created_date
+              properties:
+                distributor_id:
+                  type: string
+                inventory_location:
+                  type: string
+                  description: The name of the inventory location from the `/location/list` endpoint.
+                external_invoice_id:
+                  type: string
+                status:
+                  type: string
+                  enum:
+                  - DRAFT
+                  - ACCEPTED
+                inventory_type:
+                  type: string
+                  enum:
+                  - MEDICAL
+                  - RECREATIONAL
+                  - CUSTOM
+                note:
+                  type: string
+                payment_terms:
+                  type: string
+                created_date:
+                  type: string
+                  description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                due_date:
+                  type: string
+                  description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                discounts:
+                  type: array
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      discount_type:
+                        type: string
+                        enum:
+                        - PERCENTAGE
+                        - DOLLAR
+                      discount_amount:
+                        type: integer
+                        format: int32
+                    required:
+                    - label
+                    - discount_type
+                    - discount_amount
+                    type: object
+                fees:
+                  type: array
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      fee_type:
+                        type: string
+                        enum:
+                        - PERCENTAGE
+                        - DOLLAR
+                      fee_amount:
+                        type: integer
+                        format: int32
+                    required:
+                    - label
+                    - fee_type
+                    - fee_amount
+                    type: object
+                invoice_line_list:
+                  type: array
+                  items:
+                    properties:
+                      product_id:
+                        type: string
+                      quantity:
+                        type: integer
+                        description: Defaults to zero if not specified
+                        format: int32
+                      base_cost_unit:
+                        type: integer
+                        description: Defaults to zero if not specified
+                        format: int32
+                      manifest_number:
+                        type: string
+                      dispensary_license:
+                        type: string
+                      external_batch_id:
+                        type: string
+                      inventory_type:
+                        type: string
+                        enum:
+                        - MEDICAL
+                        - RECREATIONAL
+                        - CUSTOM
+                      harvest_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      received_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      expiration_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      barcode:
+                        type: array
+                        default: []
+                        items:
+                          type: string
+                      discounts:
+                        type: array
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            discount_type:
+                              type: string
+                              enum:
+                              - PERCENTAGE
+                              - DOLLAR
+                            discount_amount:
+                              type: integer
+                              format: int32
+                          required:
+                          - label
+                          - discount_type
+                          - discount_amount
+                          type: object
+                      fees:
+                        type: array
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            fee_type:
+                              type: string
+                              enum:
+                              - PERCENTAGE
+                              - DOLLAR
+                            fee_amount:
+                              type: integer
+                              format: int32
+                          required:
+                          - label
+                          - fee_type
+                          - fee_amount
+                          type: object
+                      open_label_field_1:
+                        type: string
+                      open_label_field_2:
+                        type: string
+                      open_label_field_3:
+                        type: string
+                    required:
+                    - product_id
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"85b49d11-5926-4aaf-805b-eb38ead469bf\",\n        \"visible_id\": \"28\",\n        \"total_cost\": 277.25,\n        \"outstanding_balance\": 277.25,\n        \"payment_status\": \"DRAFT\",\n        \"payments\": null,\n        \"distributor_id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"inventory_location\": \"BACK OF HOUSE\",\n        \"inventory_type\": \"CUSTOM\",\n        \"external_invoice_id\": \"st14567\",\n        \"status\": \"DRAFT\",\n        \"note\": \"This is a note\",\n        \"payment_terms\": \"Net 30\",\n        \"created_date\": \"2024-07-09T10:00:01.000-07:00\",\n        \"last_updated_date\": \"2025-10-28T13:29:47.000-07:00\",\n        \"accepted_date\": null,\n        \"due_date\": \"2024-08-09T10:00:01.000-07:00\",\n        \"discounts\": [\n            {\n                \"id\": \"98f5a3f4-cb1e-4529-b889-ae3a91ea9180\",\n                \"label\": \"10% Discount\",\n                \"discount_type\": \"PERCENTAGE\",\n                \"discount_amount\": \"10\"\n            }\n        ],\n        \"fees\": [\n            {\n                \"id\": \"8b3a83b5-4054-46e9-a9c8-3b5b2bbab019\",\n                \"label\": \"10 Fee\",\n                \"fee_type\": \"DOLLAR\",\n                \"fee_amount\": \"10\"\n            }\n        ],\n        \"custom_invoice_fields\": [],\n        \"invoice_line_list\": [\n            {\n                \"id\": \"a37c51fc-5871-4a43-990d-a5b9877e3474\",\n                \"product_id\": \"c6beed87-febe-409c-82df-d55186663b23\",\n                \"quantity\": \"15\",\n                \"base_cost_unit\": \"17.000000\",\n                \"excise_tax_unit\": \"0.000000\",\n                \"true_cost_unit\": 18.483333,\n                \"total_cost\": 277.249995,\n                \"manifest_number\": \"125M\",\n                \"dispensary_license\": \"C23423-LIC\",\n                \"harvest_date\": \"2022-06-15\",\n                \"received_date\": \"2022-08-20\",\n                \"expiration_date\": \"2023-10-28\",\n                \"lot_number\": null,\n                \"production_run\": null,\n                \"inventory_type\": \"RECREATIONAL\",\n                \"external_batch_id\": \"8I4SAZ4IOFZTPM1UH1TOY0LT\",\n                \"barcode\": [],\n                \"discounts\": [\n                    {\n                        \"id\": \"8a5d7d6d-4b62-4955-8573-d7c107f5c358\",\n                        \"label\": \"Invoice Line 5% Discount\",\n                        \"discount_type\": \"PERCENTAGE\",\n                        \"discount_amount\": \"-5\"\n                    }\n                ],\n                \"fees\": [\n                    {\n                        \"id\": \"d42c9ba6-ad30-4b5d-8125-547cc3fed081\",\n                        \"label\": \"Invoice Line 25 Fee\",\n                        \"fee_type\": \"DOLLAR\",\n                        \"fee_amount\": \"25\"\n                    }\n                ],\n                \"open_label_field_1\": null,\n                \"open_label_field_2\": null,\n                \"open_label_field_3\": \"Label 3\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 85b49d11-5926-4aaf-805b-eb38ead469bf
+                      visible_id:
+                        type: string
+                        example: '28'
+                      total_cost:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      outstanding_balance:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      payment_status:
+                        type: string
+                        example: DRAFT
+                      payments: {}
+                      distributor_id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      inventory_location:
+                        type: string
+                        example: BACK OF HOUSE
+                      inventory_type:
+                        type: string
+                        example: CUSTOM
+                      external_invoice_id:
+                        type: string
+                        example: st14567
+                      status:
+                        type: string
+                        example: DRAFT
+                      note:
+                        type: string
+                        example: This is a note
+                      payment_terms:
+                        type: string
+                        example: Net 30
+                      created_date:
+                        type: string
+                        example: '2024-07-09T10:00:01.000-07:00'
+                      last_updated_date:
+                        type: string
+                        example: '2025-10-28T13:29:47.000-07:00'
+                      accepted_date: {}
+                      due_date:
+                        type: string
+                        example: '2024-08-09T10:00:01.000-07:00'
+                      discounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 98f5a3f4-cb1e-4529-b889-ae3a91ea9180
+                            label:
+                              type: string
+                              example: 10% Discount
+                            discount_type:
+                              type: string
+                              example: PERCENTAGE
+                            discount_amount:
+                              type: string
+                              example: '10'
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 8b3a83b5-4054-46e9-a9c8-3b5b2bbab019
+                            label:
+                              type: string
+                              example: 10 Fee
+                            fee_type:
+                              type: string
+                              example: DOLLAR
+                            fee_amount:
+                              type: string
+                              example: '10'
+                      custom_invoice_fields:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      invoice_line_list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: a37c51fc-5871-4a43-990d-a5b9877e3474
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            quantity:
+                              type: string
+                              example: '15'
+                            base_cost_unit:
+                              type: string
+                              example: '17.000000'
+                            excise_tax_unit:
+                              type: string
+                              example: '0.000000'
+                            true_cost_unit:
+                              type: number
+                              example: 18.483333
+                              default: 0
+                            total_cost:
+                              type: number
+                              example: 277.249995
+                              default: 0
+                            manifest_number:
+                              type: string
+                              example: 125M
+                            dispensary_license:
+                              type: string
+                              example: C23423-LIC
+                            harvest_date:
+                              type: string
+                              example: '2022-06-15'
+                            received_date:
+                              type: string
+                              example: '2022-08-20'
+                            expiration_date:
+                              type: string
+                              example: '2023-10-28'
+                            lot_number: {}
+                            production_run: {}
+                            inventory_type:
+                              type: string
+                              example: RECREATIONAL
+                            external_batch_id:
+                              type: string
+                              example: 8I4SAZ4IOFZTPM1UH1TOY0LT
+                            barcode:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 8a5d7d6d-4b62-4955-8573-d7c107f5c358
+                                  label:
+                                    type: string
+                                    example: Invoice Line 5% Discount
+                                  discount_type:
+                                    type: string
+                                    example: PERCENTAGE
+                                  discount_amount:
+                                    type: string
+                                    example: '-5'
+                            fees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: d42c9ba6-ad30-4b5d-8125-547cc3fed081
+                                  label:
+                                    type: string
+                                    example: Invoice Line 25 Fee
+                                  fee_type:
+                                    type: string
+                                    example: DOLLAR
+                                  fee_amount:
+                                    type: string
+                                    example: '25'
+                            open_label_field_1: {}
+                            open_label_field_2: {}
+                            open_label_field_3:
+                              type: string
+                              example: Label 3
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      deprecated: false
+      tags:
+      - Invoice
+    put:
+      summary: Invoice - Modify
+      description: ''
+      operationId: invoice-modify
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - distributor_id
+              - inventory_location
+              - status
+              - payment_terms
+              - created_date
+              properties:
+                id:
+                  type: string
+                distributor_id:
+                  type: string
+                inventory_location:
+                  type: string
+                  description: The name of the inventory location from the `/location/list` endpoint.
+                external_invoice_id:
+                  type: string
+                status:
+                  type: string
+                  enum:
+                  - DRAFT
+                  - ACCEPTED
+                inventory_type:
+                  type: string
+                  enum:
+                  - MEDICAL
+                  - RECREATIONAL
+                  - CUSTOM
+                note:
+                  type: string
+                payment_terms:
+                  type: string
+                created_date:
+                  type: string
+                  description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                due_date:
+                  type: string
+                  description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                discounts:
+                  type: array
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      discount_type:
+                        type: string
+                        enum:
+                        - PERCENTAGE
+                        - DOLLAR
+                      discount_amount:
+                        type: integer
+                        format: int32
+                    required:
+                    - label
+                    - discount_type
+                    - discount_amount
+                    type: object
+                fees:
+                  type: array
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      fee_type:
+                        type: string
+                        enum:
+                        - PERCENTAGE
+                        - DOLLAR
+                      fee_amount:
+                        type: integer
+                        format: int32
+                    required:
+                    - label
+                    - fee_type
+                    - fee_amount
+                    type: object
+                invoice_line_list:
+                  type: array
+                  items:
+                    properties:
+                      product_id:
+                        type: string
+                      quantity:
+                        type: integer
+                        description: Defaults to zero if not specified
+                        format: int32
+                      base_cost_unit:
+                        type: integer
+                        description: Defaults to zero if not specified
+                        format: int32
+                      manifest_number:
+                        type: string
+                      dispensary_license:
+                        type: string
+                      external_batch_id:
+                        type: string
+                      inventory_type:
+                        type: string
+                        enum:
+                        - MEDICAL
+                        - RECREATIONAL
+                        - CUSTOM
+                      harvest_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      received_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      expiration_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      barcode:
+                        type: array
+                        default: []
+                        items:
+                          type: string
+                      discounts:
+                        type: array
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            discount_type:
+                              type: string
+                              enum:
+                              - PERCENTAGE
+                              - DOLLAR
+                            discount_amount:
+                              type: integer
+                              format: int32
+                          required:
+                          - label
+                          - discount_type
+                          - discount_amount
+                          type: object
+                      fees:
+                        type: array
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            fee_type:
+                              type: string
+                              enum:
+                              - PERCENTAGE
+                              - DOLLAR
+                            fee_amount:
+                              type: integer
+                              format: int32
+                          required:
+                          - label
+                          - fee_type
+                          - fee_amount
+                          type: object
+                      open_label_field_1:
+                        type: string
+                      open_label_field_2:
+                        type: string
+                      open_label_field_3:
+                        type: string
+                    required:
+                    - product_id
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"85b49d11-5926-4aaf-805b-eb38ead469bf\",\n        \"visible_id\": \"28\",\n        \"total_cost\": 277.25,\n        \"outstanding_balance\": 277.25,\n        \"payment_status\": \"DRAFT\",\n        \"payments\": null,\n        \"distributor_id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"inventory_location\": \"BACK OF HOUSE\",\n        \"inventory_type\": \"CUSTOM\",\n        \"external_invoice_id\": \"st14567\",\n        \"status\": \"DRAFT\",\n        \"note\": \"This is a note\",\n        \"payment_terms\": \"Net 30\",\n        \"created_date\": \"2024-07-09T10:00:01.000-07:00\",\n        \"last_updated_date\": \"2025-10-28T13:29:47.000-07:00\",\n        \"accepted_date\": null,\n        \"due_date\": \"2024-08-09T10:00:01.000-07:00\",\n        \"discounts\": [\n            {\n                \"id\": \"98f5a3f4-cb1e-4529-b889-ae3a91ea9180\",\n                \"label\": \"10% Discount\",\n                \"discount_type\": \"PERCENTAGE\",\n                \"discount_amount\": \"10\"\n            }\n        ],\n        \"fees\": [\n            {\n                \"id\": \"8b3a83b5-4054-46e9-a9c8-3b5b2bbab019\",\n                \"label\": \"10 Fee\",\n                \"fee_type\": \"DOLLAR\",\n                \"fee_amount\": \"10\"\n            }\n        ],\n        \"custom_invoice_fields\": [],\n        \"invoice_line_list\": [\n            {\n                \"id\": \"a37c51fc-5871-4a43-990d-a5b9877e3474\",\n                \"product_id\": \"c6beed87-febe-409c-82df-d55186663b23\",\n                \"quantity\": \"15\",\n                \"base_cost_unit\": \"17.000000\",\n                \"excise_tax_unit\": \"0.000000\",\n                \"true_cost_unit\": 18.483333,\n                \"total_cost\": 277.249995,\n                \"manifest_number\": \"125M\",\n                \"dispensary_license\": \"C23423-LIC\",\n                \"harvest_date\": \"2022-06-15\",\n                \"received_date\": \"2022-08-20\",\n                \"expiration_date\": \"2023-10-28\",\n                \"lot_number\": null,\n                \"production_run\": null,\n                \"inventory_type\": \"RECREATIONAL\",\n                \"external_batch_id\": \"8I4SAZ4IOFZTPM1UH1TOY0LT\",\n                \"barcode\": [],\n                \"discounts\": [\n                    {\n                        \"id\": \"8a5d7d6d-4b62-4955-8573-d7c107f5c358\",\n                        \"label\": \"Invoice Line 5% Discount\",\n                        \"discount_type\": \"PERCENTAGE\",\n                        \"discount_amount\": \"-5\"\n                    }\n                ],\n                \"fees\": [\n                    {\n                        \"id\": \"d42c9ba6-ad30-4b5d-8125-547cc3fed081\",\n                        \"label\": \"Invoice Line 25 Fee\",\n                        \"fee_type\": \"DOLLAR\",\n                        \"fee_amount\": \"25\"\n                    }\n                ],\n                \"open_label_field_1\": null,\n                \"open_label_field_2\": null,\n                \"open_label_field_3\": \"Label 3\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 85b49d11-5926-4aaf-805b-eb38ead469bf
+                      visible_id:
+                        type: string
+                        example: '28'
+                      total_cost:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      outstanding_balance:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      payment_status:
+                        type: string
+                        example: DRAFT
+                      payments: {}
+                      distributor_id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      inventory_location:
+                        type: string
+                        example: BACK OF HOUSE
+                      inventory_type:
+                        type: string
+                        example: CUSTOM
+                      external_invoice_id:
+                        type: string
+                        example: st14567
+                      status:
+                        type: string
+                        example: DRAFT
+                      note:
+                        type: string
+                        example: This is a note
+                      payment_terms:
+                        type: string
+                        example: Net 30
+                      created_date:
+                        type: string
+                        example: '2024-07-09T10:00:01.000-07:00'
+                      last_updated_date:
+                        type: string
+                        example: '2025-10-28T13:29:47.000-07:00'
+                      accepted_date: {}
+                      due_date:
+                        type: string
+                        example: '2024-08-09T10:00:01.000-07:00'
+                      discounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 98f5a3f4-cb1e-4529-b889-ae3a91ea9180
+                            label:
+                              type: string
+                              example: 10% Discount
+                            discount_type:
+                              type: string
+                              example: PERCENTAGE
+                            discount_amount:
+                              type: string
+                              example: '10'
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 8b3a83b5-4054-46e9-a9c8-3b5b2bbab019
+                            label:
+                              type: string
+                              example: 10 Fee
+                            fee_type:
+                              type: string
+                              example: DOLLAR
+                            fee_amount:
+                              type: string
+                              example: '10'
+                      custom_invoice_fields:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      invoice_line_list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: a37c51fc-5871-4a43-990d-a5b9877e3474
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            quantity:
+                              type: string
+                              example: '15'
+                            base_cost_unit:
+                              type: string
+                              example: '17.000000'
+                            excise_tax_unit:
+                              type: string
+                              example: '0.000000'
+                            true_cost_unit:
+                              type: number
+                              example: 18.483333
+                              default: 0
+                            total_cost:
+                              type: number
+                              example: 277.249995
+                              default: 0
+                            manifest_number:
+                              type: string
+                              example: 125M
+                            dispensary_license:
+                              type: string
+                              example: C23423-LIC
+                            harvest_date:
+                              type: string
+                              example: '2022-06-15'
+                            received_date:
+                              type: string
+                              example: '2022-08-20'
+                            expiration_date:
+                              type: string
+                              example: '2023-10-28'
+                            lot_number: {}
+                            production_run: {}
+                            inventory_type:
+                              type: string
+                              example: RECREATIONAL
+                            external_batch_id:
+                              type: string
+                              example: 8I4SAZ4IOFZTPM1UH1TOY0LT
+                            barcode:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 8a5d7d6d-4b62-4955-8573-d7c107f5c358
+                                  label:
+                                    type: string
+                                    example: Invoice Line 5% Discount
+                                  discount_type:
+                                    type: string
+                                    example: PERCENTAGE
+                                  discount_amount:
+                                    type: string
+                                    example: '-5'
+                            fees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: d42c9ba6-ad30-4b5d-8125-547cc3fed081
+                                  label:
+                                    type: string
+                                    example: Invoice Line 25 Fee
+                                  fee_type:
+                                    type: string
+                                    example: DOLLAR
+                                  fee_amount:
+                                    type: string
+                                    example: '25'
+                            open_label_field_1: {}
+                            open_label_field_2: {}
+                            open_label_field_3:
+                              type: string
+                              example: Label 3
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      deprecated: false
+      tags:
+      - Invoice
+    patch:
+      summary: Invoice - Modify
+      description: ''
+      operationId: invoice-modify-patch
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              properties:
+                id:
+                  type: string
+                distributor_id:
+                  type: string
+                inventory_location:
+                  type: string
+                  description: The name of the inventory location from the `/location/list` endpoint.
+                external_invoice_id:
+                  type: string
+                status:
+                  type: string
+                  enum:
+                  - DRAFT
+                  - ACCEPTED
+                inventory_type:
+                  type: string
+                  enum:
+                  - MEDICAL
+                  - RECREATIONAL
+                  - CUSTOM
+                note:
+                  type: string
+                payment_terms:
+                  type: string
+                created_date:
+                  type: string
+                  description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                due_date:
+                  type: string
+                  description: 'Uses ISO 8601: `YYYY-MM-DDThh:mm:ss.sss±hh:mm`'
+                discounts:
+                  type: array
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      discount_type:
+                        type: string
+                        enum:
+                        - PERCENTAGE
+                        - DOLLAR
+                      discount_amount:
+                        type: integer
+                        format: int32
+                    required:
+                    - label
+                    - discount_type
+                    - discount_amount
+                    type: object
+                fees:
+                  type: array
+                  items:
+                    properties:
+                      label:
+                        type: string
+                      fee_type:
+                        type: string
+                        enum:
+                        - PERCENTAGE
+                        - DOLLAR
+                      fee_amount:
+                        type: integer
+                        format: int32
+                    required:
+                    - label
+                    - fee_type
+                    - fee_amount
+                    type: object
+                invoice_line_list:
+                  type: array
+                  items:
+                    properties:
+                      product_id:
+                        type: string
+                      quantity:
+                        type: integer
+                        description: Defaults to zero if not specified
+                        format: int32
+                      base_cost_unit:
+                        type: integer
+                        description: Defaults to zero if not specified
+                        format: int32
+                      manifest_number:
+                        type: string
+                      dispensary_license:
+                        type: string
+                      external_batch_id:
+                        type: string
+                      inventory_type:
+                        type: string
+                        enum:
+                        - MEDICAL
+                        - RECREATIONAL
+                        - CUSTOM
+                      harvest_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      received_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      expiration_date:
+                        type: string
+                        description: YYYY-MM-DD
+                      barcode:
+                        type: array
+                        default: []
+                        items:
+                          type: string
+                      discounts:
+                        type: array
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            discount_type:
+                              type: string
+                              enum:
+                              - PERCENTAGE
+                              - DOLLAR
+                            discount_amount:
+                              type: integer
+                              format: int32
+                          required:
+                          - label
+                          - discount_type
+                          - discount_amount
+                          type: object
+                      fees:
+                        type: array
+                        items:
+                          properties:
+                            label:
+                              type: string
+                            fee_type:
+                              type: string
+                              enum:
+                              - PERCENTAGE
+                              - DOLLAR
+                            fee_amount:
+                              type: integer
+                              format: int32
+                          required:
+                          - label
+                          - fee_type
+                          - fee_amount
+                          type: object
+                      open_label_field_1:
+                        type: string
+                      open_label_field_2:
+                        type: string
+                      open_label_field_3:
+                        type: string
+                    required:
+                    - product_id
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"85b49d11-5926-4aaf-805b-eb38ead469bf\",\n        \"visible_id\": \"28\",\n        \"total_cost\": 277.25,\n        \"outstanding_balance\": 277.25,\n        \"payment_status\": \"DRAFT\",\n        \"payments\": null,\n        \"distributor_id\": \"00dfb0c3-19af-438b-afd0-a4335cf11d19\",\n        \"inventory_location\": \"BACK OF HOUSE\",\n        \"inventory_type\": \"CUSTOM\",\n        \"external_invoice_id\": \"st14567\",\n        \"status\": \"DRAFT\",\n        \"note\": \"This is a note\",\n        \"payment_terms\": \"Net 30\",\n        \"created_date\": \"2024-07-09T10:00:01.000-07:00\",\n        \"last_updated_date\": \"2025-10-28T13:29:47.000-07:00\",\n        \"accepted_date\": null,\n        \"due_date\": \"2024-08-09T10:00:01.000-07:00\",\n        \"discounts\": [\n            {\n                \"id\": \"98f5a3f4-cb1e-4529-b889-ae3a91ea9180\",\n                \"label\": \"10% Discount\",\n                \"discount_type\": \"PERCENTAGE\",\n                \"discount_amount\": \"10\"\n            }\n        ],\n        \"fees\": [\n            {\n                \"id\": \"8b3a83b5-4054-46e9-a9c8-3b5b2bbab019\",\n                \"label\": \"10 Fee\",\n                \"fee_type\": \"DOLLAR\",\n                \"fee_amount\": \"10\"\n            }\n        ],\n        \"custom_invoice_fields\": [],\n        \"invoice_line_list\": [\n            {\n                \"id\": \"a37c51fc-5871-4a43-990d-a5b9877e3474\",\n                \"product_id\": \"c6beed87-febe-409c-82df-d55186663b23\",\n                \"quantity\": \"15\",\n                \"base_cost_unit\": \"17.000000\",\n                \"excise_tax_unit\": \"0.000000\",\n                \"true_cost_unit\": 18.483333,\n                \"total_cost\": 277.249995,\n                \"manifest_number\": \"125M\",\n                \"dispensary_license\": \"C23423-LIC\",\n                \"harvest_date\": \"2022-06-15\",\n                \"received_date\": \"2022-08-20\",\n                \"expiration_date\": \"2023-10-28\",\n                \"lot_number\": null,\n                \"production_run\": null,\n                \"inventory_type\": \"RECREATIONAL\",\n                \"external_batch_id\": \"8I4SAZ4IOFZTPM1UH1TOY0LT\",\n                \"barcode\": [],\n                \"discounts\": [\n                    {\n                        \"id\": \"8a5d7d6d-4b62-4955-8573-d7c107f5c358\",\n                        \"label\": \"Invoice Line 5% Discount\",\n                        \"discount_type\": \"PERCENTAGE\",\n                        \"discount_amount\": \"-5\"\n                    }\n                ],\n                \"fees\": [\n                    {\n                        \"id\": \"d42c9ba6-ad30-4b5d-8125-547cc3fed081\",\n                        \"label\": \"Invoice Line 25 Fee\",\n                        \"fee_type\": \"DOLLAR\",\n                        \"fee_amount\": \"25\"\n                    }\n                ],\n                \"open_label_field_1\": null,\n                \"open_label_field_2\": null,\n                \"open_label_field_3\": \"Label 3\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason: {}
+                  resultDetail: {}
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 85b49d11-5926-4aaf-805b-eb38ead469bf
+                      visible_id:
+                        type: string
+                        example: '28'
+                      total_cost:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      outstanding_balance:
+                        type: number
+                        example: 277.25
+                        default: 0
+                      payment_status:
+                        type: string
+                        example: DRAFT
+                      payments: {}
+                      distributor_id:
+                        type: string
+                        example: 00dfb0c3-19af-438b-afd0-a4335cf11d19
+                      inventory_location:
+                        type: string
+                        example: BACK OF HOUSE
+                      inventory_type:
+                        type: string
+                        example: CUSTOM
+                      external_invoice_id:
+                        type: string
+                        example: st14567
+                      status:
+                        type: string
+                        example: DRAFT
+                      note:
+                        type: string
+                        example: This is a note
+                      payment_terms:
+                        type: string
+                        example: Net 30
+                      created_date:
+                        type: string
+                        example: '2024-07-09T10:00:01.000-07:00'
+                      last_updated_date:
+                        type: string
+                        example: '2025-10-28T13:29:47.000-07:00'
+                      accepted_date: {}
+                      due_date:
+                        type: string
+                        example: '2024-08-09T10:00:01.000-07:00'
+                      discounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 98f5a3f4-cb1e-4529-b889-ae3a91ea9180
+                            label:
+                              type: string
+                              example: 10% Discount
+                            discount_type:
+                              type: string
+                              example: PERCENTAGE
+                            discount_amount:
+                              type: string
+                              example: '10'
+                      fees:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 8b3a83b5-4054-46e9-a9c8-3b5b2bbab019
+                            label:
+                              type: string
+                              example: 10 Fee
+                            fee_type:
+                              type: string
+                              example: DOLLAR
+                            fee_amount:
+                              type: string
+                              example: '10'
+                      custom_invoice_fields:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      invoice_line_list:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: a37c51fc-5871-4a43-990d-a5b9877e3474
+                            product_id:
+                              type: string
+                              example: c6beed87-febe-409c-82df-d55186663b23
+                            quantity:
+                              type: string
+                              example: '15'
+                            base_cost_unit:
+                              type: string
+                              example: '17.000000'
+                            excise_tax_unit:
+                              type: string
+                              example: '0.000000'
+                            true_cost_unit:
+                              type: number
+                              example: 18.483333
+                              default: 0
+                            total_cost:
+                              type: number
+                              example: 277.249995
+                              default: 0
+                            manifest_number:
+                              type: string
+                              example: 125M
+                            dispensary_license:
+                              type: string
+                              example: C23423-LIC
+                            harvest_date:
+                              type: string
+                              example: '2022-06-15'
+                            received_date:
+                              type: string
+                              example: '2022-08-20'
+                            expiration_date:
+                              type: string
+                              example: '2023-10-28'
+                            lot_number: {}
+                            production_run: {}
+                            inventory_type:
+                              type: string
+                              example: RECREATIONAL
+                            external_batch_id:
+                              type: string
+                              example: 8I4SAZ4IOFZTPM1UH1TOY0LT
+                            barcode:
+                              type: array
+                              items:
+                                type: object
+                                properties: {}
+                            discounts:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: 8a5d7d6d-4b62-4955-8573-d7c107f5c358
+                                  label:
+                                    type: string
+                                    example: Invoice Line 5% Discount
+                                  discount_type:
+                                    type: string
+                                    example: PERCENTAGE
+                                  discount_amount:
+                                    type: string
+                                    example: '-5'
+                            fees:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                    example: d42c9ba6-ad30-4b5d-8125-547cc3fed081
+                                  label:
+                                    type: string
+                                    example: Invoice Line 25 Fee
+                                  fee_type:
+                                    type: string
+                                    example: DOLLAR
+                                  fee_amount:
+                                    type: string
+                                    example: '25'
+                            open_label_field_1: {}
+                            open_label_field_2: {}
+                            open_label_field_3:
+                              type: string
+                              example: Label 3
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      deprecated: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice/payment:
+    post:
+      summary: Invoice - Apply payment
+      description: ''
+      operationId: invoice-apply-payment
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              properties:
+                id:
+                  type: string
+                  description: The `id` of the invoice to which the payment will be applied.
+                payments:
+                  type: array
+                  items:
+                    properties:
+                      payment_amount:
+                        type: integer
+                        description: The partial or full balance of the invoice.
+                        format: int32
+                      payment_source:
+                        type: string
+                        description: The cash drawer from which the payment will be withdrawn.
+                      payment_notes:
+                        type: string
+                    required:
+                    - payment_amount
+                    - payment_source
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"a6ec64b2-1c4e-4fc6-a3a4-9de26c59ad9c\",\n        \"payment_status\": \"PARTIALLY PAID\",\n        \"payments\": [\n            {\n                \"payment_date\": \"2025-10-29T14:07:25.126-0700\",\n                \"payment_user\": \"EXTERNAL API\",\n                \"payment_amount\": 150.00,\n                \"transaction_type\": \"Cash Handling\",\n                \"payment_source\": \"CD01\",\n                \"payment_notes\": \"CD01 payment\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason:
+                    type: string
+                  resultDetail:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: a6ec64b2-1c4e-4fc6-a3a4-9de26c59ad9c
+                      payment_status:
+                        type: string
+                        example: PARTIALLY PAID
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            payment_date:
+                              type: string
+                              example: 2025-10-29T14:07:25.126-0700
+                            payment_user:
+                              type: string
+                              example: EXTERNAL API
+                            payment_amount:
+                              type: integer
+                              example: 150
+                              default: 0
+                            transaction_type:
+                              type: string
+                              example: Cash Handling
+                            payment_source:
+                              type: string
+                              example: CD01
+                            payment_notes:
+                              type: string
+                              example: CD01 payment
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      deprecated: false
+      tags:
+      - Invoice
+  /{dispensary}/invoice/attachment/binary:
+    post:
+      summary: Invoice - Attach File (binary)
+      description: ''
+      operationId: invoice-apply-payment-1-1
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - files
+              properties:
+                id:
+                  type: string
+                  description: The `id` of the invoice to which the file will be attached
+                files:
+                  type: array
+                  description: base64 encoded version of the file
+                  items:
+                    properties:
+                      name:
+                        type: string
+                        description: The name of the file being attached. e.g. `invoice5947.pdf`
+                      content:
+                        type: string
+                        description: File content in base64 binary format
+                    type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason:
+                    type: string
+                  resultDetail:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: a6ec64b2-1c4e-4fc6-a3a4-9de26c59ad9c
+                      payment_status:
+                        type: string
+                        example: PARTIALLY PAID
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            payment_date:
+                              type: string
+                              example: 2025-10-29T14:07:25.126-0700
+                            payment_user:
+                              type: string
+                              example: EXTERNAL API
+                            payment_amount:
+                              type: integer
+                              example: 150
+                              default: 0
+                            transaction_type:
+                              type: string
+                              example: Cash Handling
+                            payment_source:
+                              type: string
+                              example: CD01
+                            payment_notes:
+                              type: string
+                              example: CD01 payment
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      tags:
+      - Invoice
+  /{dispensary}/invoice/credit/:
+    get:
+      summary: Distributor Credits - Get All
+      description: Retrieve all distributor credits that are available for use.
+      operationId: invoice-apply-credit-1-1
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - id
+              - amount
+              properties:
+                id:
+                  type: string
+                  description: The `id` of the distributor for which the credit is being created
+                amount:
+                  type: number
+                  description: The dollar amount of the credit
+                notes:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"resultCode\": \"SUCCESS\",\n    \"resultReason\": null,\n    \"resultDetail\": null,\n    \"data\": {\n        \"id\": \"5f33d387-8f7c-4068-bd48-b920a5efd267\",\n        \"payment_status\": \"PARTIALLY PAID\",\n        \"payments\": [\n            {\n                \"payment_date\": \"2025-12-11T15:00:17.175-0800\",\n                \"payment_user\": \"API\",\n                \"payment_amount\": 50.00,\n                \"transaction_type\": \"Credit Note\",\n                \"payment_source\": \"N/A\",\n                \"payment_notes\": \"Distributor credit applied\"\n            }\n        ]\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason:
+                    type: string
+                  resultDetail:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 5f33d387-8f7c-4068-bd48-b920a5efd267
+                      payment_status:
+                        type: string
+                        example: PARTIALLY PAID
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            payment_date:
+                              type: string
+                              example: 2025-12-11T15:00:17.175-0800
+                            payment_user:
+                              type: string
+                              example: API
+                            payment_amount:
+                              type: integer
+                              example: 50
+                              default: 0
+                            transaction_type:
+                              type: string
+                              example: Credit Note
+                            payment_source:
+                              type: string
+                              example: N/A
+                            payment_notes:
+                              type: string
+                              example: Distributor credit applied
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                INCORRECT_VALUE:
+                  value: "{\n    \"resultCode\": \"FAIL\",\n    \"resultReason\": \"INCORRECT_VALUE\",\n    \"resultDetail\": [\n        \"status: Status cannot be blank or empty\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      x-internal: false
+      tags:
+      - Invoice
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip,br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: catalog Subcategory Exclusion API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/service/catalog
+security:
+- {}
+tags:
+- name: Subcategory Exclusion
+paths:
+  /{ver}/subcategory-exclusion:
+    get:
+      summary: Subcategory Exclusions - Read
+      description: Returns the organization's live subcategory exclusions. An exclusion hides a global subcategory from the product picker and blocks direct assignment of it on product create/update.
+      operationId: catalog-categories-read-1-1-2
+      parameters:
+      - in: path
+        name: ver
+        schema:
+          type: string
+          default: v3
+        required: true
+        description: ''
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                  - id: 7e2b9c40-1d5a-4f3e-8a6b-9c0d1e2f3a45
+                    organizationId: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    productSubCategoryId: f6e25c9a-27f3-41a7-9037-b5e0c2f3e652
+                    createdAt: '2026-08-20T17:02:11.412Z'
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 7e2b9c40-1d5a-4f3e-8a6b-9c0d1e2f3a45
+                    organizationId:
+                      type: string
+                      example: b1226d0b-4940-4edf-aab3-dbd1642f7f69
+                    productSubCategoryId:
+                      type: string
+                      example: f6e25c9a-27f3-41a7-9037-b5e0c2f3e652
+                    createdAt:
+                      type: string
+                      example: '2026-08-20T17:02:11.412Z'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Event Schema Validation Failed
+                  errorType:
+                    type: string
+                    example: Validation
+                  errorMsgs:
+                    type: array
+                    items:
+                      type: string
+                      example: '"productSubCategoryId" must be a valid GUID'
+                  failed:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        entity:
+                          type: object
+                          properties:
+                            key_0:
+                              type: number
+                              example: 4708.6358186846
+                              default: 0
+                        errors:
+                          type: array
+                          items:
+                            type: string
+                            example: string
+                        errorDetails:
+                          type: object
+                          properties:
+                            key_0:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  example: SUB_CATEGORY_EXCLUSION_ALREADY_EXCLUDED
+                            key_1:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                  example: SUB_CATEGORY_EXCLUSION_NOT_EXCLUDED
+      x-internal: false
+      tags:
+      - Subcategory Exclusion
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip, br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

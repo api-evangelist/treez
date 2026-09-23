@@ -1,0 +1,114 @@
+openapi: 3.2.0
+info:
+  title: dispensary Attachment API
+  version: 3.1.0
+servers:
+- url: https://api-prod.treez.io/dispensary/v3
+security:
+- {}
+tags:
+- name: Attachment
+paths:
+  /{dispensary}/attachment:
+    post:
+      summary: Invoice - Attach File (multi-part)
+      description: ''
+      operationId: invoice-apply-payment-1
+      parameters:
+      - in: path
+        name: dispensary
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - id
+              - file
+              properties:
+                id:
+                  type: string
+                  description: The `id` of the invoice to which the file will be attached
+                file:
+                  type: string
+                  description: 'The path to the file that will be attached.
+
+                    Example: `file=@"/C:/Users/Scott/Documents/invoice2946.pdf"`'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: SUCCESS
+                  resultReason:
+                    type: string
+                  resultDetail:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: a6ec64b2-1c4e-4fc6-a3a4-9de26c59ad9c
+                      payment_status:
+                        type: string
+                        example: PARTIALLY PAID
+                      payments:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            payment_date:
+                              type: string
+                              example: 2025-10-29T14:07:25.126-0700
+                            payment_user:
+                              type: string
+                              example: EXTERNAL API
+                            payment_amount:
+                              type: integer
+                              example: 150
+                              default: 0
+                            transaction_type:
+                              type: string
+                              example: Cash Handling
+                            payment_source:
+                              type: string
+                              example: CD01
+                            payment_notes:
+                              type: string
+                              example: CD01 payment
+        '400':
+          description: '400'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  resultCode:
+                    type: string
+                    example: FAIL
+                  resultReason:
+                    type: string
+                    example: INCORRECT_VALUE
+                  resultDetail:
+                    type: array
+                    items:
+                      type: string
+                      example: 'status: Status cannot be blank or empty'
+      tags:
+      - Attachment
+x-readme:
+  headers:
+  - key: Accept-Encoding
+    value: gzip,br
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true
