@@ -387,61 +387,6 @@ paths:
       deprecated: false
 components:
   schemas:
-    ProductConfigurableFields:
-      type: object
-      properties:
-        amount:
-          type: string
-          example: '3.5'
-          description: Weight of an item associated to a product. This value impacts purchase limits for weight based products.
-          default: '3.5'
-        brand:
-          type: string
-          example: KIVA
-          description: This field lists the brand that is associated to the product.
-          default: KIVA
-        classification:
-          type: string
-          example: SATIVA
-          description: This field lists what type of classification a product has. Ie. Indica, Sativa, Hybrid, etc.
-          default: SATIVA
-        doses:
-          type: string
-          example: '10'
-          description: This describes the total doses of the product.
-          default: '10'
-        name:
-          type: string
-          example: ESPRESSO BEANS SAMPLE
-          description: Name of the product.
-          default: ESPRESSO BEANS SAMPLE
-        size:
-          type: string
-          example: CONE
-          description: This is a descriptive field of a size of a product. Ie 5-pack, Cone.
-          default: CONE
-        sub_type:
-          type: string
-          example: COOKIE
-          description: This field reads the subtype of a product. The available subtype change based on the category_type used.
-          default: COOKIE
-        total_mg_thc:
-          type: string
-          example: '3'
-          description: This field lists the concentrated amount of MG THC available for a product. This field impacts the purchase limits for concentrate products.
-          default: '3'
-        total_mg_cbd:
-          type: string
-          example: '2'
-          description: This field lists the concentrated levels of CBD in a product.
-          default: '2'
-        uom:
-          type: string
-          example: GRAMS
-          description: Unit of measure used for purchase limits. This value impacts purchase limits for weight based products.
-          default: GRAMS
-      title: ProductConfigurableFields
-      description: This section contains all the configurable fields. It is advisable to request the fresh details form the other API with endpoint called GET/product_fields. this will help to get the latest information on the required fields and the accepted value of the product fields. This information varies per category. The fieldsin this section is sorted alphabetically.
     CreateNewProductRequest:
       type: object
       required:
@@ -509,43 +454,61 @@ components:
           description: Tier Name assigned to a product. Partners must use an existing tier to get a valid response.
       title: Pricing
       description: This section details out the pricing of the product.
-    ECommerce:
+    ProductConfigurableFields:
       type: object
       properties:
-        all_images:
-          type: array
-          description: It brings in the URL of all the associated images.
-          readOnly: true
-          items:
-            type: string
-            example: ''
-        primary_image:
+        amount:
           type: string
-          example: ''
-          description: It brings in the URL of the primary image only.
-          readOnly: true
-        menu_title:
+          example: '3.5'
+          description: Weight of an item associated to a product. This value impacts purchase limits for weight based products.
+          default: '3.5'
+        brand:
           type: string
-          example: ESPRESSO PRODUCT
-          description: When completed this field will be displayed as the primary name of the product over the product_name field.
-          default: ESPRESSO PRODUCT
-        product_description:
+          example: KIVA
+          description: This field lists the brand that is associated to the product.
+          default: KIVA
+        classification:
           type: string
-          example: Some Product Description
-          description: It reads in the product description for the menu purposes.
-          default: Some Product Description
-        minimum_visible_inventory_level:
-          type: integer
-          format: int32
-          example: 2
-          description: Customer facing description that will be displayed in Treez eCommerce.
-          readOnly: true
-        hide_from_menu:
-          type: boolean
-          example: true
-          description: When set to True this product will be hidden from the Treez eCommerce
-          default: true
-      title: ECommerce
+          example: SATIVA
+          description: This field lists what type of classification a product has. Ie. Indica, Sativa, Hybrid, etc.
+          default: SATIVA
+        doses:
+          type: string
+          example: '10'
+          description: This describes the total doses of the product.
+          default: '10'
+        name:
+          type: string
+          example: ESPRESSO BEANS SAMPLE
+          description: Name of the product.
+          default: ESPRESSO BEANS SAMPLE
+        size:
+          type: string
+          example: CONE
+          description: This is a descriptive field of a size of a product. Ie 5-pack, Cone.
+          default: CONE
+        sub_type:
+          type: string
+          example: COOKIE
+          description: This field reads the subtype of a product. The available subtype change based on the category_type used.
+          default: COOKIE
+        total_mg_thc:
+          type: string
+          example: '3'
+          description: This field lists the concentrated amount of MG THC available for a product. This field impacts the purchase limits for concentrate products.
+          default: '3'
+        total_mg_cbd:
+          type: string
+          example: '2'
+          description: This field lists the concentrated levels of CBD in a product.
+          default: '2'
+        uom:
+          type: string
+          example: GRAMS
+          description: Unit of measure used for purchase limits. This value impacts purchase limits for weight based products.
+          default: GRAMS
+      title: ProductConfigurableFields
+      description: This section contains all the configurable fields. It is advisable to request the fresh details form the other API with endpoint called GET/product_fields. this will help to get the latest information on the required fields and the accepted value of the product fields. This information varies per category. The fieldsin this section is sorted alphabetically.
     Attributes:
       type: object
       properties:
@@ -590,6 +553,43 @@ components:
           items:
             type: string
       title: Attributes
+    ECommerce:
+      type: object
+      properties:
+        all_images:
+          type: array
+          description: It brings in the URL of all the associated images.
+          readOnly: true
+          items:
+            type: string
+            example: ''
+        primary_image:
+          type: string
+          example: ''
+          description: It brings in the URL of the primary image only.
+          readOnly: true
+        menu_title:
+          type: string
+          example: ESPRESSO PRODUCT
+          description: When completed this field will be displayed as the primary name of the product over the product_name field.
+          default: ESPRESSO PRODUCT
+        product_description:
+          type: string
+          example: Some Product Description
+          description: It reads in the product description for the menu purposes.
+          default: Some Product Description
+        minimum_visible_inventory_level:
+          type: integer
+          format: int32
+          example: 2
+          description: Customer facing description that will be displayed in Treez eCommerce.
+          readOnly: true
+        hide_from_menu:
+          type: boolean
+          example: true
+          description: When set to True this product will be hidden from the Treez eCommerce
+          default: true
+      title: ECommerce
   requestBodies:
     CreateNewProductRequest:
       content:
