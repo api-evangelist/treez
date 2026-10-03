@@ -436,24 +436,43 @@ components:
         e_commerce:
           $ref: '#/components/schemas/ECommerce'
       title: Product_Data_Details
-    Pricing:
+    ECommerce:
       type: object
       properties:
-        price_type:
+        all_images:
+          type: array
+          description: It brings in the URL of all the associated images.
+          readOnly: true
+          items:
+            type: string
+            example: ''
+        primary_image:
           type: string
-          example: FLAT
-          description: Describes whether a product uses tier or flat pricing.
-          default: FLAT
-        price_sell:
+          example: ''
+          description: It brings in the URL of the primary image only.
+          readOnly: true
+        menu_title:
+          type: string
+          example: ESPRESSO PRODUCT
+          description: When completed this field will be displayed as the primary name of the product over the product_name field.
+          default: ESPRESSO PRODUCT
+        product_description:
+          type: string
+          example: Some Product Description
+          description: It reads in the product description for the menu purposes.
+          default: Some Product Description
+        minimum_visible_inventory_level:
           type: integer
           format: int32
-          example: '54.50'
-          description: "The amount that the product will be sold for. This field is required if price_type is FLAT. \n Keep the value null if price_type is TIER."
-        tier_name:
-          type: string
-          description: Tier Name assigned to a product. Partners must use an existing tier to get a valid response.
-      title: Pricing
-      description: This section details out the pricing of the product.
+          example: 2
+          description: Customer facing description that will be displayed in Treez eCommerce.
+          readOnly: true
+        hide_from_menu:
+          type: boolean
+          example: true
+          description: When set to True this product will be hidden from the Treez eCommerce
+          default: true
+      title: ECommerce
     ProductConfigurableFields:
       type: object
       properties:
@@ -509,6 +528,24 @@ components:
           default: GRAMS
       title: ProductConfigurableFields
       description: This section contains all the configurable fields. It is advisable to request the fresh details form the other API with endpoint called GET/product_fields. this will help to get the latest information on the required fields and the accepted value of the product fields. This information varies per category. The fieldsin this section is sorted alphabetically.
+    Pricing:
+      type: object
+      properties:
+        price_type:
+          type: string
+          example: FLAT
+          description: Describes whether a product uses tier or flat pricing.
+          default: FLAT
+        price_sell:
+          type: integer
+          format: int32
+          example: '54.50'
+          description: "The amount that the product will be sold for. This field is required if price_type is FLAT. \n Keep the value null if price_type is TIER."
+        tier_name:
+          type: string
+          description: Tier Name assigned to a product. Partners must use an existing tier to get a valid response.
+      title: Pricing
+      description: This section details out the pricing of the product.
     Attributes:
       type: object
       properties:
@@ -553,43 +590,6 @@ components:
           items:
             type: string
       title: Attributes
-    ECommerce:
-      type: object
-      properties:
-        all_images:
-          type: array
-          description: It brings in the URL of all the associated images.
-          readOnly: true
-          items:
-            type: string
-            example: ''
-        primary_image:
-          type: string
-          example: ''
-          description: It brings in the URL of the primary image only.
-          readOnly: true
-        menu_title:
-          type: string
-          example: ESPRESSO PRODUCT
-          description: When completed this field will be displayed as the primary name of the product over the product_name field.
-          default: ESPRESSO PRODUCT
-        product_description:
-          type: string
-          example: Some Product Description
-          description: It reads in the product description for the menu purposes.
-          default: Some Product Description
-        minimum_visible_inventory_level:
-          type: integer
-          format: int32
-          example: 2
-          description: Customer facing description that will be displayed in Treez eCommerce.
-          readOnly: true
-        hide_from_menu:
-          type: boolean
-          example: true
-          description: When set to True this product will be hidden from the Treez eCommerce
-          default: true
-      title: ECommerce
   requestBodies:
     CreateNewProductRequest:
       content:
