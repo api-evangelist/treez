@@ -1,0 +1,86 @@
+slug: treez
+provider: Treez
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 7
+edges:
+- tag: Customer
+  spec_file: treez-customer-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.85
+  evidence: GET /{dispensary}/customer/email/{email} Get by email address; POST /{dispensary}/customer/merge  dispensary-customer-merge  Merge
+    customers; PATCH /{dispensary}/customer/update/{customer_id} Update customer
+  reason: Lookup of customer records by many identifiers (email, name, driver's licence, phone), update,
+    document upload and explicit record merging — this is customer master data and identity resolution
+    toward a golden record.
+- tag: Inventory
+  spec_file: treez-inventory-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.85
+  evidence: PUT /{dispensary}/inventory/adjustment  Adjust inventory; GET /{dispensary}/inventory/reasons  Adjustment
+    reasons; PUT /{dispensary}/inventory/move  Move inventory; POST /{dispensary}/inventory/merge  Merge
+    Batches
+  reason: Operations adjust, move and merge physical stock with adjustment reason codes — clearly inventory
+    management; the mix of adjustments, movements and lab-result records does not isolate one sub-capability.
+- tag: Discount
+  spec_file: treez-discount-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.82
+  evidence: POST /{ver}/discount  post_ver-discount  Discount - Create; DELETE /{ver}/discount/{id}  Discount
+    - Delete; GET /{dispensary}/discount/all  Get all discounts
+  reason: Lifecycle management (create, update, delete, list) of discount definitions used at retail point
+    of sale, which is squarely discount and promotion administration.
+- tag: Entity Price
+  spec_file: treez-entity-price-api-openapi.yml
+  capability_id: BC-440.20
+  capability_id_l1: BC-440
+  capability_name: Price List Management
+  confidence: 0.75
+  evidence: GET /v3/entity-price  catalog-store-price-read  Store Price - Read; POST ... Store Price -
+    Create; PATCH ... Store Price - Update
+  reason: CRUD over per-store catalog prices is maintenance of store/regional price records, i.e. price
+    list management rather than pricing strategy or discounting.
+- tag: Product API
+  spec_file: treez-product-api-api-openapi.yml
+  capability_id: BC-610.20
+  capability_id_l1: BC-610
+  capability_name: Master Data Management
+  confidence: 0.7
+  evidence: '"Using the Product API you can easily create new products in the POS system"; operations
+    "Create Product", "Update Product", "List of Products", schemas "Pricing, Attributes"'
+  reason: The operations create, read and maintain product records with pricing and attributes in the
+    retail POS catalogue — this is product master/catalogue data maintenance rather than product design
+    or engineering, so Master Data Management (product master) is the closest honest fit.
+- tag: Sku
+  spec_file: treez-sku-api-openapi.yml
+  capability_id: BC-610.20
+  capability_id_l1: BC-610
+  capability_name: Master Data Management
+  confidence: 0.7
+  evidence: '"Read SKUs", "Create SKU", "Update SKU" (catalog-sku-create / catalog-sku-update)'
+  reason: Full CRUD over SKU records in the catalog service — creation and maintenance of product item
+    master records, i.e. product master data management.
+- tag: Stock
+  spec_file: treez-stock-api-openapi.yml
+  capability_id: BC-530
+  capability_id_l1: BC-530
+  capability_name: Inventory Management
+  confidence: 0.7
+  evidence: GET /{dispensary}/stock/getStock  dispensary-inventory-get-stock  "Get product stock"
+  reason: Returns on-hand product stock for a dispensary (operationId explicitly dispensary-inventory),
+    which is inventory visibility; too thin to choose a specific sub-capability.

@@ -1292,6 +1292,9 @@ apis:
   - type: Documentation
     url: https://code.treez.io/docs/available-endpoints
 common:
+- type: CapabilityMap
+  url: capabilities/treez-capability-edges.yml
+  name: Treez Business Capability Map
 - type: Overlay
   url: overlays/treez-dispensary-overlay.yaml
 - type: Overlay
