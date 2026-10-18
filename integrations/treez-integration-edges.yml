@@ -7,6 +7,7 @@ source:
 - https://monid.ai/tools/treez
 checked:
 - https://composio.dev/toolkits/treez
+- https://github.com/meltano/hub
 - https://monid.ai/tools/treez
 - https://n8n.io/integrations/treez/
 - https://www.metrc.com/validated-integrators/
@@ -105,5 +106,34 @@ edges:
       state: South Dakota
       level: Full Validation
   detected_by: sweep-regulated-retail.py
+  first_seen: '2026-10-18'
+- partner_name: Meltano
+  partner: meltano
+  partner_match: aggregator
+  type: marketplace
+  marketplace: meltano-hub
+  channel: elt-connector
+  relationship: ipaas-bridge
+  direction: third-party
+  evidence: https://hub.meltano.com/extractors/tap-treez--mashey
+  category: null
+  contract_reference:
+    register: Meltano Hub (github.com/meltano/hub _data/meltano extractors + loaders)
+    spec_file: null
+    role: elt-connector:meltano-hub
+    registered_name: Treez
+    matched_domain: treez.io
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    plugins:
+    - tap-treez--mashey
+    maintenance_status:
+    - unknown
+    quality:
+    - unknown
+    builder: 'community (Meltano Hub variant maintainers: mashey)'
+  detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
 templates: []
