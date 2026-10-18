@@ -1,5 +1,5 @@
 generated: '2026-10-12'
-method: none
+method: searched
 source:
 - https://zapier.com/apps/treez/integrations
 - https://n8n.io/integrations/treez/
@@ -9,8 +9,101 @@ checked:
 - https://composio.dev/toolkits/treez
 - https://monid.ai/tools/treez
 - https://n8n.io/integrations/treez/
+- https://www.metrc.com/validated-integrators/
 - https://zapier.com/apps/treez/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Metrc (validated integrators)
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.metrc.com/validated-integrators/
+  category: Cannabis track-and-trace
+  contract_reference:
+    register: Metrc Validated Integrators (metrc.com/validated-integrators, admin-ajax fetch_providers)
+    spec_file: null
+    standard: Metrc validated integrator (state cannabis track-and-trace)
+    role: metrc-validated-integrator
+    registered_name: Treez Inc
+    register_id: Treez Inc
+    website: https://www.treez.io/
+    matched_domain: treez.io
+    matched_by: domain
+    integrated_with:
+    - Metrc Connect
+    - Metrc Retail ID
+    signal_note: certified_products = one entry per STATE with Full or Partial Validation (level kept); Get Access
+      = API access only, participation; Metrc drops lapsed integrators, lapsed never set
+    detected_by: sweep-regulated-retail.py
+    detected: '2026-10-18'
+    certified_products:
+    - product: 'Metrc validated integration: Alaska'
+      state: Alaska
+      level: Full Validation
+    - product: 'Metrc validated integration: California'
+      state: California
+      level: Full Validation
+    - product: 'Metrc validated integration: Colorado'
+      state: Colorado
+      level: Full Validation
+    - product: 'Metrc validated integration: District of Columbia'
+      state: District of Columbia
+      level: Full Validation
+    - product: 'Metrc validated integration: Guam'
+      state: Guam
+      level: Full Validation
+    - product: 'Metrc validated integration: Illinois'
+      state: Illinois
+      level: Full Validation
+    - product: 'Metrc validated integration: Louisiana'
+      state: Louisiana
+      level: Full Validation
+    - product: 'Metrc validated integration: Maine'
+      state: Maine
+      level: Full Validation
+    - product: 'Metrc validated integration: Maryland'
+      state: Maryland
+      level: Full Validation
+    - product: 'Metrc validated integration: Massachusetts'
+      state: Massachusetts
+      level: Full Validation
+    - product: 'Metrc validated integration: Michigan'
+      state: Michigan
+      level: Full Validation
+    - product: 'Metrc validated integration: Mississippi'
+      state: Mississippi
+      level: Full Validation
+    - product: 'Metrc validated integration: Missouri'
+      state: Missouri
+      level: Full Validation
+    - product: 'Metrc validated integration: Montana'
+      state: Montana
+      level: Full Validation
+    - product: 'Metrc validated integration: Nevada'
+      state: Nevada
+      level: Full Validation
+    - product: 'Metrc validated integration: New Jersey'
+      state: New Jersey
+      level: Full Validation
+    - product: 'Metrc validated integration: New York'
+      state: New York
+      level: Full Validation
+    - product: 'Metrc validated integration: Ohio'
+      state: Ohio
+      level: Full Validation
+    - product: 'Metrc validated integration: Oklahoma'
+      state: Oklahoma
+      level: Full Validation
+    - product: 'Metrc validated integration: Oregon'
+      state: Oregon
+      level: Full Validation
+    - product: 'Metrc validated integration: South Dakota'
+      state: South Dakota
+      level: Full Validation
+  detected_by: sweep-regulated-retail.py
+  first_seen: '2026-10-18'
 templates: []
